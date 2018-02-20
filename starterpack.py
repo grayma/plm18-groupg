@@ -10,6 +10,15 @@
 #          Boolean conditions on public and private state
 #        Next player move go back to Player Move with next player
 
+#Hearts State
+#Main Deck main_deck [ card ]
+#Game Played Cards played_cards int
+#Hearts Broken? hearts_broken true/false
+#
+#Player Deck [ card ]
+#Player Cards Taken [ card ]
+#Player Score [ card ]
+
 import os
 
 #clears screen, one way to have play on one computer
@@ -21,24 +30,44 @@ class Player:
         self.name = name
         self.play = play #move function
 
+
 class Card:
     def __init__(self, value, suit):
         self.value = value
         self.suit = suit
 
-#needs to be expanded on
+"""
+Rules take in a key of the player/game state and then get the value at that key in the 
+game state dictionary and then run the evaluation function on it.
+"""
 class Rule:
     def __init__(self):
         pass
         
-#some delta of the game state
+class PlayerRule(Rule):
+    def __init__(self, key, evaluate):
+        self.key = key
+        self.evaluate = evaluate
+
+class GameRule(Rule):
+    def __init__(self, key, evaluate):
+        self.key
+        self.evaluate = evaluate
+            
+"""
+Wrapper contianing new and old game state and new and old player state to represent the
+difference before and after a potential player's move.
+"""
 class Move:
     def __init__(self, old_state, new_state, old_player_state, new_player_state):
         self.old_state = old_state
         self.new_state = new_state
         self.old_player_state = old_player_state
         self.new_player_state = new_player_state
-            
+
+"""
+Game object running a card game.
+"""     
 class Game:
     def __init__(self, players, deck, rules, setup, is_endgame):
         self.players = players #players in game
@@ -86,6 +115,8 @@ deck = [Card(value, suit) for value in values for suit in suits]
 #2 player hearts Deck (ONLY: Aces, 2's, 4's, 6's, 8's, 10's, queens)
 values = ['ace', '2', '4', '6', '8', '10', 'queen']
 smalldeck = [Card(value, suit) for value in values for suit in suits]
+
+### Game Instantiation
 
 def generic_play():
     print("move made")
