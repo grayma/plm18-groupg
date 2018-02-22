@@ -15,7 +15,7 @@
 #Game Played Cards played_cards int
 #Hearts Broken? hearts_broken true/false
 #
-#Player Deck [ card ]
+#Player Deck [ card ] 
 #Player Cards Taken [ card ]
 #Player Score [ card ]
 
@@ -30,7 +30,9 @@ class Player:
         self.name = name
         self.play = play #move function
 
-
+"""
+Wrapper for a playing card
+"""
 class Card:
     def __init__(self, value, suit):
         self.value = value
@@ -39,32 +41,32 @@ class Card:
 """
 Rules take in a key of the player/game state and then get the value at that key in the 
 game state dictionary and then run the evaluation function on it.
+
+`key` is the key of the value in the state dict to evaluate
+`evaluate` is a function that takes in the state and key to evaluate
+`gameState` is True if the rule evaluates game state, false if evaluates player state
 """
 class Rule:
-    def __init__(self):
-        pass
-        
-class PlayerRule(Rule):
-    def __init__(self, key, evaluate):
+    def __init__(self, key, evaluate, gameState=True):
         self.key = key
         self.evaluate = evaluate
-
-class GameRule(Rule):
-    def __init__(self, key, evaluate):
-        self.key
-        self.evaluate = evaluate
+        self.gameState = gameState
             
 """
 Wrapper contianing new and old game state and new and old player state to represent the
 difference before and after a potential player's move.
+
+`moveName` is the name of the move
+`key` is the key in the state dict of what is to be changed
+`delta` is a function that changes the game state with the argument `arg`
 """
 class Move:
-    def __init__(self, old_state, new_state, old_player_state, new_player_state):
-        self.old_state = old_state
-        self.new_state = new_state
-        self.old_player_state = old_player_state
-        self.new_player_state = new_player_state
-
+    def __init__(self, moveName, key, delta, arg):
+        self.moveName = moveName
+        self.key = key
+        self.delta = delta
+        self.arg = arg
+        
 """
 Game object running a card game.
 """     
@@ -130,7 +132,7 @@ def is_endgame():
 
 p1 = Player("Matt", generic_play)
 p2 = Player("Dan", generic_play)
-r1 = Rule()
-r2 = Rule()
+r1 = Rule("asdf", is_endgame)
+r2 = Rule("asdf", is_endgame)
 g = Game([p1, p2], smalldeck, [r1, r2], generic_setup, is_endgame)
 g.start() #run a generic game
