@@ -58,7 +58,7 @@ difference before and after a potential player's move.
 
 `moveName` is the name of the move
 `key` is the key in the state dict of what is to be changed
-`delta` is a function that changes the game state with the argument `arg`
+`delta` is a function that changes the game and player state based on the argument `arg`
 """
 class Move:
     def __init__(self, moveName, key, delta, arg):
