@@ -19,12 +19,6 @@
 #Player Cards Taken [ card ]
 #Player Score [ card ]
 
-import os
-
-#clears screen, one way to have play on one computer
-def clearscreen():
-  os.system('cls||clear')
-  
 class Player:
     def __init__(self, name, play):
         self.name = name
@@ -113,26 +107,3 @@ class Game:
 suits = ['heart', 'diamonds', 'spades', 'clubs']
 values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
 deck = [Card(value, suit) for value in values for suit in suits]
-
-#2 player hearts Deck (ONLY: Aces, 2's, 4's, 6's, 8's, 10's, queens)
-values = ['ace', '2', '4', '6', '8', '10', 'queen']
-smalldeck = [Card(value, suit) for value in values for suit in suits]
-
-### Game Instantiation
-
-def generic_play():
-    print("move made")
-    return Move(None, None, None, None)
-    
-def generic_setup():
-    return ""
-    
-def is_endgame():
-    return False
-
-p1 = Player("Matt", generic_play)
-p2 = Player("Dan", generic_play)
-r1 = Rule("asdf", is_endgame)
-r2 = Rule("asdf", is_endgame)
-g = Game([p1, p2], smalldeck, [r1, r2], generic_setup, is_endgame)
-g.start() #run a generic game
