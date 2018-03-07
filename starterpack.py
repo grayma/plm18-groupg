@@ -31,8 +31,10 @@ STATE_DECK = "deck"
 Wrapper for a Player playing the game
 """
 class Player:
-    def __init__(self, name, play):
+    def __init__(self, name, state, number):
         self.name = name
+        self.state = state
+        self.number = number
 
 """
 Wrapper for a playing card
@@ -86,7 +88,7 @@ class State:
         for mname in self.available_moves.keys():
             print(mname)
         selected = ""
-        while selected not in self.available_moves.keys:
+        while selected not in self.available_moves.keys():
             selected = input("please choose a valid move to execute: ")
             
         #make move
@@ -119,17 +121,17 @@ class Transition:
 Game object running a card game.
 """     
 class Game:
+    game_state = {}
+    
     def __init__(self, players, game_state, states, setup, finish):
-        self.players = players #players in game
         self.game_state = game_state #state of game
+        self.game_state[STATE_PLAYERS] = players #players in game
         self.states = { s.name : s for s in states }
         self.setup = setup #function to run start logic
         self.finish = finish #function to run end logic
         
-        self.setup(self, game_state)
-        
     def start(self):
-        self.setup()
+        self.setup(self)
         
         while not self.game_state[STATE_CURRENT_STATE].final_state:
             state = self.game_state[STATE_CURRENT_STATE]
@@ -142,8 +144,3 @@ class Game:
     
         self.finish()
         
-        
-#Standard Deck
-suits = ['heart', 'diamonds', 'spades', 'clubs']
-values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
-deck = [Card(value, suit) for value in values for suit in suits]
