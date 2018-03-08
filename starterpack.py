@@ -25,7 +25,7 @@ Game state dict constants
 STATE_PLAYERS = "players"
 STATE_CURRENT_STATE = "state"
 STATE_DECK = "deck"
-
+STATE_TURNS = "turns"
 
 """
 Wrapper for a Player playing the game
@@ -84,20 +84,21 @@ class State:
         
         #figure out which move to use
         self.game_status(player, game_state)
-        print("available moves (type move name to use):")
+        print("Available moves (type move name to use):")
         for mname in self.available_moves.keys():
             print(mname)
         selected = ""
         while selected not in self.available_moves.keys():
-            selected = input("please choose a valid move to execute: ")
+            selected = input("Please choose a valid move to execute: ")
+        selected = self.available_moves[selected]
             
         #make move
         moved = False
         while not moved:
-            print("for this move we need the following: ")
+            print("For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card (number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):")
             for req in selected.required_input.keys():
-                selected.required_input[req] = input(req)
-            result = selected.f(player, game_state, required_input)
+                selected.required_input[req] = input(req + ": ")
+            result = selected.f(player, game_state, selected.required_input)
             if result == "":
                 moved = True
             else:
@@ -129,18 +130,24 @@ class Game:
         self.states = { s.name : s for s in states }
         self.setup = setup #function to run start logic
         self.finish = finish #function to run end logic
+
+    def increment_turn(self):
+        if STATE_TURNS in self.game_state:
+            self.game_state[STATE_TURNS] = self.game_state[STATE_TURNS] + 1
+        else:
+            self.game_state[STATE_TURNS] = 1
         
     def start(self):
         self.setup(self)
-        
+        #game loop
         while not self.game_state[STATE_CURRENT_STATE].final_state:
+            self.increment_turn()
             state = self.game_state[STATE_CURRENT_STATE]
             for p in self.game_state[STATE_PLAYERS]:
                 state.move(p, self.game_state)
             for trans in state.transitions:
                 if trans.guard(self.game_state):
                     trans.pre_transition_logic(self.game_state)
-                    self.game_state[STATE_CURRENT_STATE] = states[trans.next_state]
-    
+                    self.game_state[STATE_CURRENT_STATE] = self.states[trans.next_state]
         self.finish()
         
