@@ -1,3 +1,8 @@
+import os
+
+def clear_screen():
+    os.system('cls' if os.name=='nt' else 'clear')
+
 #Game
 #  Start
 #    Choose player to go - game.start() #inits game loop
@@ -80,9 +85,9 @@ class State:
     
     
     def move(self, player, game_state):
-        "Makes a move for a player given the current game state."
-        
         #figure out which move to use
+        print("It is now %s's move, please pass the computer and press enter when %s has the computer." % (player.name, player.name))
+        input()
         self.game_status(player, game_state)
         print("Available moves (type move name to use):")
         for mname in self.available_moves.keys():
@@ -144,6 +149,7 @@ class Game:
             self.increment_turn()
             state = self.game_state[STATE_CURRENT_STATE]
             for p in self.game_state[STATE_PLAYERS]:
+                clear_screen()
                 state.move(p, self.game_state)
             for trans in state.transitions:
                 if trans.guard(self.game_state):
