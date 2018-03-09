@@ -51,8 +51,9 @@ main_to_broken = Transition("broken", (lambda state: state[STATE_HEARTS] == STAT
 broken_to_start = Transition("main", (lambda state: len(state[STATE_DECK]) == 0), transition_stub)
 broken_to_finish = Transition("main", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= 100), transition_stub)
 
-def game_status(player, game):
-    print("\nShowing %s info about the game." % (player.name))
+def game_status(player, state):
+    print("\nTurn " + str(state[STATE_TURN]))
+    print("Showing %s info about the game." % (player.name))
     print(player.hand)
     print()  # separator line
  
