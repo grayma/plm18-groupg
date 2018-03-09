@@ -52,6 +52,10 @@ class Card:
     def __repr__(self):
         return self.suit + ' ' + self.value
 
+suits = ['heart', 'diamonds', 'spades', 'clubs']
+values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
+deck = [Card(value, suit) for value in values for suit in suits]
+
 """
 Wrapper containing new and old game state and new and old player state to represent the
 difference before and after a potential player's move.
@@ -102,7 +106,7 @@ class State:
         #make move
         moved = False
         while not moved:
-            print("For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card (number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):")
+            print("For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card (number if non-face/ace card or 0, a, k, q, j for 10, ace, king, queen, or jack respectively) and s is the first letter of the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):")
             for req in selected.required_input.keys():
                 selected.required_input[req] = input(req + ": ")
             result = selected.f(player, game_state, selected.required_input)
