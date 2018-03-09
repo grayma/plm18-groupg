@@ -22,21 +22,20 @@ def get_highest_score(players):
             score = p.state[PLAYER_STATE_SCORE]
     return score
 
-
 # move functions
 def pass3(player, state, input):
     return ""
-
-
 def play(player, state, input):
     return ""
-
-
 def placeholder(player, state, input):
     return ""
 
 
 # transition logic
+def play(player, state, input):
+    return ""
+def placeholder(player, state, input):
+    return ""
 def transition_stub(game):
     pass
 
@@ -52,14 +51,12 @@ main_to_broken = Transition("broken", (lambda state: state[STATE_HEARTS] == STAT
 broken_to_start = Transition("main", (lambda state: len(state[STATE_DECK]) == 0), transition_stub)
 broken_to_finish = Transition("main", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= 100), transition_stub)
 
-
 def game_status(player, game):
     print("\nShowing %s info about the game." % (player.name))
     print(player.hand)
     print()  # separator line
-
-
-# states
+ 
+#states
 broken_transitions = [broken_to_start, broken_to_finish]
 broken_moves = [play_move]
 broken = State("broken", broken_transitions, broken_moves, game_status, False)
@@ -95,10 +92,9 @@ def setup(game):
     deal(game, deck)
     game.game_state[STATE_CURRENT_STATE] = start
     print("Starting Hearts!\n")
-
+    
 def finish(game):
     print("Finished playing :)")
-
-
+    
 hearts = Game(players, {}, states, setup, finish)
 hearts.start()

@@ -1,4 +1,9 @@
-# Game
+import os
+
+def clear_screen():
+    os.system('cls' if os.name=='nt' else 'clear')
+
+#Game
 #  Start
 #    Choose player to go - game.start() #inits game loop
 #    Game initiates turn - loop of running all players moves, validating, updating state (public and player)
@@ -30,8 +35,6 @@ STATE_TURNS = "turns"
 """
 Wrapper for a Player playing the game
 """
-
-
 class Player:
     def __init__(self, name, state, number, hand):
         self.name = name
@@ -39,20 +42,15 @@ class Player:
         self.number = number
         self.hand = hand
 
-
-
 """
 Wrapper for a playing card
 """
-
-
 class Card:
     def __init__(self, value, suit):
         self.value = value
         self.suit = suit
     def __repr__(self):
         return self.suit + ' ' + self.value
-
 
 """
 Wrapper containing new and old game state and new and old player state to represent the
@@ -63,14 +61,11 @@ difference before and after a potential player's move.
     an error message if needs to go again (rule break)
 `required_args` dictionary representing required input for the move, game asks for key
 """
-
-
 class Move:
     def __init__(self, name, f, required_input):
         self.name = name
         self.f = f
         self.required_input = required_input
-
 
 """
 Class representing a game's state machine
@@ -80,8 +75,6 @@ Class representing a game's state machine
 `game_status` function taking a player and game_state showing player what info they need
 `final_state` bool indicating whether or not game has finished
 """
-
-
 class State:
     def __init__(self, name, transitions, available_moves, game_status, final_state):
         self.name = name
@@ -92,8 +85,11 @@ class State:
 
     def move(self, player, game_state):
         "Makes a move for a player given the current game state."
-
-        # figure out which move to use
+        
+        #figure out which move to use
+        print("It is now %s's move, please pass the computer and press enter when %s has the computer." % (player.name, player.name))
+        input()
+        
         self.game_status(player, game_state)
         print("Available moves (type move name to use):")
         for mname in self.available_moves.keys():
@@ -102,12 +98,11 @@ class State:
         while selected not in self.available_moves.keys():
             selected = input("Please choose a valid move to execute: ")
         selected = self.available_moves[selected]
-
-        # make move
+            
+        #make move
         moved = False
         while not moved:
-            print(
-                "For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card (number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):")
+            print("For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card (number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):")
             for req in selected.required_input.keys():
                 selected.required_input[req] = input(req + ": ")
             result = selected.f(player, game_state, selected.required_input)
@@ -124,8 +119,6 @@ Class to represent a state transition.
 `pre_transition_logic` is a function taking in game_state with any code that needs to be 
     executed before the next state occurs
 """
-
-
 class Transition:
     def __init__(self, next_state, guard, pre_transition_logic):
         self.next_state = next_state
@@ -136,31 +129,30 @@ class Transition:
 """
 Game object running a card game.
 """
-
-
 class Game:
     game_state = {}
 
     def __init__(self, players, game_state, states, setup, finish):
-        self.game_state = game_state  # state of game
-        self.game_state[STATE_PLAYERS] = players  # players in game
-        self.states = {s.name: s for s in states}
-        self.setup = setup  # function to run start logic
-        self.finish = finish  # function to run end logic
-
+        self.game_state = game_state #state of game
+        self.game_state[STATE_PLAYERS] = players #players in game
+        self.states = { s.name : s for s in states }
+        self.setup = setup #function to run start logic
+        self.finish = finish #function to run end logic
+        
     def increment_turn(self):
         if STATE_TURNS in self.game_state:
             self.game_state[STATE_TURNS] = self.game_state[STATE_TURNS] + 1
         else:
             self.game_state[STATE_TURNS] = 1
-
+            
     def start(self):
         self.setup(self)
-        # game loop
+        #game loop
         while not self.game_state[STATE_CURRENT_STATE].final_state:
             self.increment_turn()
             state = self.game_state[STATE_CURRENT_STATE]
             for p in self.game_state[STATE_PLAYERS]:
+                clear_screen()
                 state.move(p, self.game_state)
             for trans in state.transitions:
                 if trans.guard(self.game_state):
