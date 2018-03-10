@@ -2,7 +2,7 @@ from starterpack import *
 from random import shuffle
 
 # Standard Deck
-suits = ['heart', 'diamonds', 'spades', 'clubs']
+suits = ['hearts', 'diamonds', 'spades', 'clubs']
 values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
 deck = [Card(value, suit) for value in values for suit in suits]
 
@@ -22,11 +22,63 @@ def get_highest_score(players):
             score = p.state[PLAYER_STATE_SCORE]
     return score
 
+
+pass3s = {"1" : [], "2" : [], "3" : [], "4" : []}
 # move functions
 def pass3(player, state, input):
+    num = player.number
+    crds = ("card 1", "card 2", "card 3")
+    #input should be already checked for validity before this point
+    for i in range(3):
+        str = input[crds[i]]
+        if str[0] == "1":
+            val = 10
+        elif str[0] == "a":
+            val = "ace"
+        elif str[0] == "j":
+            val = "jack"
+        elif str[0] == "q":
+            val = "queen"
+        elif str[0] == "k":
+            val = "king"
+        else:
+            val = str[0]
+
+        n = 1
+        if str[0] == "1":
+            n = 2
+        if str[n] == "c":
+            suit = "clubs"
+        elif str[n] == "d":
+            suit = "diamonds"
+        elif str[n] == "s":
+            suit = "spades"
+        elif str[n] == "h":
+            suit = "hearts"
+
+        c = Card(val, suit)
+        index = -1
+        for j in range(len(player.hand)):
+            if player.hand[j] == c:
+                index = j
+        c = player.hand.pop(index)
+        if num == 1:
+            state['pass3s']['1'].append(c)
+        elif num == 2:
+            state['pass3s']['2'].append(c)
+        elif num == 3:
+            state['pass3s']['3'].append(c)
+        elif num == 4:
+            state['pass3s']['4'].append(c)
+        c = None
     return ""
+    #return "pass"
+
+
 def play(player, state, input):
     return ""
+
+
 def placeholder(player, state, input):
     return ""
 
@@ -34,8 +86,12 @@ def placeholder(player, state, input):
 # transition logic
 def play(player, state, input):
     return ""
+
+
 def placeholder(player, state, input):
     return ""
+
+
 def transition_stub(game):
     pass
 
@@ -51,12 +107,15 @@ main_to_broken = Transition("broken", (lambda state: state[STATE_HEARTS] == STAT
 broken_to_start = Transition("main", (lambda state: len(state[STATE_DECK]) == 0), transition_stub)
 broken_to_finish = Transition("main", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= 100), transition_stub)
 
-def game_status(player, game):
-    print("\nShowing %s info about the game." % (player.name))
+
+def game_status(player, state):
+    print("\nTurn " + str(state[STATE_TURN]))
+    print("Showing %s info about the game." % (player.name))
     print(player.hand)
     print()  # separator line
- 
-#states
+
+
+# states
 broken_transitions = [broken_to_start, broken_to_finish]
 broken_moves = [play_move]
 broken = State("broken", broken_transitions, broken_moves, game_status, False)
@@ -81,20 +140,26 @@ for i in range(1, 5):
     player = Player(name, {}, i, hand)
     players.append(player)
 
+
 def deal(game, deck):
-    players[0].hand.append(deck[0:13])
-    players[1].hand.append(deck[13:26])
-    players[2].hand.append(deck[26:39])
-    players[3].hand.append(deck[39:52])
+    players[0].hand.extend(deck[0:13])
+    players[1].hand.extend(deck[13:26])
+    players[2].hand.extend(deck[26:39])
+    players[3].hand.extend(deck[39:52])
+
 
 def setup(game):
+    shuffle(deck)
+    shuffle(deck)
     shuffle(deck)
     deal(game, deck)
     game.game_state[STATE_CURRENT_STATE] = start
     print("Starting Hearts!\n")
-    
+
+
 def finish(game):
     print("Finished playing :)")
-    
-hearts = Game(players, {}, states, setup, finish)
+
+
+hearts = Game(players, {}, states, setup, finish, pass3s)
 hearts.start()
