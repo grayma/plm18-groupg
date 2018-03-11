@@ -93,7 +93,6 @@ Class representing a game's state machine
 `final_state` bool indicating whether or not game has finished
 """
 
-
 class State:
     def __init__(self, name, transitions, available_moves, game_status, final_state):
         self.name = name
@@ -192,7 +191,6 @@ Game object running a card game.
 
 class Game:
     game_state = {}
-
     def __init__(self, players, game_state, states, setup, finish):
         self.game_state = game_state  # state of game
         self.game_state[STATE_PLAYERS] = players  # players in game
@@ -221,9 +219,3 @@ class Game:
                     self.game_state[STATE_CURRENT_STATE] = self.states[trans.next_state]
         self.finish()
 
-
-#    for i in range(4):
-#        if i == 0:
-#            game_state['players'][0].hand.extend(game_state['pass3s'][3])
-#        else:
-#            game_state['players'][i].hand.extend(game_state['pass3s'][i])
