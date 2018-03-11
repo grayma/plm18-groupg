@@ -33,8 +33,8 @@ STATE_PLAYERS = "players"
 STATE_CURRENT_STATE = "state"
 STATE_DECK = "deck"
 STATE_TURNS = "turns"
-STATE_PASSES = "pass3s"
-STATE_PLAYED = "played"
+PASSES = "pass3s"
+PLAYED = "played"
 
 """
 Wrapper for a Player playing the game
@@ -42,11 +42,13 @@ Wrapper for a Player playing the game
 
 
 class Player:
-    def __init__(self, name, state, number, hand):
+    def __init__(self, name, state, number, hand, score, accum):
         self.name = name
         self.state = state
         self.number = number
         self.hand = hand
+        self.score = 0
+        self.accum = accum
 
 
 """
@@ -196,9 +198,9 @@ class Game:
     def __init__(self, players, game_state, states, setup, finish, pass3s, played):
         self.game_state = game_state  # state of game
         self.game_state[STATE_PLAYERS] = players  # players in game
-        self.game_state[STATE_PASSES] = pass3s
+        self.game_state[PASSES] = pass3s
         self.states = {s.name: s for s in states}
-        self.game_state[STATE_PLAYED] = played
+        self.game_state[PLAYED] = played
         self.setup = setup  # function to run start logic
         self.finish = finish  # function to run end logic
 
