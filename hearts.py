@@ -23,7 +23,7 @@ def get_highest_score(players):
     return score
 
 
-pass3s = {"1" : [], "2" : [], "3" : [], "4" : []}
+
 # move functions
 def pass3(player, state, input):
     num = player.number
@@ -161,5 +161,5 @@ def finish(game):
     print("Finished playing :)")
 
 
-hearts = Game(players, {}, states, setup, finish, pass3s)
+hearts = Game(players, { "pass3s" : { "1" : [], "2" : [], "3" : [], "4" : [] }, "currentLead" : None }, states, setup, finish)
 hearts.start()

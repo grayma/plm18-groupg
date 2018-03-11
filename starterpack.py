@@ -164,10 +164,9 @@ Game object running a card game.
 class Game:
     game_state = {}
 
-    def __init__(self, players, game_state, states, setup, finish, pass3s):
+    def __init__(self, players, game_state, states, setup, finish):
         self.game_state = game_state  # state of game
         self.game_state[STATE_PLAYERS] = players  # players in game
-        self.game_state[STATE_PASSES] = pass3s
         self.states = {s.name: s for s in states}
         self.setup = setup  # function to run start logic
         self.finish = finish  # function to run end logic
