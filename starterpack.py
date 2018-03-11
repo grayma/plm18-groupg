@@ -35,6 +35,7 @@ STATE_DECK = "deck"
 STATE_TURNS = "turns"
 PASSES = "pass3s"
 PLAYED = "played"
+LEAD = "currentLead"
 
 """
 Wrapper for a Player playing the game
@@ -97,7 +98,6 @@ Class representing a game's state machine
 `game_status` function taking a player and game_state showing player what info they need
 `final_state` bool indicating whether or not game has finished
 """
-
 
 class State:
     def __init__(self, name, transitions, available_moves, game_status, final_state):
@@ -194,13 +194,13 @@ def getCard(str):
 
 class Game:
     game_state = {}
-
-    def __init__(self, players, game_state, states, setup, finish, pass3s, played):
+    def __init__(self, players, game_state, states, setup, finish, pass3s, played, currentLead):
         self.game_state = game_state  # state of game
         self.game_state[STATE_PLAYERS] = players  # players in game
         self.game_state[PASSES] = pass3s
         self.states = {s.name: s for s in states}
         self.game_state[PLAYED] = played
+        self.game_state[LEAD] = currentLead
         self.setup = setup  # function to run start logic
         self.finish = finish  # function to run end logic
 
