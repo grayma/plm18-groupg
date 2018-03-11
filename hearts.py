@@ -173,9 +173,17 @@ for i in range(1, 5):
 
 def deal(game, deck):
     players[0].hand.extend(deck[0:13])
+    sortCards(players[0].hand)
     players[1].hand.extend(deck[13:26])
+    sortCards(players[1].hand)
     players[2].hand.extend(deck[26:39])
+    sortCards(players[2].hand)
     players[3].hand.extend(deck[39:52])
+    sortCards(players[3].hand)
+
+def sortCards(lst):
+    lst.sort(key=lambda x: x.value, reverse=True)
+    lst.sort(key=lambda x: x.suit, reverse=True)
 
 
 def setup(game):
