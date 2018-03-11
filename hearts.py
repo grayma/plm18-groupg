@@ -92,6 +92,10 @@ def play(player, state, input):
     str = input['card']
     c = getCard(str)
     state['played'][num-1] = str
+    for j in range(len(player.hand)):
+        if player.hand[j] == c:
+            index = j
+    c = player.hand.pop(index)
     #playlogic
     return ""
 
