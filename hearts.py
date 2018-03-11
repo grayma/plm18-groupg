@@ -22,7 +22,7 @@ def get_highest_score(players):
     return score
 
 
-pass3s = {"1" : [], "2" : [], "3" : [], "4" : []}
+
 # move functions
 def pass3(player, state, input):
     num = player.number
@@ -36,14 +36,7 @@ def pass3(player, state, input):
             if player.hand[j] == c:
                 index = j
         c = player.hand.pop(index)
-        if num == 1:
-            state['pass3s']['1'].append(c)
-        elif num == 2:
-            state['pass3s']['2'].append(c)
-        elif num == 3:
-            state['pass3s']['3'].append(c)
-        elif num == 4:
-            state['pass3s']['4'].append(c)
+        player.state["pass3s"].append(c)
         c = None
     return ""
     #return "pass"
@@ -108,16 +101,27 @@ def transition_stub(game):
     pass
 
 
+"""
+Logic to wrap up pass 3 cards step of game
+"""
+
+def pre_main_logic(game_state):
+    for i in range(4):
+        pass_hand = game_state[STATE_PLAYERS][(i + 1) % 4].hand #if we're on the 4th player, pass to first player
+        cards_to_pass = game_state[STATE_PLAYERS][i].state["pass3s"]
+        pass_hand += cards_to_pass
+        sortCards(pass_hand)
+
 # move objects
 pass3_move = Move("pass3", pass3, {"card 1": None, "card 2": None, "card 3": None})
 play_move = Move("play", play, {"card": None})
 placeholder_move = Move("placeholder", placeholder, {})
 
 # transitions - happen by name
-start_to_main = Transition("main", (lambda state: state[STATE_TURN] == 1), transition_stub)
+start_to_main = Transition("main", (lambda state: state[STATE_TURN] == 1), pre_main_logic)
 main_to_broken = Transition("broken", (lambda state: state[STATE_HEARTS] == STATE_HEARTS_BROKEN), transition_stub)
 broken_to_start = Transition("main", (lambda state: len(state[STATE_DECK]) == 0), transition_stub)
-broken_to_finish = Transition("main", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= 100), transition_stub)
+broken_to_finish = Transition("finish", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= 100), transition_stub)
 
 
 def game_status(player, state):
@@ -191,8 +195,7 @@ players = []
 for i in range(1, 5):
     name = input("What is the name of player " + str(i) + "? ")
     hand = []
-    accum = []
-    player = Player(name, {}, i, hand, 0, accum)
+    player = Player(name, { "accum" : [], "pass3s" : [] }, i, hand, 0)
     players.append(player)
 
 
@@ -223,6 +226,6 @@ def setup(game):
 def finish(game):
     print("Finished playing :)")
 
+hearts = Game(players, { "currentLead" : None, "played" : played }, states, setup, finish)
 
-hearts = Game(players, {}, states, setup, finish, pass3s, played, "")
 hearts.start()

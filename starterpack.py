@@ -33,29 +33,23 @@ STATE_PLAYERS = "players"
 STATE_CURRENT_STATE = "state"
 STATE_DECK = "deck"
 STATE_TURNS = "turns"
-PASSES = "pass3s"
-PLAYED = "played"
-LEAD = "currentLead"
 
 """
 Wrapper for a Player playing the game
 """
 
-
 class Player:
-    def __init__(self, name, state, number, hand, score, accum):
+    def __init__(self, name, state, number, hand, score):
         self.name = name
         self.state = state
         self.number = number
         self.hand = hand
         self.score = 0
-        self.accum = accum
 
 
 """
 Wrapper for a playing card
 """
-
 
 class Card:
     def __init__(self, value, suit):
@@ -158,9 +152,8 @@ class Transition:
         self.guard = guard
         self.pre_transition_logic = pre_transition_logic
 
-
 """
-Game object running a card game.
+Takes a string formatted as specified in the instructions to the player and returns a card object
 """
 
 def getCard(str):
@@ -192,15 +185,16 @@ def getCard(str):
     c = Card(val, suit)
     return c
 
+"""
+Game object running a card game.
+"""
+
 class Game:
     game_state = {}
-    def __init__(self, players, game_state, states, setup, finish, pass3s, played, currentLead):
+    def __init__(self, players, game_state, states, setup, finish):
         self.game_state = game_state  # state of game
         self.game_state[STATE_PLAYERS] = players  # players in game
-        self.game_state[PASSES] = pass3s
         self.states = {s.name: s for s in states}
-        self.game_state[PLAYED] = played
-        self.game_state[LEAD] = currentLead
         self.setup = setup  # function to run start logic
         self.finish = finish  # function to run end logic
 
@@ -225,9 +219,3 @@ class Game:
                     self.game_state[STATE_CURRENT_STATE] = self.states[trans.next_state]
         self.finish()
 
-
-#    for i in range(4):
-#        if i == 0:
-#            game_state['players'][0].hand.extend(game_state['pass3s'][3])
-#        else:
-#            game_state['players'][i].hand.extend(game_state['pass3s'][i])
