@@ -13,7 +13,6 @@ STATE_HEARTS_BROKEN = "broken"
 STATE_PLAYED_CARDS = "played"
 PLAYER_STATE_SCORE = "score"
 
-
 # helper functions
 def get_highest_score(players):
     score = -1
@@ -101,11 +100,11 @@ def game_status(player, state):
 def printBoard(state):
     filler(state)
     print("-----------------")
-    print("|       %s       |" % (state['players'][0].name[0]))
-    print("|       %s      |" % (state['played'][0]))
+    print("|      %d %s       |" % (state['players'][0].score, state['players'][0].name[0]))
+    print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
     print("|%s %s       %s %s|" % (state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
-    print("|       %s      |" % (state['played'][2]))
-    print("|       %s       |" % (state['players'][2].name[0]))
+    print("|%d      %s      |" % (state['players'][3].score, state['played'][2]))
+    print("|       %s %d     |" % (state['players'][2].name[0], state['players'][2].score))
     print("-----------------")
 
 #Filler for grid to maintain formatting if a player hasnt played yet
@@ -116,6 +115,29 @@ def filler(state):
 
     # % (state[0][0][0])
 
+def scorehand(state):
+    for i in range(4):
+        num = state['players'][i].number
+        s = 0
+        #lst = the players accumulated card list from the previous hand
+        for j in range(len(lst)):
+            if lst[j].suit == "hearts":
+                s = s + 1
+            if lst[j].suit == "spades" and lst[j].value == "queen":
+                s = s + 13
+        if s == 26:
+            for t in range(4):
+                state['players'][t].score = state['players'][t].score + 26
+            if num == 1:
+                state['players'][0].score = state['players'][0].score - 26
+            elif num == 2:
+                state['players'][1].score = state['players'][1].score - 26
+            elif num == 3:
+                state['players'][2].score = state['players'][2].score - 26
+            elif num == 4:
+                state['players'][3].score = state['players'][3].score - 26
+        else:
+            state['players'][i].score = state['players'][i].score + s
 # states
 broken_transitions = [broken_to_start, broken_to_finish]
 broken_moves = [play_move]
@@ -138,7 +160,8 @@ players = []
 for i in range(1, 5):
     name = input("What is the name of player " + str(i) + "? ")
     hand = []
-    player = Player(name, {}, i, hand)
+    accum = []
+    player = Player(name, {}, i, hand, 0, accum)
     players.append(player)
 
 
