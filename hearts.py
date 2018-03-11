@@ -133,7 +133,6 @@ def game_status(player, state):
 
 def printBoard(state):
     filler(state)
-    play_transition(state)
     print("-----------------")
     print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
     print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
