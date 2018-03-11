@@ -193,11 +193,7 @@ def getCard(str):
 class Game:
     game_state = {}
 
-<<<<<<< HEAD
-    def __init__(self, players, game_state, states, setup, finish):
-=======
     def __init__(self, players, game_state, states, setup, finish, pass3s, played):
->>>>>>> 4fb415b7eefb383109bda51aa8e834e5e43db188
         self.game_state = game_state  # state of game
         self.game_state[STATE_PLAYERS] = players  # players in game
         self.states = {s.name: s for s in states}

@@ -161,5 +161,5 @@ def finish(game):
     print("Finished playing :)")
 
 
-hearts = Game(players, { "pass3s" : { "1" : [], "2" : [], "3" : [], "4" : [] }, "currentLead" : None }, states, setup, finish)
+hearts = Game(players, {}, states, setup, finish)
 hearts.start()
