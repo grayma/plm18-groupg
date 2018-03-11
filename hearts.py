@@ -104,7 +104,7 @@ def game_status(player, state):
 def printBoard(state):
     filler(state)
     print("-----------------")
-    print("|      %d %s       |" % (state['players'][0].score, state['players'][0].name[0]))
+    print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
     print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
     print("|%s %s       %s %s|" % (state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
     print("|%d      %s      |" % (state['players'][3].score, state['played'][2]))
