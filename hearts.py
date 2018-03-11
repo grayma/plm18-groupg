@@ -61,6 +61,8 @@ def play(player, state, input):
     num = player.number
     str = input['card']
     c = getCard(str)
+    if c.suit == "hearts":
+        state[STATE_HEARTS] = STATE_HEARTS_BROKEN
     state['played'][num-1] = str
     for j in range(len(player.hand)):
         if player.hand[j] == c:
@@ -77,6 +79,10 @@ def placeholder(player, state, input):
 def transition_stub(game):
     pass
 
+def unbreak_hearts(state):
+    state[STATE_HEARTS] = "unbroken"
+
+
 
 # move objects
 pass3_move = Move("pass3", pass3, {"card 1": None, "card 2": None, "card 3": None})
@@ -86,7 +92,7 @@ placeholder_move = Move("placeholder", placeholder, {})
 # transitions - happen by name
 start_to_main = Transition("main", (lambda state: state[STATE_TURN] == 1), transition_stub)
 main_to_broken = Transition("broken", (lambda state: state[STATE_HEARTS] == STATE_HEARTS_BROKEN), transition_stub)
-broken_to_start = Transition("main", (lambda state: len(state[STATE_DECK]) == 0), transition_stub)
+broken_to_start = Transition("main", (lambda state: len(state[STATE_DECK]) == 0), unbreak_hearts)
 broken_to_finish = Transition("main", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= 100), transition_stub)
 
 
@@ -100,7 +106,7 @@ def game_status(player, state):
 def printBoard(state):
     filler(state)
     print("-----------------")
-    print("|      %d %s       |" % (state['players'][0].score, state['players'][0].name[0]))
+    print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
     print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
     print("|%s %s       %s %s|" % (state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
     print("|%d      %s      |" % (state['players'][3].score, state['played'][2]))
@@ -186,6 +192,7 @@ def setup(game):
     shuffle(deck)
     deal(game, deck)
     game.game_state[STATE_CURRENT_STATE] = start
+    game.game_state[STATE_HEARTS] = "unbroken"
     print("Starting Hearts!\n")
 
 
