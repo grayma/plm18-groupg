@@ -31,32 +31,7 @@ def pass3(player, state, input):
     #input should be already checked for validity before this point
     for i in range(3):
         str = input[crds[i]]
-        if str[0] == "1":
-            val = 10
-        elif str[0] == "a":
-            val = "ace"
-        elif str[0] == "j":
-            val = "jack"
-        elif str[0] == "q":
-            val = "queen"
-        elif str[0] == "k":
-            val = "king"
-        else:
-            val = str[0]
-
-        n = 1
-        if str[0] == "1":
-            n = 2
-        if str[n] == "c":
-            suit = "clubs"
-        elif str[n] == "d":
-            suit = "diamonds"
-        elif str[n] == "s":
-            suit = "spades"
-        elif str[n] == "h":
-            suit = "hearts"
-
-        c = Card(val, suit)
+        c = getCard(str)
         index = -1
         for j in range(len(player.hand)):
             if player.hand[j] == c:
@@ -74,6 +49,34 @@ def pass3(player, state, input):
     return ""
     #return "pass"
 
+def getCard(str):
+    if str[0] == "1":
+        val = 10
+    elif str[0] == "a":
+        val = "ace"
+    elif str[0] == "j":
+        val = "jack"
+    elif str[0] == "q":
+        val = "queen"
+    elif str[0] == "k":
+        val = "king"
+    else:
+        val = str[0]
+
+    n = 1
+    if str[0] == "1":
+        n = 2
+    if str[n] == "c":
+        suit = "clubs"
+    elif str[n] == "d":
+        suit = "diamonds"
+    elif str[n] == "s":
+        suit = "spades"
+    elif str[n] == "h":
+        suit = "hearts"
+
+    c = Card(val, suit)
+    return c
 
 def play(player, state, input):
     return ""
@@ -82,9 +85,14 @@ def play(player, state, input):
 def placeholder(player, state, input):
     return ""
 
-
+played = ["", "", "", ""]
 # transition logic
 def play(player, state, input):
+    num = player.number
+    str = input['card']
+    c = getCard(str)
+    state['played'][num-1] = str
+    #playlogic
     return ""
 
 
@@ -112,8 +120,26 @@ def game_status(player, state):
     print("\nTurn " + str(state[STATE_TURN]))
     print("Showing %s info about the game." % (player.name))
     print(player.hand)
+    printBoard(state)
     print()  # separator line
 
+def printBoard(state):
+    filler(state)
+    print("-----------------")
+    print("|       %s       |" % (state['players'][0].name[0]))
+    print("|       %s      |" % (state['played'][0]))
+    print("|%s %s       %s %s|" % (state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
+    print("|       %s      |" % (state['played'][2]))
+    print("|       %s       |" % (state['players'][2].name[0]))
+    print("-----------------")
+
+#Filler for grid to maintain formatting if a player hasnt played yet
+def filler(state):
+    for i in range(4):
+        if(len(state['played'][i]) != 2):
+            state['played'][i] = "  "
+
+    # % (state[0][0][0])
 
 # states
 broken_transitions = [broken_to_start, broken_to_finish]
@@ -161,5 +187,5 @@ def finish(game):
     print("Finished playing :)")
 
 
-hearts = Game(players, {}, states, setup, finish, pass3s)
+hearts = Game(players, {}, states, setup, finish, pass3s, played)
 hearts.start()
