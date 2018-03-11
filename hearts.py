@@ -49,35 +49,6 @@ def pass3(player, state, input):
     return ""
     #return "pass"
 
-def getCard(str):
-    if str[0] == "1":
-        val = 10
-    elif str[0] == "a":
-        val = "ace"
-    elif str[0] == "j":
-        val = "jack"
-    elif str[0] == "q":
-        val = "queen"
-    elif str[0] == "k":
-        val = "king"
-    else:
-        val = str[0]
-
-    n = 1
-    if str[0] == "1":
-        n = 2
-    if str[n] == "c":
-        suit = "clubs"
-    elif str[n] == "d":
-        suit = "diamonds"
-    elif str[n] == "s":
-        suit = "spades"
-    elif str[n] == "h":
-        suit = "hearts"
-
-    c = Card(val, suit)
-    return c
-
 def play(player, state, input):
     return ""
 
