@@ -54,14 +54,44 @@ def play(player, state, input):
     num = player.number
     str = input['card']
     c = getCard(str)
-    state['played'][num-1] = str
+    if c.suit == "hearts":
+        state[STATE_HEARTS] = STATE_HEARTS_BROKEN
+    if state['played'][0].isspace():
+        state['currentLead'] = c.suit
+    state['played'][num - 1] = str
     for j in range(len(player.hand)):
         if player.hand[j] == c:
             index = j
     c = player.hand.pop(index)
-    #playlogic
     return ""
 
+def play_transition(state):
+    num = -1
+    val = -1
+    cardVal = -1
+    temp = Card('ace', 'spades')
+    suit = state['currentLead']
+    list = state['played']
+    cardList = []
+    for i in range(4):
+        c = getCard(list[i])
+        cardList.append(c)
+        if c.value == 'ace':
+            cardVal = 14
+        elif c.value == 'jack':
+            cardVal = 11
+        elif c.value == 'queen':
+            cardVal = 12
+        elif c.value == 'king':
+            cardVal = 13
+        else:
+            cardVal = int(c.value)
+        if c.suit == suit and cardVal > val:
+            temp = c
+            val = cardVal
+            num = i
+    #state['players'][val] = the winner of the trick and who needs to lead next
+    state['players'][num].accum.extend(cardList)
 
 def placeholder(player, state, input):
     return ""
@@ -196,4 +226,5 @@ def finish(game):
     print("Finished playing :)")
 
 hearts = Game(players, { "currentLead" : None, "played" : played }, states, setup, finish)
+
 hearts.start()
