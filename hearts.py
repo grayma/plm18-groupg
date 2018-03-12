@@ -93,7 +93,7 @@ def play_transition(state):
     #state['players'][val] = the winner of the trick and who needs to lead next
     state['players'][num].state['accum'].extend(cardList)
     #reset played list
-    state["played"] = []
+    state["played"] = ["", "", "", ""]
 
 def transition_stub(game):
     pass
@@ -164,7 +164,7 @@ def printBoard(state):
 def filler(state):
     print(state["played"])
     for i in range(4):
-        if (len(state['played'][i]) != 2):
+        if (len(state['played'][i]) != 2 and len(state['played'][i]) != 3):
             state['played'][i] = "  "
 
     # % (state[0][0][0])
