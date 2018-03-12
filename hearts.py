@@ -254,5 +254,4 @@ def finish(game):
 
 
 hearts = Game(players, {"currentLead": None, "played": ["", "", "", ""]}, states, setup, finish)
-
 hearts.start()
