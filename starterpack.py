@@ -210,12 +210,22 @@ class Game:
         while not self.game_state[STATE_CURRENT_STATE].final_state:
             self.increment_turn()
             state = self.game_state[STATE_CURRENT_STATE]
-            for p in self.game_state[STATE_PLAYERS]:
+            j = self.game_state['startPlayer']
+            for i in range(1,5):
                 clear_screen()
+                p = self.game_state['players'][j - 1]
                 state.move(p, self.game_state)
+                j = j + 1
+                if j > 4:
+                    j = 1
+
+            #for p in self.game_state[STATE_PLAYERS]:
+            #    clear_screen()
+            #    state.move(p, self.game_state)
+
+
             for trans in state.transitions:
                 if trans.guard(self.game_state):
                     trans.pre_transition_logic(self.game_state)
                     self.game_state[STATE_CURRENT_STATE] = self.states[trans.next_state]
         self.finish()
-
