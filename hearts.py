@@ -91,7 +91,7 @@ def play_transition(state):
             val = cardVal
             num = i
     #state['players'][val] = the winner of the trick and who needs to lead next
-    state['players'][num].accum.extend(cardList)
+    state['players'][num].state['accum'].extend(cardList)
 
 def placeholder(player, state, input):
     return ""
