@@ -106,8 +106,6 @@ def transition_stub(game):
 """
 Logic to transition from main back to start
 """
-
-
 def reset_game(state):
     score_hand(state)
     for p in state[STATE_PLAYERS]:
@@ -125,8 +123,6 @@ def reset_game(state):
 """
 Logic to wrap up start step of game
 """
-
-
 def pass_cards(state):
     for i in range(4):
         pass_hand = state[STATE_PLAYERS][(i + 1) % 4].hand
@@ -135,6 +131,9 @@ def pass_cards(state):
         sortCards(pass_hand)
 
 
+"""
+Print final scores
+"""
 def conclude_game(state):
     score_hand(state)
     print("Final Score:")
