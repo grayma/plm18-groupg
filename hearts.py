@@ -90,7 +90,8 @@ def play_transition(state):
             val = cardVal
             num = i
     # state['players'][num] = the winner of the trick and who needs to lead next
-    state['players'][num].state['accum'].extend(cardList)
+    playerNum = state['players'][num].number
+    state['players'][playerNum - 1].state['accum'].extend(cardList)
     # shift the player array to change who goes first
     d = deque(state["players"])
     d.rotate(4 - num)
