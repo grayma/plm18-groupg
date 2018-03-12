@@ -1,5 +1,6 @@
 from starterpack import *
 from random import shuffle
+from collections import deque
 
 # Standard Deck
 suits = ['hearts', 'diamonds', 'spades', 'clubs']
@@ -69,12 +70,11 @@ def play_transition(state):
     num = -1
     val = -1
     cardVal = -1
-    temp = Card('ace', 'spades')
     suit = state['currentLead']
-    list = state['played']
+    played_list = state['played']
     cardList = []
     for i in range(4):
-        c = getCard(list[i])
+        c = getCard(played_list[i])
         cardList.append(c)
         if c.value == 'ace':
             cardVal = 14
@@ -87,12 +87,14 @@ def play_transition(state):
         else:
             cardVal = int(c.value)
         if c.suit == suit and cardVal > val:
-            temp = c
             val = cardVal
             num = i
-    # state['players'][val] = the winner of the trick and who needs to lead next
+    # state['players'][num] = the winner of the trick and who needs to lead next
     state['players'][num].state['accum'].extend(cardList)
-    # reset played list
+    # shift the player array to change who goes first
+    d = deque(state["players"])
+    d.rotate(4 - num)
+    state['players'] = list(d)
     state["played"] = ["", "", "", ""]
 
 
@@ -183,7 +185,6 @@ def filler(state):
 
 def score_hand(state):
     for i in range(4):
-        num = state['players'][i].number
         s = 0
         lst = state['players'][i].state['accum']
         for j in range(len(lst)):
