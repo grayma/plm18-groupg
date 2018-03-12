@@ -165,10 +165,14 @@ def printBoard(state):
     filler(state)
     print("-----------------")
     print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
-    print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
+    n = state['players'][0].number
+    print("|       %s     %d|" % (state['played'][n - 1], state['players'][1].score))
+    n2 = state['players'][3].number
+    n3 = state['players'][1].number
     print("|%s %s       %s %s|" % (
-    state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
-    print("|%d      %s      |" % (state['players'][3].score, state['played'][2]))
+    state['players'][3].name[0], state['played'][n2 - 1], state['played'][n3 - 1], state['players'][1].name[0]))
+    n4 = state['players'][2].number
+    print("|%d      %s      |" % (state['players'][3].score, state['played'][n4 - 1]))
     print("|       %s %d     |" % (state['players'][2].name[0], state['players'][2].score))
     print("-----------------")
 
