@@ -218,4 +218,3 @@ class Game:
                     trans.pre_transition_logic(self.game_state)
                     self.game_state[STATE_CURRENT_STATE] = self.states[trans.next_state]
         self.finish()
-

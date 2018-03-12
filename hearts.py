@@ -100,9 +100,11 @@ def placeholder(player, state, input):
 def transition_stub(game):
     pass
 
+def unbreak_hearts(state):
+    state[STATE_HEARTS] = "unbroken"
 
 """
-Logic to wrap up pass 3 cards step of game
+Logic to wrap up start step of game
 """
 
 def pre_main_logic(game_state):
@@ -120,7 +122,8 @@ placeholder_move = Move("placeholder", placeholder, {})
 # transitions - happen by name
 start_to_main = Transition("main", (lambda state: state[STATE_TURN] == 1), pre_main_logic)
 main_to_broken = Transition("broken", (lambda state: state[STATE_HEARTS] == STATE_HEARTS_BROKEN), transition_stub)
-broken_to_start = Transition("main", (lambda state: len(state[STATE_DECK]) == 0), transition_stub)
+main_to_main = Transition("main", (lambda state: state[STATE_HEARTS] == "unbroken"), unbreak_hearts)
+broken_to_start = Transition("main", (lambda state: len(state[STATE_DECK]) == 0), unbreak_hearts)
 broken_to_finish = Transition("finish", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= 100), transition_stub)
 
 
@@ -177,7 +180,7 @@ broken_transitions = [broken_to_start, broken_to_finish]
 broken_moves = [play_move]
 broken = State("broken", broken_transitions, broken_moves, game_status, False)
 
-main_transitions = [main_to_broken]
+main_transitions = [main_to_broken, main_to_main]
 main_moves = [play_move]
 main = State("main", main_transitions, main_moves, game_status, False)
 
@@ -219,6 +222,7 @@ def setup(game):
     shuffle(deck)
     deal(game, deck)
     game.game_state[STATE_CURRENT_STATE] = start
+    game.game_state[STATE_HEARTS] = "unbroken"
     print("Starting Hearts!\n")
 
 
