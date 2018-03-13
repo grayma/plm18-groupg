@@ -1,0 +1,338 @@
+What is the name of player 1? A
+What is the name of player 2? B
+Starting Crazy 8s!
+
+It is now A's move, please pass the computer and press enter when A has the computer.
+
+
+Turn 1
+Showing A info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: 2c    |
+|               |
+|      B 0      |
+-----------------
+[9 spades, 8 spades, 6 hearts, 8 diamonds, 7 diamonds, queen clubs, 7 clubs, 4 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: qc
+It is now B's move, please pass the computer and press enter when B has the computer.
+
+
+Turn 1
+Showing B info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: qc    |
+|               |
+|      B 0      |
+-----------------
+[4 spades, 3 spades, 10 spades, king hearts, ace hearts, jack diamonds, jack clubs, 8 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: jc
+It is now A's move, please pass the computer and press enter when A has the computer.
+
+
+Turn 2
+Showing A info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: jc    |
+|               |
+|      B 0      |
+-----------------
+[9 spades, 8 spades, 6 hearts, 8 diamonds, 7 diamonds, 7 clubs, 4 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 4c
+It is now B's move, please pass the computer and press enter when B has the computer.
+
+
+Turn 2
+Showing B info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: 4c    |
+|               |
+|      B 0      |
+-----------------
+[4 spades, 3 spades, 10 spades, king hearts, ace hearts, jack diamonds, 8 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: 
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 4s
+It is now A's move, please pass the computer and press enter when A has the computer.
+
+
+Turn 3
+Showing A info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: 4s    |
+|               |
+|      B 0      |
+-----------------
+[9 spades, 8 spades, 6 hearts, 8 diamonds, 7 diamonds, 7 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 9s
+It is now B's move, please pass the computer and press enter when B has the computer.
+
+
+Turn 3
+Showing B info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: 9s    |
+|               |
+|      B 0      |
+-----------------
+[3 spades, 10 spades, king hearts, ace hearts, jack diamonds, 8 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 10s
+It is now A's move, please pass the computer and press enter when A has the computer.
+
+
+Turn 4
+Showing A info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: 10s    |
+|               |
+|      B 0      |
+-----------------
+[8 spades, 6 hearts, 8 diamonds, 7 diamonds, 7 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 8d
+Choose a new suit (s, c, d, h): d
+It is now B's move, please pass the computer and press enter when B has the computer.
+
+
+Turn 4
+Showing B info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: xd    |
+|               |
+|      B 0      |
+-----------------
+[3 spades, king hearts, ace hearts, jack diamonds, 8 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: jd
+It is now A's move, please pass the computer and press enter when A has the computer.
+
+
+Turn 5
+Showing A info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: jd    |
+|               |
+|      B 0      |
+-----------------
+[8 spades, 6 hearts, 7 diamonds, 7 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 7d
+It is now B's move, please pass the computer and press enter when B has the computer.
+
+
+Turn 5
+Showing B info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: 7d    |
+|               |
+|      B 0      |
+-----------------
+[3 spades, king hearts, ace hearts, 8 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 8c
+Choose a new suit (s, c, d, h): h
+It is now A's move, please pass the computer and press enter when A has the computer.
+
+
+Turn 6
+Showing A info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: xh    |
+|               |
+|      B 0      |
+-----------------
+[8 spades, 6 hearts, 7 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 6h
+It is now B's move, please pass the computer and press enter when B has the computer.
+
+
+Turn 6
+Showing B info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: 6h    |
+|               |
+|      B 0      |
+-----------------
+[3 spades, king hearts, ace hearts]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: kh
+It is now A's move, please pass the computer and press enter when A has the computer.
+
+
+Turn 7
+Showing A info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: kh    |
+|               |
+|      B 0      |
+-----------------
+[8 spades, 7 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 8s
+Choose a new suit (s, c, d, h): c
+It is now B's move, please pass the computer and press enter when B has the computer.
+
+
+Turn 7
+Showing B info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: xc    |
+|               |
+|      B 0      |
+-----------------
+[3 spades, ace hearts]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: draw
+
+You drew: 6 diamonds
+
+It is now A's move, please pass the computer and press enter when A has the computer.
+
+
+Turn 8
+Showing A info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: xc    |
+|               |
+|      B 0      |
+-----------------
+[7 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: 7c
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 7c
