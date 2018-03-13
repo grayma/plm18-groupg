@@ -89,13 +89,9 @@ def play_transition(state):
         if c.suit == suit and cardVal > val:
             val = cardVal
             num = i
-    # state['players'][num] = the winner of the trick and who needs to lead next
+
     state['players'][num].state['accum'].extend(cardList)
     state["startPlayer"] = state['players'][num].number
-    # shift the player array to change who goes first
-    #d = deque(state["players"])
-    #d.rotate(4 - num)
-    #state['players'] = list(d)
     state["played"] = ["", "", "", ""]
 
 
@@ -168,11 +164,8 @@ def printBoard(state):
     print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
    # n = state['players'][0].number
     print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
-    #n2 = state['players'][3].number
-   # n3 = state['players'][1].number
     print("|%s %s       %s %s|" % (
     state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
-    #n4 = state['players'][2].number
     print("|%d      %s      |" % (state['players'][3].score, state['played'][2]))
     print("|       %s %d     |" % (state['players'][2].name[0], state['players'][2].score))
     print("-----------------")

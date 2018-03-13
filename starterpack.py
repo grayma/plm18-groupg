@@ -228,4 +228,5 @@ class Game:
                 if trans.guard(self.game_state):
                     trans.pre_transition_logic(self.game_state)
                     self.game_state[STATE_CURRENT_STATE] = self.states[trans.next_state]
+
         self.finish()

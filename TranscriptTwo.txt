@@ -1,0 +1,1205 @@
+
+What is the name of player 1? Will
+What is the name of player 2? Xavier
+What is the name of player 3? Yolanda
+What is the name of player 4? Zack
+Starting Hearts!
+
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 1
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, ace spades, 9 spades, 8 spades, 7 spades, 5 spades, 5 hearts, 3 hearts, king diamonds, jack diamonds, 7 diamonds, 6 diamonds, 10 clubs]
+
+Available moves (type move name to use):
+pass3
+Please choose a valid move to execute: pass3
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card 1: qs
+card 2: as
+card 3: 10c
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 1
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[king spades, 4 spades, 2 spades, queen hearts, 6 hearts, 4 hearts, 10 hearts, queen diamonds, 8 diamonds, 4 diamonds, queen clubs, 8 clubs, 6 clubs]
+
+Available moves (type move name to use):
+pass3
+Please choose a valid move to execute: pass3
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card 1: ks
+card 2: qh
+card 3: qc
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 1
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[jack spades, 3 spades, king hearts, ace hearts, 8 hearts, 7 hearts, 2 hearts, 5 diamonds, 2 diamonds, king clubs, jack clubs, ace clubs, 9 clubs]
+
+Available moves (type move name to use):
+pass3
+Please choose a valid move to execute: pass3
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card 1: kh
+card 2: ah
+card 3: ac
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 1
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[6 spades, 10 spades, jack hearts, 9 hearts, ace diamonds, 9 diamonds, 3 diamonds, 10 diamonds, 7 clubs, 5 clubs, 4 clubs, 3 clubs, 2 clubs]
+
+Available moves (type move name to use):
+pass3
+Please choose a valid move to execute: pass3
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card 1: ad
+card 2: jh
+card 3: 9h
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 2
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[9 spades, 8 spades, 7 spades, 5 spades, jack hearts, 9 hearts, 5 hearts, 3 hearts, king diamonds, jack diamonds, ace diamonds, 7 diamonds, 6 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: 5s
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 5s
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 2
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       5s     0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, ace spades, 4 spades, 2 spades, 6 hearts, 4 hearts, 10 hearts, queen diamonds, 8 diamonds, 4 diamonds, 8 clubs, 6 clubs, 10 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: as
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 2
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|       5s     0|
+|Z          as X|
+|0              |
+|       Y 0     |
+-----------------
+[king spades, jack spades, 3 spades, queen hearts, 8 hearts, 7 hearts, 2 hearts, 5 diamonds, 2 diamonds, queen clubs, king clubs, jack clubs, 9 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: ks
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 2
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|       5s     0|
+|Z          as X|
+|0      ks      |
+|       Y 0     |
+-----------------
+[6 spades, 10 spades, king hearts, ace hearts, 9 diamonds, 3 diamonds, 10 diamonds, ace clubs, 7 clubs, 5 clubs, 4 clubs, 3 clubs, 2 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 10s
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 3
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades, 2 spades, 6 hearts, 4 hearts, 10 hearts, queen diamonds, 8 diamonds, 4 diamonds, 8 clubs, 6 clubs, 10 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 2s
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 3
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z          2s X|
+|0              |
+|       Y 0     |
+-----------------
+[jack spades, 3 spades, queen hearts, 8 hearts, 7 hearts, 2 hearts, 5 diamonds, 2 diamonds, queen clubs, king clubs, jack clubs, 9 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: js
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 3
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z          2s X|
+|0      js      |
+|       Y 0     |
+-----------------
+[6 spades, king hearts, ace hearts, 9 diamonds, 3 diamonds, 10 diamonds, ace clubs, 7 clubs, 5 clubs, 4 clubs, 3 clubs, 2 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 6s
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 3
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z 6s       2s X|
+|0      js      |
+|       Y 0     |
+-----------------
+[9 spades, 8 spades, 7 spades, jack hearts, 9 hearts, 5 hearts, 3 hearts, king diamonds, jack diamonds, ace diamonds, 7 diamonds, 6 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 9s
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 4
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades, queen hearts, 8 hearts, 7 hearts, 2 hearts, 5 diamonds, 2 diamonds, queen clubs, king clubs, jack clubs, 9 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 2d
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 4
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0      2d      |
+|       Y 0     |
+-----------------
+[king hearts, ace hearts, 9 diamonds, 3 diamonds, 10 diamonds, ace clubs, 7 clubs, 5 clubs, 4 clubs, 3 clubs, 2 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 3d
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 4
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z 3d          X|
+|0      2d      |
+|       Y 0     |
+-----------------
+[8 spades, 7 spades, jack hearts, 9 hearts, 5 hearts, 3 hearts, king diamonds, jack diamonds, ace diamonds, 7 diamonds, 6 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: ad
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 4
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       ad     0|
+|Z 3d          X|
+|0      2d      |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades, 6 hearts, 4 hearts, 10 hearts, queen diamonds, 8 diamonds, 4 diamonds, 8 clubs, 6 clubs, 10 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: qd
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 5
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[8 spades, 7 spades, jack hearts, 9 hearts, 5 hearts, 3 hearts, king diamonds, jack diamonds, 7 diamonds, 6 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 6d
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 5
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       6d     0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades, 6 hearts, 4 hearts, 10 hearts, 8 diamonds, 4 diamonds, 8 clubs, 6 clubs, 10 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 4d
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 5
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|       6d     0|
+|Z          4d X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades, queen hearts, 8 hearts, 7 hearts, 2 hearts, 5 diamonds, queen clubs, king clubs, jack clubs, 9 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 5d
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 5
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|       6d     0|
+|Z          4d X|
+|0      5d      |
+|       Y 0     |
+-----------------
+[king hearts, ace hearts, 9 diamonds, 10 diamonds, ace clubs, 7 clubs, 5 clubs, 4 clubs, 3 clubs, 2 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 9d
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 6
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[king hearts, ace hearts, 10 diamonds, ace clubs, 7 clubs, 5 clubs, 4 clubs, 3 clubs, 2 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 2c
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 6
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z 2c          X|
+|0              |
+|       Y 0     |
+-----------------
+[8 spades, 7 spades, jack hearts, 9 hearts, 5 hearts, 3 hearts, king diamonds, jack diamonds, 7 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: 
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: jh
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 6
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       jh     0|
+|Z 2c          X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades, 6 hearts, 4 hearts, 10 hearts, 8 diamonds, 8 clubs, 6 clubs, 10 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 6c
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 6
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|       jh     0|
+|Z 2c       6c X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades, queen hearts, 8 hearts, 7 hearts, 2 hearts, queen clubs, king clubs, jack clubs, 9 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: kc
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 7
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[8 spades, 7 spades, 9 hearts, 5 hearts, 3 hearts, king diamonds, jack diamonds, 7 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: kd
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 7
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       kd     0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades, 6 hearts, 4 hearts, 10 hearts, 8 diamonds, 8 clubs, 10 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 8d
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 7
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|       kd     0|
+|Z          8d X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades, queen hearts, 8 hearts, 7 hearts, 2 hearts, queen clubs, jack clubs, 9 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: qh
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 7
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|       kd     0|
+|Z          8d X|
+|0      qh      |
+|       Y 0     |
+-----------------
+[king hearts, ace hearts, 10 diamonds, ace clubs, 7 clubs, 5 clubs, 4 clubs, 3 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 10d
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 8
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[8 spades, 7 spades, 9 hearts, 5 hearts, 3 hearts, jack diamonds, 7 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 3h
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 8
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       3h     0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades, 6 hearts, 4 hearts, 10 hearts, 8 clubs, 10 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 4h
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 8
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|       3h     0|
+|Z          4h X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades, 8 hearts, 7 hearts, 2 hearts, queen clubs, jack clubs, 9 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 2h
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 8
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|       3h     0|
+|Z          4h X|
+|0      2h      |
+|       Y 0     |
+-----------------
+[king hearts, ace hearts, ace clubs, 7 clubs, 5 clubs, 4 clubs, 3 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: ah
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 9
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[king hearts, ace clubs, 7 clubs, 5 clubs, 4 clubs, 3 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 3c
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 9
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z 3c          X|
+|0              |
+|       Y 0     |
+-----------------
+[8 spades, 7 spades, 9 hearts, 5 hearts, jack diamonds, 7 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 9h
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 9
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       9h     0|
+|Z 3c          X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades, 6 hearts, 10 hearts, 8 clubs, 10 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 8c
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 9
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|       9h     0|
+|Z 3c       8c X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades, 8 hearts, 7 hearts, queen clubs, jack clubs, 9 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: qc
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 10
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[8 spades, 7 spades, 5 hearts, jack diamonds, 7 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 5h
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 10
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       5h     0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades, 6 hearts, 10 hearts, 10 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 6h
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 10
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|       5h     0|
+|Z          6h X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades, 8 hearts, 7 hearts, jack clubs, 9 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 8h
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 10
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|       5h     0|
+|Z          6h X|
+|0      8h      |
+|       Y 0     |
+-----------------
+[king hearts, ace clubs, 7 clubs, 5 clubs, 4 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: kh
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 11
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[ace clubs, 7 clubs, 5 clubs, 4 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 4c
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 11
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z 4c          X|
+|0              |
+|       Y 0     |
+-----------------
+[8 spades, 7 spades, jack diamonds, 7 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: jd
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 11
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       jd     0|
+|Z 4c          X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades, 10 hearts, 10 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 10c
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 11
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|       jd     0|
+|Z 4c       10c X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades, 7 hearts, jack clubs, 9 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 9c
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 12
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[8 spades, 7 spades, 7 diamonds]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 7d
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 12
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       7d     0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades, 10 hearts]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 10h
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 12
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|       7d     0|
+|Z          10h X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades, 7 hearts, jack clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 7h
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 12
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|       7d     0|
+|Z          10h X|
+|0      7h      |
+|       Y 0     |
+-----------------
+[ace clubs, 7 clubs, 5 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: ac
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 13
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[8 spades, 7 spades]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 7s
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 13
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|       7s     0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[queen spades, 4 spades]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: qs
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 13
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|       7s     0|
+|Z          qs X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades, jack clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: jc
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 13
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|       7s     0|
+|Z          qs X|
+|0      jc      |
+|       Y 0     |
+-----------------
+[7 clubs, 5 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 7c
+It is now Xavier's move, please pass the computer and press enter when Xavier has the computer.
+
+
+Turn 14
+Showing Xavier info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z             X|
+|0              |
+|       Y 0     |
+-----------------
+[4 spades]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 4s
+It is now Yolanda's move, please pass the computer and press enter when Yolanda has the computer.
+
+
+Turn 14
+Showing Yolanda info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z          4s X|
+|0              |
+|       Y 0     |
+-----------------
+[3 spades]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 3s
+It is now Zack's move, please pass the computer and press enter when Zack has the computer.
+
+
+Turn 14
+Showing Zack info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z          4s X|
+|0      3s      |
+|       Y 0     |
+-----------------
+[5 clubs]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 5c
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 14
+Showing Will info about the game.
+-----------------
+|      0 W      |
+|              0|
+|Z 5c       4s X|
+|0      3s      |
+|       Y 0     |
+-----------------
+[8 spades]
+
+Available moves (type move name to use):
+play
+Please choose a valid move to execute: play
+For this move we need the following (if card, use the format: 'vs' without quotes where v is the value of the card
+(number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
+the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
+card: 8s
+It is now Will's move, please pass the computer and press enter when Will has the computer.
+
+
+Turn 15
+Showing Will info about the game.
+-----------------
+|      4 W      |
+|              13|
+|Z             X|
+|8              |
+|       Y 0     |
+-----------------
