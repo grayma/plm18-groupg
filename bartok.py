@@ -26,10 +26,11 @@ def game_status(player, state):
     print()  # separator line
     
 def printBoard(state):
+    # see play() - topCard may be string or a card
     print("-----------------")
     print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
     print("|               |")
-    print("|    top: %s     |" % state["topCard"])
+    print("|    top: %s    |" % state["topCard"].abbr())
     print("|               |")
     print("|      %s %d      |" % (state['players'][1].name[0], state['players'][1].score))
     print("-----------------")
@@ -39,8 +40,8 @@ def printBoard(state):
 # move functions
 #==============================================================================
 
-def play(player, state, input):
-    card = getCard(input["card"])
+def play(player, state, input_dict):
+    card = getCard(input_dict["card"])
     if not card:
         return "Invalid input."
     top_card = state["topCard"]
@@ -49,23 +50,22 @@ def play(player, state, input):
     if not card in player.hand:
         return "Card not in hand."
     else:
-        if card.value == 8:
-            discard += [card, top_card] #This might not work as intended
+        if card.value == "8":
+            discard += [card, top_card] if not top_card.value == "x" else [card]
             player.hand.remove(card)
-            print(discard) #Debugging helper to make sure discard was added to correctly
-            valid = false
+            valid = False
             while not valid:
                 # choose a new suit
-                new_suit = input("Choose a new suit (s, c, d, h): ")
+                new_suit = input("\nChoose a new suit (s, c, d, h): ")
                 if new_suit in abbr_suits:
-                    state["topCard"] = Card("", new_suit)
+                    state["topCard"] = getCard("x" + new_suit)
                     valid = True
                 else:
-                    print("Invalid suit, try again.\n")
+                    print("\nInvalid suit, try again.\n")
             return ""
         elif card.suit[0] == top_card.suit[0] or card.value[0] == top_card.value[0]:
-            discard += [top_card]
-            top_card = card
+            discard += [top_card] if not top_card.value == "x" else []
+            state["topCard"] = card
             player.hand.remove(card)
             return ""
         else:
@@ -79,7 +79,7 @@ def draw(player, state, input):
         state["discard"] = []
         
     popped = deck.pop();
-    print("You drew: %s" % popped)
+    print("\nYou drew: %s\n" % popped)
     player.hand += [popped]
     
     return ""
@@ -104,7 +104,9 @@ def transition_stub(state):
     pass
     
 def reset_game(state):
-    score_hand(state)
+    loser = [p for p in state["players"] if len(p.hand) > 0][0]
+    winner = [p for p in state["players"] if len(p.hand) == 0][0]
+    score_hand(winner, loser)
     deck = get_deck()
     shuffle(deck)
     shuffle(deck)
@@ -185,13 +187,14 @@ def finish(game):
 
 def score_hand(player_won, player_lost):
     score = 0
-    for c in player_lost.hand:
-        if c.val == 8:
+    for card in player_lost.hand:
+        if card.value == "8":
             score = score + 50
-        elif isinstance(c.val, str):
+        # all values are stored as strings, and all face cards are 10 points
+        elif len(card.value) > 1:
             score = score + 10
         else:
-            score = score + c.val
+            score = score + int(card.value)
     player_won.score = player_won.score + score
 
 def deal(state, deck):

@@ -57,12 +57,16 @@ class Card:
         self.suit = suit
 
     def __repr__(self):
-        return str(self.value)[0] + self.suit[0]
+        return str(self.value) + " " + self.suit
+    
     def __eq__(self, other):
         if(str(self.suit) == str(other.suit) and str(self.value) == str(other.value)):
             return True
         else:
             return False
+        
+    def abbr(self):
+        return (self.value[0] if not self.value == "10" else self.value) + self.suit[0]
 
 
 
@@ -162,7 +166,7 @@ def getCard(str):
         return None
     
     if str[0] == "1":
-        val = 10
+        val = "10"
     elif str[0] == "a":
         val = "ace"
     elif str[0] == "j":
