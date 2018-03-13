@@ -51,7 +51,7 @@ def play(player, state, input):
     c = getCard(str)
     if c.suit == "hearts":
         state[STATE_HEARTS] = STATE_HEARTS_BROKEN
-    if state['played'][0].isspace():
+    if state['played'][state['startPlayer']-1].isspace():
         state['currentLead'] = c.suit
     state['played'][num - 1] = str
     for j in range(len(player.hand)):
