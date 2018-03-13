@@ -1,6 +1,5 @@
 from starterpack import *
 from random import shuffle
-from collections import deque
 
 # Standard Deck
 suits = ['hearts', 'diamonds', 'spades', 'clubs']
@@ -102,8 +101,6 @@ def transition_stub(game):
 """
 Logic to transition from main back to start
 """
-
-
 def reset_game(state):
     score_hand(state)
     for p in state[STATE_PLAYERS]:
@@ -121,8 +118,6 @@ def reset_game(state):
 """
 Logic to wrap up start step of game
 """
-
-
 def pass_cards(state):
     for i in range(4):
         pass_hand = state[STATE_PLAYERS][(i + 1) % 4].hand
@@ -131,6 +126,9 @@ def pass_cards(state):
         sortCards(pass_hand)
 
 
+"""
+Print final scores
+"""
 def conclude_game(state):
     score_hand(state)
     print("Final Score:")
@@ -162,7 +160,6 @@ def printBoard(state):
     filler(state)
     print("-----------------")
     print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
-   # n = state['players'][0].number
     print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
     print("|%s %s       %s %s|" % (
     state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
