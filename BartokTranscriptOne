@@ -336,3 +336,40 @@ For this move we need the following (if card, use the format: 'vs' without quote
 (number if non-face/ace card or a, k, q, j for ace, king, queen, or jack respectively) and s is the first letter of
 the suit or c, s, h, d for clubs, spades, hearts, or diamonds respectively):
 card: 7c
+It is now B's move, please pass the computer and press enter when B has the computer.
+
+
+Turn 8
+Showing B info about the game.
+-----------------
+|      0 A      |
+|               |
+|    top: xc    |
+|               |
+|      B 0      |
+-----------------
+[3 spades, ace hearts]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: draw
+
+You drew: 10 diamonds
+It is now A's move, please pass the computer and press enter when B has the computer.
+
+Turn 9
+Showing A info about the game.
+-----------------
+|      23 A      |
+|               |
+|    top: 5c    |
+|               |
+|      B 0      |
+-----------------
+[ace spades, 7 spades, 9 hearts, 6 hearts, king clubs, ace clubs, 9 clubs, 3 clubs]
+
+Available moves (type move name to use):
+play
+draw
+Please choose a valid move to execute: 
