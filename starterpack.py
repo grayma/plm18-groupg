@@ -57,12 +57,16 @@ class Card:
         self.suit = suit
 
     def __repr__(self):
-        return str(self.value) + ' ' + self.suit
+        return str(self.value) + " " + self.suit
+    
     def __eq__(self, other):
         if(str(self.suit) == str(other.suit) and str(self.value) == str(other.value)):
             return True
         else:
             return False
+        
+    def abbr(self):
+        return (self.value[0] if not self.value == "10" else self.value) + self.suit[0]
 
 
 
@@ -110,24 +114,25 @@ class State:
         input()
 
         self.game_status(player, game_state)
-        print("Available moves (type move name to use):")
-        for mname in self.available_moves.keys():
-            print(mname)
-        selected = ""
-        while selected not in self.available_moves.keys():
-            selected = input("Please choose a valid move to execute: ")
-        selected = self.available_moves[selected]
 
         # make move
         moved = False
         while not moved:
-            print(
+            print("Available moves (type move name to use):")
+            for mname in self.available_moves.keys():
+                print(mname)
+            selected = ""
+            while selected not in self.available_moves.keys():
+                selected = input("Please choose a valid move to execute: ")
+            selected = self.available_moves[selected]
+            if selected.required_input.keys():
+                print(
                 "For this move we need the following (if card, use the format: 'vs' without quotes where v is the "
                 "value of the card\n(number if non-face/ace card or a, k, q, j for ace, king, queen, "
                 "or jack respectively) and s is the first letter of\nthe suit or c, s, h, d for clubs, spades, hearts, "
                 "or diamonds respectively):")
-            for req in selected.required_input.keys():
-                selected.required_input[req] = input(req + ": ")
+                for req in selected.required_input.keys():
+                    selected.required_input[req] = input(req + ": ")
             #need to check input validity
             #this check should check the form (vs) as well as the fact that the card is possessed bu the current player
             result = selected.f(player, game_state, selected.required_input)
@@ -157,8 +162,11 @@ Takes a string formatted as specified in the instructions to the player and retu
 """
 
 def getCard(str):
+    if str == "" or str == None:
+        return None
+    
     if str[0] == "1":
-        val = 10
+        val = "10"
     elif str[0] == "a":
         val = "ace"
     elif str[0] == "j":
@@ -171,6 +179,7 @@ def getCard(str):
         val = str[0]
 
     n = 1
+    suit = None
     if str[0] == "1":
         n = 2
     if str[n] == "c":
@@ -181,7 +190,11 @@ def getCard(str):
         suit = "spades"
     elif str[n] == "h":
         suit = "hearts"
-
+    
+    # return nothing if the input was invalid
+    if suit == None:
+        return None
+    
     c = Card(val, suit)
     return c
 
@@ -211,12 +224,12 @@ class Game:
             self.increment_turn()
             state = self.game_state[STATE_CURRENT_STATE]
             j = self.game_state['startPlayer']
-            for i in range(1,5):
+            for i in range(1,(len(self.game_state[STATE_PLAYERS]) + 1)):
                 clear_screen()
                 p = self.game_state['players'][j - 1]
                 state.move(p, self.game_state)
                 j = j + 1
-                if j > 4:
+                if j > len(self.game_state[STATE_PLAYERS]):
                     j = 1
 
             #for p in self.game_state[STATE_PLAYERS]:
@@ -228,4 +241,5 @@ class Game:
                 if trans.guard(self.game_state):
                     trans.pre_transition_logic(self.game_state)
                     self.game_state[STATE_CURRENT_STATE] = self.states[trans.next_state]
-        self.finish()
+
+        self.finish(self)

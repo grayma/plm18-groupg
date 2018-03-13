@@ -1,6 +1,5 @@
 from starterpack import *
 from random import shuffle
-from collections import deque
 
 # Standard Deck
 suits = ['hearts', 'diamonds', 'spades', 'clubs']
@@ -51,7 +50,7 @@ def play(player, state, input):
     c = getCard(str)
     if c.suit == "hearts":
         state[STATE_HEARTS] = STATE_HEARTS_BROKEN
-    if state['played'][0].isspace():
+    if state['played'][state['startPlayer']-1].isspace():
         state['currentLead'] = c.suit
     state['played'][num - 1] = str
     for j in range(len(player.hand)):
@@ -89,13 +88,9 @@ def play_transition(state):
         if c.suit == suit and cardVal > val:
             val = cardVal
             num = i
-    # state['players'][num] = the winner of the trick and who needs to lead next
+
     state['players'][num].state['accum'].extend(cardList)
     state["startPlayer"] = state['players'][num].number
-    # shift the player array to change who goes first
-    #d = deque(state["players"])
-    #d.rotate(4 - num)
-    #state['players'] = list(d)
     state["played"] = ["", "", "", ""]
 
 
@@ -106,8 +101,6 @@ def transition_stub(game):
 """
 Logic to transition from main back to start
 """
-
-
 def reset_game(state):
     score_hand(state)
     for p in state[STATE_PLAYERS]:
@@ -125,8 +118,6 @@ def reset_game(state):
 """
 Logic to wrap up start step of game
 """
-
-
 def pass_cards(state):
     for i in range(4):
         pass_hand = state[STATE_PLAYERS][(i + 1) % 4].hand
@@ -135,6 +126,9 @@ def pass_cards(state):
         sortCards(pass_hand)
 
 
+"""
+Print final scores
+"""
 def conclude_game(state):
     score_hand(state)
     print("Final Score:")
@@ -166,13 +160,9 @@ def printBoard(state):
     filler(state)
     print("-----------------")
     print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
-   # n = state['players'][0].number
     print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
-    #n2 = state['players'][3].number
-   # n3 = state['players'][1].number
     print("|%s %s       %s %s|" % (
     state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
-    #n4 = state['players'][2].number
     print("|%d      %s      |" % (state['players'][3].score, state['played'][2]))
     print("|       %s %d     |" % (state['players'][2].name[0], state['players'][2].score))
     print("-----------------")
