@@ -56,12 +56,12 @@ def play(player, state, input_dict):
             valid = False
             while not valid:
                 # choose a new suit
-                new_suit = input("\nChoose a new suit (s, c, d, h): ")
+                new_suit = input("Choose a new suit (s, c, d, h): ")
                 if new_suit in abbr_suits:
                     state["topCard"] = getCard("x" + new_suit)
                     valid = True
                 else:
-                    print("\nInvalid suit, try again.\n")
+                    print("\nInvalid suit, try again.")
             return ""
         elif card.suit[0] == top_card.suit[0] or card.value[0] == top_card.value[0]:
             discard += [top_card] if not top_card.value == "x" else []
@@ -111,7 +111,8 @@ def reset_game(state):
     shuffle(deck)
     shuffle(deck)
     shuffle(deck)
-    state["players"][:].hand = []
+    for p in state["players"]:
+        p.hand = []
     deal(game.game_state, deck)
     game.game_state["topCard"] = deck.pop()
     game.game_state["deck"] = deck
@@ -221,5 +222,5 @@ def get_highest_score(players):
 #==============================================================================
 # start the game
 #==============================================================================
-bartok = Game(players, {}, states, setup, finish)
+bartok = Game(players, { "startPlayer": 1 }, states, setup, finish)
 bartok.start()
