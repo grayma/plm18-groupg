@@ -57,7 +57,7 @@ class Card:
         self.suit = suit
 
     def __repr__(self):
-        return str(self.value) + ' ' + self.suit
+        return str(self.value)[0] + self.suit[0]
     def __eq__(self, other):
         if(str(self.suit) == str(other.suit) and str(self.value) == str(other.value)):
             return True
@@ -110,24 +110,25 @@ class State:
         input()
 
         self.game_status(player, game_state)
-        print("Available moves (type move name to use):")
-        for mname in self.available_moves.keys():
-            print(mname)
-        selected = ""
-        while selected not in self.available_moves.keys():
-            selected = input("Please choose a valid move to execute: ")
-        selected = self.available_moves[selected]
 
         # make move
         moved = False
         while not moved:
-            print(
+            print("Available moves (type move name to use):")
+            for mname in self.available_moves.keys():
+                print(mname)
+            selected = ""
+            while selected not in self.available_moves.keys():
+                selected = input("Please choose a valid move to execute: ")
+            selected = self.available_moves[selected]
+            if selected.required_input.keys():
+                print(
                 "For this move we need the following (if card, use the format: 'vs' without quotes where v is the "
                 "value of the card\n(number if non-face/ace card or a, k, q, j for ace, king, queen, "
                 "or jack respectively) and s is the first letter of\nthe suit or c, s, h, d for clubs, spades, hearts, "
                 "or diamonds respectively):")
-            for req in selected.required_input.keys():
-                selected.required_input[req] = input(req + ": ")
+                for req in selected.required_input.keys():
+                    selected.required_input[req] = input(req + ": ")
             #need to check input validity
             #this check should check the form (vs) as well as the fact that the card is possessed bu the current player
             result = selected.f(player, game_state, selected.required_input)
@@ -157,6 +158,9 @@ Takes a string formatted as specified in the instructions to the player and retu
 """
 
 def getCard(str):
+    if str == "" or str == None:
+        return None
+    
     if str[0] == "1":
         val = 10
     elif str[0] == "a":
@@ -171,6 +175,7 @@ def getCard(str):
         val = str[0]
 
     n = 1
+    suit = None
     if str[0] == "1":
         n = 2
     if str[n] == "c":
@@ -181,7 +186,11 @@ def getCard(str):
         suit = "spades"
     elif str[n] == "h":
         suit = "hearts"
-
+    
+    # return nothing if the input was invalid
+    if suit == None:
+        return None
+    
     c = Card(val, suit)
     return c
 
