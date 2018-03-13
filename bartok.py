@@ -13,6 +13,8 @@ values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 
 def get_deck():
     return [Card(value, suit) for value in values for suit in suits]
 
+WINNING_SCORE = 50
+
 
 #==============================================================================
 # board helpers
@@ -107,19 +109,19 @@ def reset_game(state):
     loser = [p for p in state["players"] if len(p.hand) > 0][0]
     winner = [p for p in state["players"] if len(p.hand) == 0][0]
     score_hand(winner, loser)
-    deck = get_deck()
-    shuffle(deck)
-    shuffle(deck)
-    shuffle(deck)
-    for p in state["players"]:
-        p.hand = []
-    deal(state, deck)
-    state["topCard"] = deck.pop()
-    state["deck"] = deck
-    state["discard"] = []
+    if winner.score < WINNING_SCORE: # if the game needs to continue, reshuffle deck
+        deck = get_deck()
+        shuffle(deck)
+        shuffle(deck)
+        shuffle(deck)
+        for p in state["players"]:
+            p.hand = []
+        deal(state, deck)
+        state["topCard"] = deck.pop()
+        state["deck"] = deck
+        state["discard"] = []
     
 def conclude_game(state):
-    score_hand(state)
     print("Final Score:")
     [print("%s: %d" % (p.name, p.score)) for p in state["players"]]
 
@@ -132,9 +134,9 @@ def conclude_game(state):
 main_to_main = Transition("main", (lambda state: not any(len(p.hand) == 0 for p in state["players"])), transition_stub)
 main_to_main_reset = Transition("main",
        (lambda state: 
-            any(len(p.hand) == 0 for p in state["players"]) and get_highest_score(state[STATE_PLAYERS]) < 100),
+            any(len(p.hand) == 0 for p in state["players"]) and get_highest_score(state[STATE_PLAYERS]) < WINNING_SCORE),
        reset_game)
-main_to_finish = Transition("finish", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= 100), conclude_game)
+main_to_finish = Transition("finish", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= WINNING_SCORE), conclude_game)
 
 #==============================================================================
 # states
