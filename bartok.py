@@ -113,10 +113,10 @@ def reset_game(state):
     shuffle(deck)
     for p in state["players"]:
         p.hand = []
-    deal(game.game_state, deck)
-    game.game_state["topCard"] = deck.pop()
-    game.game_state["deck"] = deck
-    game.game_state["discard"] = []
+    deal(state, deck)
+    state["topCard"] = deck.pop()
+    state["deck"] = deck
+    state["discard"] = []
     
 def conclude_game(state):
     score_hand(state)
