@@ -211,12 +211,12 @@ class Game:
             self.increment_turn()
             state = self.game_state[STATE_CURRENT_STATE]
             j = self.game_state['startPlayer']
-            for i in range(1,5):
+            for i in range(1,(len(self.game_state[STATE_PLAYERS]) + 1)):
                 clear_screen()
                 p = self.game_state['players'][j - 1]
                 state.move(p, self.game_state)
                 j = j + 1
-                if j > 4:
+                if j > len(self.game_state[STATE_PLAYERS]):
                     j = 1
 
             #for p in self.game_state[STATE_PLAYERS]:
