@@ -1,5 +1,6 @@
 from starterpack import *
 from random import shuffle
+from collections import deque
 
 # Standard Deck
 suits = ['hearts', 'diamonds', 'spades', 'clubs']
@@ -50,7 +51,7 @@ def play(player, state, input):
     c = getCard(str)
     if c.suit == "hearts":
         state[STATE_HEARTS] = STATE_HEARTS_BROKEN
-    if state['played'][0].isspace():
+    if state['played'][state['startPlayer']-1].isspace():
         state['currentLead'] = c.suit
     state['played'][num - 1] = str
     for j in range(len(player.hand)):
@@ -69,12 +70,11 @@ def play_transition(state):
     num = -1
     val = -1
     cardVal = -1
-    temp = Card('ace', 'spades')
     suit = state['currentLead']
-    list = state['played']
+    played_list = state['played']
     cardList = []
     for i in range(4):
-        c = getCard(list[i])
+        c = getCard(played_list[i])
         cardList.append(c)
         if c.value == 'ace':
             cardVal = 14
@@ -87,12 +87,11 @@ def play_transition(state):
         else:
             cardVal = int(c.value)
         if c.suit == suit and cardVal > val:
-            temp = c
             val = cardVal
             num = i
-    # state['players'][val] = the winner of the trick and who needs to lead next
+
     state['players'][num].state['accum'].extend(cardList)
-    # reset played list
+    state["startPlayer"] = state['players'][num].number
     state["played"] = ["", "", "", ""]
 
 
@@ -163,6 +162,7 @@ def printBoard(state):
     filler(state)
     print("-----------------")
     print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
+   # n = state['players'][0].number
     print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
     print("|%s %s       %s %s|" % (
     state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
@@ -183,7 +183,6 @@ def filler(state):
 
 def score_hand(state):
     for i in range(4):
-        num = state['players'][i].number
         s = 0
         lst = state['players'][i].state['accum']
         for j in range(len(lst)):
@@ -253,5 +252,5 @@ def finish(game):
     print("Finished playing :)")
 
 
-hearts = Game(players, {"currentLead": None, "played": ["", "", "", ""]}, states, setup, finish)
+hearts = Game(players, {"currentLead": None, "played": ["", "", "", ""], "startPlayer": 1}, states, setup, finish)
 hearts.start()
