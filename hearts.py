@@ -1,6 +1,5 @@
 from starterpack import *
 from random import shuffle
-from collections import deque
 
 # Standard Deck
 suits = ['hearts', 'diamonds', 'spades', 'clubs']
@@ -51,7 +50,7 @@ def play(player, state, input):
     c = getCard(str)
     if c.suit == "hearts":
         state[STATE_HEARTS] = STATE_HEARTS_BROKEN
-    if state['played'][0].isspace():
+    if state['played'][state['startPlayer']-1].isspace():
         state['currentLead'] = c.suit
     state['played'][num - 1] = str
     for j in range(len(player.hand)):
@@ -89,13 +88,9 @@ def play_transition(state):
         if c.suit == suit and cardVal > val:
             val = cardVal
             num = i
-    # state['players'][num] = the winner of the trick and who needs to lead next
-    playerNum = state['players'][num].number
-    state['players'][playerNum - 1].state['accum'].extend(cardList)
-    # shift the player array to change who goes first
-    d = deque(state["players"])
-    d.rotate(4 - num)
-    state['players'] = list(d)
+
+    state['players'][num].state['accum'].extend(cardList)
+    state["startPlayer"] = state['players'][num].number
     state["played"] = ["", "", "", ""]
 
 
@@ -165,14 +160,10 @@ def printBoard(state):
     filler(state)
     print("-----------------")
     print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
-    n = state['players'][0].number
-    print("|       %s     %d|" % (state['played'][n - 1], state['players'][1].score))
-    n2 = state['players'][3].number
-    n3 = state['players'][1].number
+    print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
     print("|%s %s       %s %s|" % (
-    state['players'][3].name[0], state['played'][n2 - 1], state['played'][n3 - 1], state['players'][1].name[0]))
-    n4 = state['players'][2].number
-    print("|%d      %s      |" % (state['players'][3].score, state['played'][n4 - 1]))
+    state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
+    print("|%d      %s      |" % (state['players'][3].score, state['played'][2]))
     print("|       %s %d     |" % (state['players'][2].name[0], state['players'][2].score))
     print("-----------------")
 
@@ -258,5 +249,5 @@ def finish(game):
     print("Finished playing :)")
 
 
-hearts = Game(players, {"currentLead": None, "played": ["", "", "", ""]}, states, setup, finish)
+hearts = Game(players, {"currentLead": None, "played": ["", "", "", ""], "startPlayer": 1}, states, setup, finish)
 hearts.start()
