@@ -1,43 +1,6 @@
-import os
-
-
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-
-# Game
-#  Start
-#    Choose player to go - game.start() #inits game loop
-#    Game initiates turn - loop of running all players moves, validating, updating state (public and player)
-#      Player move - player[n].play()
-#        Player requests game state (public state, private not available) - game.getVisibleState()
-#        Player makes move and return
-#          - logic in player[n].play()
-#        Game validates Player move - game.validate(move) if not valid, remake move
-#          Boolean conditions on public and private state
-#        Next player move go back to Player Move with next player
-
-# Hearts State
-# Main Deck main_deck [ card ]
-# Game Played Cards played_cards int
-# Hearts Broken? hearts_broken true/false
-#
-# Player Deck [ card ]
-# Player Cards Taken [ card ]
-# Player Score [ card ]
-
-"""
-Game state dict constants
-"""
-STATE_PLAYERS = "players"
-STATE_CURRENT_STATE = "state"
-STATE_DECK = "deck"
-STATE_TURNS = "turns"
-
 """
 Wrapper for a Player playing the game
 """
-
 class Player:
     def __init__(self, name, state, number, hand, score):
         self.name = name
@@ -46,11 +9,9 @@ class Player:
         self.hand = hand
         self.score = 0
 
-
 """
 Wrapper for a playing card
 """
-
 class Card:
     def __init__(self, value, suit):
         self.value = value
@@ -69,7 +30,6 @@ class Card:
         return (self.value[0] if not self.value == "10" else self.value) + self.suit[0]
 
 
-
 """
 Wrapper containing new and old game state and new and old player state to represent the
 difference before and after a potential player's move.
@@ -79,7 +39,6 @@ difference before and after a potential player's move.
     an error message if needs to go again (rule break)
 `required_args` dictionary representing required input for the move, game asks for key
 """
-
 
 class Move:
     def __init__(self, name, f, required_input):
@@ -96,7 +55,6 @@ Class representing a game's state machine
 `game_status` function taking a player and game_state showing player what info they need
 `final_state` bool indicating whether or not game has finished
 """
-
 class State:
     def __init__(self, name, transitions, available_moves, game_status, final_state):
         self.name = name
@@ -106,7 +64,6 @@ class State:
         self.final_state = final_state
 
     def move(self, player, game_state):
-        """Makes a move for a player given the current game state."""
 
         # figure out which move to use
         print("It is now %s's move, please pass the computer and press enter when %s has the computer." % (
@@ -149,67 +106,24 @@ Class to represent a state transition.
 `pre_transition_logic` is a function taking in game_state with any code that needs to be 
     executed before the next state occurs
 """
-
-
 class Transition:
-    def __init__(self, next_state, guard, pre_transition_logic):
-        self.next_state = next_state
+    def __init__(self, source, dest, guard):
+        self.source = source
+        self.dest = dest
         self.guard = guard
-        self.pre_transition_logic = pre_transition_logic
-
-"""
-Takes a string formatted as specified in the instructions to the player and returns a card object
-"""
-
-def getCard(str):
-    if str == "" or str == None:
-        return None
-    
-    if str[0] == "1":
-        val = "10"
-    elif str[0] == "a":
-        val = "ace"
-    elif str[0] == "j":
-        val = "jack"
-    elif str[0] == "q":
-        val = "queen"
-    elif str[0] == "k":
-        val = "king"
-    else:
-        val = str[0]
-
-    n = 1
-    suit = None
-    if str[0] == "1":
-        n = 2
-    if str[n] == "c":
-        suit = "clubs"
-    elif str[n] == "d":
-        suit = "diamonds"
-    elif str[n] == "s":
-        suit = "spades"
-    elif str[n] == "h":
-        suit = "hearts"
-    
-    # return nothing if the input was invalid
-    if suit == None:
-        return None
-    
-    c = Card(val, suit)
-    return c
 
 """
 Game object running a card game.
 """
-
 class Game:
-    game_state = {}
-    def __init__(self, players, game_state, states, setup, finish):
-        self.game_state = game_state  # state of game
-        self.game_state[STATE_PLAYERS] = players  # players in game
-        self.states = {s.name: s for s in states}
-        self.setup = setup  # function to run start logic
-        self.finish = finish  # function to run end logic
+    def __init__(self, gamespace, playerspace, states, transitions, setup, finish):
+        self.gamespace = gamespace
+        self.playerspace = playerspace
+        self.states = states
+        self.transitions = transitions
+        self.setup = setup      
+        self.finish = finish
+
 
     def increment_turn(self):
         if STATE_TURNS in self.game_state:
