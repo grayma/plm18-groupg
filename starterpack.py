@@ -28,19 +28,28 @@ class Card:
     def abbr(self):
         return (self.value[0] if not self.value == "10" else self.value) + self.suit[0]
 
+class Pile:
+    def __init__(self, cards):
+        self.cards = cards
 
+    def __repr__(self):
+        return str(self.cards)
+
+    def transfer_to(self, new_pile, subset):
+        self.cards = [c for c in self.cards if c not in subset]
+        new_pile.cards.extend(subset)
 """
 Wrapper containing new and old game state and new and old player state to represent the
 difference before and after a potential player's move.
 `name` is the name of the move
-`f` is the function that actually executes the move, taking in game_state and 
-    required_input. Includes interaction with player. Returns "" if move successful, 
+`perform(Game)` is the function that actually executes the move, taking in a game and input. 
+    Includes interaction with player. Returns "" if move successful, 
     an error message if needs to go again (rule break)
 `required_args` dictionary representing required input for the move, game asks for key
 """
 
 class Move:
-    def __init__(self, name, f, required_input):
+    def __init__(self, name, perform, required_input):
         self.name = name
         self.f = f
         self.required_input = required_input
@@ -76,9 +85,16 @@ class Transition:
 
 """
 Game object running a card game.
+
+`gamespace`
+`states`
+`start` start state
+`transitions` transitions that can be made between game states
+`setup(Game)` any setup to do before a game
+`finish(Game)` any cleaning up to do after a game
 """
 class Game:
-    def __init__(self, gamespace, states, transitions, setup, finish):
+    def __init__(self, gamespace, states, start, transitions, setup, finish):
         self.gamespace = gamespace
         self.playerspace = playerspace
         self.states = states
@@ -89,7 +105,6 @@ class Game:
     def start(self):
         self.setup(self)
         # game loop
-        while not self.
 
         """
         while not self.game_state[STATE_CURRENT_STATE].final_state:
