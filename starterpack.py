@@ -2,12 +2,11 @@
 Wrapper for a Player playing the game
 """
 class Player:
-    def __init__(self, name, state, number, hand, score):
+    def __init__(self, name, index, score):
         self.name = name
-        self.state = state
-        self.number = number
-        self.hand = hand
+        self.index = index
         self.score = 0
+        self.playerspace = {}
 
 """
 Wrapper for a playing card
@@ -50,53 +49,16 @@ class Move:
 """
 Class representing a game's state machine
 `name` name of the state the game is in
-`transitions` list of Transition's available in this state
-`available_moves` list of available moves
-`game_status` function taking a player and game_state showing player what info they need
-`final_state` bool indicating whether or not game has finished
+`status(player, state)` function taking a player and state showing player what info they need
+`can_do(player, move)` function taking a player and a move and determining if they can perform it
+`is_final` bool indicating whether or not game has finished 
 """
 class State:
-    def __init__(self, name, transitions, available_moves, game_status, final_state):
+    def __init__(self, name, status, is_final):
         self.name = name
-        self.transitions = transitions
-        self.available_moves = {m.name: m for m in available_moves}
-        self.game_status = game_status
-        self.final_state = final_state
-
-    def move(self, player, game_state):
-
-        # figure out which move to use
-        print("It is now %s's move, please pass the computer and press enter when %s has the computer." % (
-            player.name, player.name))
-        input()
-
-        self.game_status(player, game_state)
-
-        # make move
-        moved = False
-        while not moved:
-            print("Available moves (type move name to use):")
-            for mname in self.available_moves.keys():
-                print(mname)
-            selected = ""
-            while selected not in self.available_moves.keys():
-                selected = input("Please choose a valid move to execute: ")
-            selected = self.available_moves[selected]
-            if selected.required_input.keys():
-                print(
-                "For this move we need the following (if card, use the format: 'vs' without quotes where v is the "
-                "value of the card\n(number if non-face/ace card or a, k, q, j for ace, king, queen, "
-                "or jack respectively) and s is the first letter of\nthe suit or c, s, h, d for clubs, spades, hearts, "
-                "or diamonds respectively):")
-                for req in selected.required_input.keys():
-                    selected.required_input[req] = input(req + ": ")
-            #need to check input validity
-            #this check should check the form (vs) as well as the fact that the card is possessed bu the current player
-            result = selected.f(player, game_state, selected.required_input)
-            if result == "":
-                moved = True
-            else:
-                print("error: " + result)  # error message
+        self.status = status
+        self.can_do = can_do
+        self.is_final = is_final
 
 
 """
@@ -116,7 +78,7 @@ class Transition:
 Game object running a card game.
 """
 class Game:
-    def __init__(self, gamespace, playerspace, states, transitions, setup, finish):
+    def __init__(self, gamespace, states, transitions, setup, finish):
         self.gamespace = gamespace
         self.playerspace = playerspace
         self.states = states
@@ -124,16 +86,12 @@ class Game:
         self.setup = setup      
         self.finish = finish
 
-
-    def increment_turn(self):
-        if STATE_TURNS in self.game_state:
-            self.game_state[STATE_TURNS] = self.game_state[STATE_TURNS] + 1
-        else:
-            self.game_state[STATE_TURNS] = 1
-
     def start(self):
         self.setup(self)
         # game loop
+        while not self.
+
+        """
         while not self.game_state[STATE_CURRENT_STATE].final_state:
             self.increment_turn()
             state = self.game_state[STATE_CURRENT_STATE]
@@ -155,5 +113,5 @@ class Game:
                 if trans.guard(self.game_state):
                     trans.pre_transition_logic(self.game_state)
                     self.game_state[STATE_CURRENT_STATE] = self.states[trans.next_state]
-
+        """
         self.finish(self)
