@@ -1,18 +1,30 @@
-"""
-Wrapper for a Player playing the game
-"""
 class Player:
-    def __init__(self, name, index, score):
+    """
+    Wrapper for a Player playing the game
+    """
+
+    def __init__(self, name, index):
+        """
+        `name`
+        `index` 
+        """
+
         self.name = name
         self.index = index
         self.score = 0
         self.playerspace = {}
 
-"""
-Wrapper for a playing card
-"""
-class Card:
-    def __init__(self, value, suit):
+class Card: 
+    """
+    Wrapper for a playing card
+    """
+
+    def __init__(self, value, suit):    
+        """
+        `value` value of the card
+        `suit` suit of the card
+        """
+
         self.value = value
         self.suit = suit
 
@@ -29,75 +41,104 @@ class Card:
         return (self.value[0] if not self.value == "10" else self.value) + self.suit[0]
 
 class Pile:
+    """
+    Pile of cards allowing transfering between piles
+    """
+
     def __init__(self, cards):
+        """
+        `cards` list of cards to instantiate this pile with
+        """
         self.cards = cards
 
     def __repr__(self):
         return str(self.cards)
 
     def transfer_to(self, new_pile, subset):
+        """
+        Transfers a subset of this pile to another pile.
+        """
+        for c in subset:
+            if c not in self.cards:
+                raise ValueError('"subset" of pile not actually a subset.')
         self.cards = [c for c in self.cards if c not in subset]
         new_pile.cards.extend(subset)
-"""
-Wrapper containing new and old game state and new and old player state to represent the
-difference before and after a potential player's move.
-`name` is the name of the move
-`perform(Game)` is the function that actually executes the move, taking in a game and input. 
-    Includes interaction with player. Returns "" if move successful, 
-    an error message if needs to go again (rule break)
-`required_args` dictionary representing required input for the move, game asks for key
-"""
 
 class Move:
-    def __init__(self, name, perform, required_input):
+    """
+    Wrapper containing new and old game state and new and old player state to represent the
+    difference before and after a potential player's move.
+    """
+    
+    def __init__(self, name, perform):
+        """ 
+        `name` is the name of the move
+        `perform(Game)` is the function that actually executes the move, taking in a game and input. 
+            Includes interaction with player. Returns "" if move successful, 
+            an error message if needs to go again (rule break)
+        """
+
         self.name = name
-        self.f = f
-        self.required_input = required_input
+        self.perform = perform
 
 
-"""
-Class representing a game's state machine
-`name` name of the state the game is in
-`status(player, state)` function taking a player and state showing player what info they need
-`can_do(player, move)` function taking a player and a move and determining if they can perform it
-`is_final` bool indicating whether or not game has finished 
-"""
+
 class State:
+    """
+    Class representing a game's state machine 
+    """
+
     def __init__(self, name, status, is_final):
+        """
+        `name` name of the state the game is in
+        `status(player, state)` function taking a player and state showing player what info they need
+        `can_do(player, move)` function taking a player and a move and determining if they can perform it
+        `is_final` bool indicating whether or not game has finished
+        """
+
         self.name = name
         self.status = status
         self.can_do = can_do
         self.is_final = is_final
 
 
-"""
-Class to represent a state transition. 
-`next_state` is a string that is the name of the next state to go to
-`guard` is a function taking in the game state that returns true if this state is a valid next state
-`pre_transition_logic` is a function taking in game_state with any code that needs to be 
-    executed before the next state occurs
-"""
+
 class Transition:
+    """
+    Class to represent a state transition. 
+    """
+
     def __init__(self, source, dest, guard):
+        """
+        `source` from state
+        `dest` to state
+        `guard(Game)` true/false function evaluating the game to see if now is a valid time to take this transition
+        `logic(Game)` function performing any logic needed after this state transition
+        """
+
         self.source = source
         self.dest = dest
         self.guard = guard
 
-"""
-Game object running a card game.
-
-`gamespace`
-`states`
-`start` start state
-`transitions` transitions that can be made between game states
-`setup(Game)` any setup to do before a game
-`finish(Game)` any cleaning up to do after a game
-"""
 class Game:
+    """
+    Game object running a card game.
+    """
+    
     def __init__(self, gamespace, states, start, transitions, setup, finish):
+        """
+        `gamespace`
+        `states` 
+        `start` start state
+        `transitions` transitions that can be made between game states
+        `setup(Game)` any setup to do before a game
+        `finish(Game)` any cleaning up to do after a game
+        """
+
         self.gamespace = gamespace
         self.playerspace = playerspace
         self.states = states
+        self.start = start
         self.transitions = transitions
         self.setup = setup      
         self.finish = finish
@@ -105,6 +146,7 @@ class Game:
     def start(self):
         self.setup(self)
         # game loop
+        state = self.start
 
         """
         while not self.game_state[STATE_CURRENT_STATE].final_state:
