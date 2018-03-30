@@ -1,3 +1,6 @@
+def last(values):
+    return values[-1]
+
 class Player:
     """
     Wrapper for a Player playing the game
@@ -89,7 +92,7 @@ class State:
     def __init__(self, name, status, moves, is_final):
         """
         `name` name of the state the game is in
-        `status(player, state)` function taking a player and state showing player what info they need
+        `status(player, game)` function taking a player and game showing player what info they need
         `moves` list of moves available to this player at this point
         `is_final` bool indicating whether or not game has finished
         """
@@ -100,7 +103,7 @@ class State:
         self.prompt_str = "Please select a move: "
         for move in moves:
             prompt_str += ("'" + move.name + "'")
-            if not move == moves[-1]:
+            if not move == last(moves): #add commas except after the last move.
                 prompt_str += ", "
             else:
                 prompt_str += "."
@@ -113,6 +116,7 @@ class State:
 
         for player in game.players:
             game.post("It's now {}'s' turn".format(player.name))
+            game.post(self.status(player, game))
             selected = game.request(self.prompt_str)
             while selected not in self.moves:
                 selected = game.request(self.prompt_str)
