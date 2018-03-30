@@ -81,25 +81,42 @@ class Move:
         self.name = name
         self.perform = perform
 
-
-
 class State:
     """
     Class representing a game's state machine 
     """
 
-    def __init__(self, name, status, is_final):
+    def __init__(self, name, status, moves, is_final):
         """
         `name` name of the state the game is in
         `status(player, state)` function taking a player and state showing player what info they need
-        `can_do(player, move)` function taking a player and a move and determining if they can perform it
+        `moves` list of moves available to this player at this point
         `is_final` bool indicating whether or not game has finished
         """
 
         self.name = name
         self.status = status
-        self.can_do = can_do
+        self.moves = { move.name : move for move in moves }
+        self.prompt_str = "Please select a move: "
+        for move in moves:
+            prompt_str += ("'" + move.name + "'")
+            if not move == moves[-1]:
+                prompt_str += ", "
+            else:
+                prompt_str += "."
         self.is_final = is_final
+
+    def do_round(self, game):
+        """
+        Performs a round of game play for each player.
+        """
+
+        for player in game.players:
+            game.post("It's now {}'s' turn".format(player.name))
+            selected = game.request(self.prompt_str)
+            while selected not in self.moves:
+                selected = game.request(self.prompt_str)
+            self.moves[selected].perform(game)
 
 
 
@@ -108,7 +125,7 @@ class Transition:
     Class to represent a state transition. 
     """
 
-    def __init__(self, source, dest, guard):
+    def __init__(self, source, dest, guard, logic):
         """
         `source` from state
         `dest` to state
@@ -119,56 +136,44 @@ class Transition:
         self.source = source
         self.dest = dest
         self.guard = guard
+        self.logic = logic
 
 class Game:
     """
     Game object running a card game.
     """
-    
-    def __init__(self, gamespace, states, start, transitions, setup, finish):
+
+    def __init__(self, players, gamespace, start, transitions, setup, finish, get, post):
         """
-        `gamespace`
-        `states` 
+        `players` list of players playing the game
+        `gamespace` dictionary containing any necessary game data
         `start` start state
         `transitions` transitions that can be made between game states
         `setup(Game)` any setup to do before a game
         `finish(Game)` any cleaning up to do after a game
+        `get(prompt)` function prompting the user for input
+        `post(info)` function telling the user info
         """
 
+        self.players = players
         self.gamespace = gamespace
-        self.playerspace = playerspace
-        self.states = states
         self.start = start
         self.transitions = transitions
         self.setup = setup      
         self.finish = finish
+        self.get = get
+        self.post = post
 
     def start(self):
         self.setup(self)
-        # game loop
         state = self.start
 
-        """
-        while not self.game_state[STATE_CURRENT_STATE].final_state:
-            self.increment_turn()
-            state = self.game_state[STATE_CURRENT_STATE]
-            j = self.game_state['startPlayer']
-            for i in range(1,(len(self.game_state[STATE_PLAYERS]) + 1)):
-                clear_screen()
-                p = self.game_state['players'][j - 1]
-                state.move(p, self.game_state)
-                j = j + 1
-                if j > len(self.game_state[STATE_PLAYERS]):
-                    j = 1
+        # game loop
+        while not state.is_final:
+            state.do_round()
+            for t in transitions:
+                if t.guard(self):
+                    state = t.dest
+                    t.logic(Game)
 
-            #for p in self.game_state[STATE_PLAYERS]:
-            #    clear_screen()
-            #    state.move(p, self.game_state)
-
-
-            for trans in state.transitions:
-                if trans.guard(self.game_state):
-                    trans.pre_transition_logic(self.game_state)
-                    self.game_state[STATE_CURRENT_STATE] = self.states[trans.next_state]
-        """
         self.finish(self)
