@@ -8,8 +8,8 @@ class Player:
 
     def __init__(self, name, index):
         """
-        `name`
-        `index` 
+        `name` name of player
+        `index` order played in game
         """
 
         self.name = name
@@ -73,16 +73,27 @@ class Move:
     difference before and after a potential player's move.
     """
     
-    def __init__(self, name, perform):
+    def __init__(self, name, logic, required):
         """ 
         `name` is the name of the move
-        `perform(Game)` is the function that actually executes the move, taking in a game and input. 
+        `logic(Game, input)` is the function that actually executes the move, taking in a game and input. 
             Includes interaction with player. Returns "" if move successful, 
             an error message if needs to go again (rule break)
+        `required` dict containing necessary input for this move
         """
 
         self.name = name
-        self.perform = perform
+        self.logic = logic
+        self.required = required
+
+    def perform(self, game):
+        _getMoveInput()
+        while not logic(game, self.required) == "":
+            _getMoveInput()
+
+    def _getMoveInput(self, game):
+        for k, v in self.required.items():
+            self.required[k] = game.get("Move requires {}".format(k))
 
 class State:
     """
@@ -117,9 +128,9 @@ class State:
         for player in game.players:
             game.post("It's now {}'s' turn".format(player.name))
             game.post(self.status(player, game))
-            selected = game.request(self.prompt_str)
+            selected = game.get(self.prompt_str)
             while selected not in self.moves:
-                selected = game.request(self.prompt_str)
+                selected = game.get(self.prompt_str)
             self.moves[selected].perform(game)
 
 
