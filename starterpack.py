@@ -32,7 +32,7 @@ class Card:
         self.suit = suit
 
     def __repr__(self):
-        return str(self.value) + " " + self.suit
+        return str(self.value) + "" + self.suit
     
     def __eq__(self, other):
         if(str(self.suit) == str(other.suit) and str(self.value) == str(other.value)):
@@ -42,6 +42,13 @@ class Card:
         
     def abbr(self):
         return (self.value[0] if not self.value == "10" else self.value) + self.suit[0]
+
+    @staticmethod
+    def from_abbr(abbr):
+        if len(abbr) == 3:
+            return Card(10, abbr[2])
+        return Card(abbr[0], abbr[1])
+
 
 class Pile:
     """
@@ -76,7 +83,7 @@ class Move:
     def __init__(self, name, logic, required):
         """ 
         `name` is the name of the move
-        `logic(Game, input)` is the function that actually executes the move, taking in a game and input. 
+        `logic(Game, Player, input)` is the function that actually executes the move, taking in a game and input. 
             Includes interaction with player. Returns "" if move successful, 
             an error message if needs to go again (rule break)
         `required` dict containing necessary input for this move
@@ -164,6 +171,7 @@ class Game:
         `gamespace` dictionary containing any necessary game data
         `start` start state
         `transitions` transitions that can be made between game states
+        `checkWinner(Game)` determines and returns winner player, None if no winner
         `setup(Game)` any setup to do before a game
         `finish(Game)` any cleaning up to do after a game
         `get(prompt)` function prompting the user for input
@@ -184,6 +192,7 @@ class Game:
         state = self.start
 
         # game loop
+        winner = None
         while not state.is_final:
             state.do_round()
             for t in transitions:

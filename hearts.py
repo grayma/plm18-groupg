@@ -1,22 +1,84 @@
 from starterpack import *
 from random import shuffle
 
-# Standard Deck
+##
+## ENVIRONMENT
+##
+
 suits = ['hearts', 'diamonds', 'spades', 'clubs']
 values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
 
+GAME_TURN = "turn"
+GAME_HEARTS_BROKEN = "is_hearts_broken"
+GAME_PLAYED_CARDS = "played_cards"
+GAME_DECK = "deck"
+
+PLAYER_HAND = "hand"
 
 def get_deck():
     return [Card(value, suit) for value in values for suit in suits]
 
+def gamespace():
+    return {
+        GAME_TURN           : 1,
+        GAME_HEARTS_BROKEN  : False,
+        GAME_PLAYED_CARDS   : Pile([])
+        GAME_DECK           : Pile(get_deck())
+    }
 
-# STATE_PLAYERS, STATE_CURRENT_STATE, STATE_DECK
-STATE_TURN = "turns"
-STATE_HEARTS = "hearts"
-STATE_HEARTS_BROKEN = "broken"
-STATE_PLAYED_CARDS = "played"
-PLAYER_STATE_SCORE = "score"
+def playerspace():
+    return {
+        PLAYER_HAND         : Pile([])
+    }
 
+##
+## HELPERS
+##
+
+def validate_pass3(game, player, subset):
+    """
+    Validates a subset actually being in a players hand or a valid play
+
+    Checks existence in hand and suit
+    """
+    return subset in player.playerspace[PLAYER_HAND].cards:
+
+
+def validate_play_and_check_hearts(game, player, card):
+    """
+    Returns "" if valid play, returns error message and why if not
+    """
+    if not card in player.playerspace[PLAYER_HAND].cards:
+        return ""
+    # first move of game and of turn, 2 of clubs required on 2nd turn (first turn after passing)
+    if game.gamespace[GAME_TURN] == 2: #first play turn
+        if len(game.gamespace[GAME_PLAYED_CARDS]) == 0: #first player of the turn
+            if (not card.suit == 'clubs') and (not card.value == '2'):
+                return "First play must be 2 of clubs"
+    # first move of turn, can't play hearts unless broken
+
+    # if player has suit, they must match it. if they don't have suit, play anything and break hearts
+
+
+
+def getNextPlayer(player, game):
+    i = (player.index + 1) % len(game.players)
+    for p in game.players:
+        if p.index == i:
+            return p
+    return None #shouldn't reach
+
+##
+## MOVES
+##
+
+def pass3(game, player, input):
+    if validatePlay(game):
+Move("pass 3 cards", logic, { "card 1", "card 2", "card 3" : None })
+Move("play", logic, { "card" : None })
+
+
+"""
 
 # helper functions
 def get_highest_score(players):
@@ -98,9 +160,8 @@ def transition_stub(game):
     pass
 
 
-"""
 Logic to transition from main back to start
-"""
+
 def reset_game(state):
     score_hand(state)
     for p in state[STATE_PLAYERS]:
@@ -115,9 +176,7 @@ def reset_game(state):
     state[STATE_HEARTS] = "unbroken"
 
 
-"""
 Logic to wrap up start step of game
-"""
 def pass_cards(state):
     for i in range(4):
         pass_hand = state[STATE_PLAYERS][(i + 1) % 4].hand
@@ -126,9 +185,8 @@ def pass_cards(state):
         sortCards(pass_hand)
 
 
-"""
 Print final scores
-"""
+
 def conclude_game(state):
     score_hand(state)
     print("Final Score:")
@@ -251,3 +309,5 @@ def finish(game):
 
 hearts = Game(players, {"currentLead": None, "played": ["", "", "", ""], "startPlayer": 1}, states, setup, finish)
 hearts.start()
+
+"""
