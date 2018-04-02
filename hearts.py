@@ -44,7 +44,7 @@ def validate_pass3(game, player, subset):
     return "" if subset in player.playerspace[PLAYER_HAND].cards else "Cards must be in the passing players hand.":
 
 
-def validate_play_and_check_hearts(game, player, card):
+def validate_play(game, player, card):
     """
     Returns "" if valid play, returns error message and why if not
     """
@@ -80,9 +80,27 @@ def getNextPlayer(player, game):
 ##
 
 def pass3(game, player, input):
-    if validatePlay(game):
-Move("pass 3 cards", logic, { "card 1", "card 2", "card 3" : None })
-Move("play", logic, { "card" : None })
+    subset = None
+    try:
+        subset = [Card.from_abbr(value) for key, value in input.items()]
+    except:
+        return False
+    if validate_pass3(game):
+        player.playerspace[PLAYER_HAND].transfer_to(getNextPlayer(player, game).playerspace[PLAYER_HAND], subset)
+
+def play(game, player, input):
+    card = None
+    try:
+        card = Card.from_abbr(input["card"])
+    except:
+        return False
+    if validate_play(game, player, card):
+        if card.suit == 'hearts':
+            game.gamespace[GAME_HEARTS_BROKEN] = True 
+        player.playerspace[PLAYER_HAND].transfer_to(game.gamespace[GAME_PLAYED_CARDS], [card])
+        
+Move("pass 3 cards", pass3, { "card 1" : None, "card 2" : None, "card 3" : None })
+Move("play", play, { "card" : None })
 
 
 """

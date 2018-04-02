@@ -201,7 +201,7 @@ class Game:
                 if done:
                     self.finish(self)
                     return
-                    
+
             #state transitions
             for t in transitions:
                 if t.guard(self):
