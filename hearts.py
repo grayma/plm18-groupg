@@ -41,7 +41,7 @@ def validate_pass3(game, player, subset):
 
     Checks existence in hand and suit
     """
-    return subset in player.playerspace[PLAYER_HAND].cards:
+    return "" if subset in player.playerspace[PLAYER_HAND].cards else "Cards must be in the passing players hand.":
 
 
 def validate_play_and_check_hearts(game, player, card):
@@ -53,12 +53,19 @@ def validate_play_and_check_hearts(game, player, card):
     # first move of game and of turn, 2 of clubs required on 2nd turn (first turn after passing)
     if game.gamespace[GAME_TURN] == 2: #first play turn
         if len(game.gamespace[GAME_PLAYED_CARDS]) == 0: #first player of the turn
-            if (not card.suit == 'clubs') and (not card.value == '2'):
+            if (card.suit != 'clubs') and (card.value != '2'):
                 return "First play must be 2 of clubs"
     # first move of turn, can't play hearts unless broken
-
+    if (len(game.gamespace[GAME_PLAYED_CARDS]) == 0) and (not game.gamespace[GAME_HEARTS_BROKEN]) and (card.suit == 'hearts'):
+        return "Can't play hearts unless hearts is broken"
     # if player has suit, they must match it. if they don't have suit, play anything and break hearts
-
+    if len(game.gamespace[GAME_PLAYED_CARDS]) != 0:
+        hand = player.playerspace[PLAYER_HAND]
+        lead = game.gamespace[GAME_PLAYED_CARDS][0]
+        for c in hand:
+            if lead.suit == c.suit and c.suit != card.suit:
+                return "If you can match the lead of the trick, you must do so."
+    return ""
 
 
 def getNextPlayer(player, game):
