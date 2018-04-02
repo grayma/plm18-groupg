@@ -17,6 +17,19 @@ class Player:
         self.score = 0
         self.playerspace = {}
 
+    def move(self, game):
+        """
+        `game` game being played, game.state contains state of game
+        """
+        state = game.state
+        game.post("It's now {}'s' turn".format(self.name))
+        game.post(state.status(self, game))
+        selected = game.get(state.prompt_str)
+        while selected not in state.moves:
+            selected = game.get(state.prompt_str)
+        state.moves[selected].perform(game, player)
+
+
 class Card: 
     """
     Wrapper for a playing card
@@ -93,9 +106,9 @@ class Move:
         self.logic = logic
         self.required = required
 
-    def perform(self, game):
+    def perform(self, game, player):
         _getMoveInput()
-        while not logic(game, self.required) == "":
+        while not logic(game, player, self.required) == "":
             _getMoveInput()
 
     def _getMoveInput(self, game):
@@ -127,19 +140,6 @@ class State:
                 prompt_str += "."
         self.is_final = is_final
 
-    def do_round(self, game):
-        """
-        Performs a round of game play for each player.
-        """
-
-        for player in game.players:
-            game.post("It's now {}'s' turn".format(player.name))
-            game.post(self.status(player, game))
-            selected = game.get(self.prompt_str)
-            while selected not in self.moves:
-                selected = game.get(self.prompt_str)
-            self.moves[selected].perform(game)
-
 
 
 class Transition:
@@ -165,13 +165,13 @@ class Game:
     Game object running a card game.
     """
 
-    def __init__(self, players, gamespace, start, transitions, setup, finish, get, post):
+    def __init__(self, players, gamespace, start, transitions, game_over, setup, finish, get, post):
         """
         `players` list of players playing the game
         `gamespace` dictionary containing any necessary game data
         `start` start state
         `transitions` transitions that can be made between game states
-        `checkWinner(Game)` determines and returns winner player, None if no winner
+        `game_over(Game)` determines and returns winner player, None if no winner
         `setup(Game)` any setup to do before a game
         `finish(Game)` any cleaning up to do after a game
         `get(prompt)` function prompting the user for input
@@ -192,9 +192,17 @@ class Game:
         state = self.start
 
         # game loop
-        winner = None
+        done = None
         while not state.is_final:
-            state.do_round()
+            #perform moves
+            for player in players:
+                player.move(self)
+                done = game_over(self)
+                if done:
+                    self.finish(self)
+                    return
+                    
+            #state transitions
             for t in transitions:
                 if t.guard(self):
                     state = t.dest
