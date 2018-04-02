@@ -70,7 +70,7 @@ def score_pile(game, pile):
     for card in pile.cards:
         if card.suit == 'hearts':
             s += 1
-        if card.suit == 'spades' and card.value == 'queen'
+        if card.suit == 'spades' and card.value == 'queen':
             s += 13
     return s
 
@@ -99,9 +99,9 @@ def game_status(player, game):
     print()  # separator line
 
 def printBoard(game):
-    filler(game)
     players = game.players
-    cards = game.gamespace[GAME_PLAYED_CARDS]
+    cards = [p.playerspace[PLAYER_PLAYED] for p in players]
+    cards = filler(cards)
     print("-----------------")
     print("|      %d %s      |" % (players[0].score, players[0].name[0]))
     print("|       %s     %d|" % (cards[0], players[1].score))
@@ -111,11 +111,8 @@ def printBoard(game):
     print("-----------------")
 
 # Filler for grid to maintain formatting if a player hasnt played yet
-def filler(game):
-    cards = game.gamespace[GAME_PLAYED_CARDS]
-    for i in range(4):
-        if (len(cards[i]) != 2 and len(cards[i]) != 3):
-            cards[i] = "  "
+def filler(cards):
+    return ["  " if not card else card.value for card in cards]
 
 def getNextPlayer(player, game):
     i = (player.index + 1) % len(game.players)
@@ -148,7 +145,7 @@ def validate_pass3(game, player, subset):
 
     Checks existence in hand and suit
     """
-    return "" if subset in player.playerspace[PLAYER_HAND].cards else "Cards must be in the passing players hand.":
+    return "" if subset in player.playerspace[PLAYER_HAND].cards else "Cards must be in the passing players hand."
 
 
 def validate_play(game, player, card):
@@ -174,7 +171,7 @@ def validate_play(game, player, card):
                 return "If you can match the lead of the trick, you must do so."
     return ""
 
-def pass3(game, player, input):
+def f_pass3(game, player, input):
     subset = None
     try:
         subset = [Card.from_abbr(value) for key, value in input.items()]
@@ -183,7 +180,7 @@ def pass3(game, player, input):
     if validate_pass3(game):
         player.playerspace[PLAYER_HAND].transfer_to(getNextPlayer(player, game).playerspace[PLAYER_HAND], subset)
 
-def play(game, player, input):
+def f_play(game, player, input):
     card = None
     try:
         card = Card.from_abbr(input["card"])
@@ -195,8 +192,8 @@ def play(game, player, input):
         player.playerspace[PLAYER_HAND].transfer_to(game.gamespace[GAME_PLAYED_CARDS], [card])
         player.playerspace[PLAYER_PLAYED] = card
 
-Move("pass 3 cards", pass3, { "card 1" : None, "card 2" : None, "card 3" : None })
-Move("play", play, { "card" : None })
+pass3 = Move("pass3", f_pass3, { "card 1" : None, "card 2" : None, "card 3" : None })
+play = Move("play", f_play, { "card" : None })
 
 
 start   = State("start"   , game_status   , [pass3]   , False )
@@ -230,31 +227,33 @@ def game_is_over(game):
 
 def setup(game):
     deck = get_deck()
-    shuffle(deck)
-    per_player = 52 / len(game.players)
+    shuffle(deck.cards)
+    per_player = int(52 / len(game.players))
     for p in game.players:
-        deck.transfer_to(p.playerspace[PLAYER_HAND], [deck.cards.pop() for i in range(per_player)])
+        deck.transfer_to(p.playerspace[PLAYER_HAND], [deck.cards[i] for i in range(per_player)])
 
 def finish(game):
     print()
     for p in game.players:
         print(p.score)
 
+def get_players():
+    ps = []
+    for i in range(4):
+        name = ""
+        while name == "":
+            name = input("What's the name of player @ index {} (can't be empty): ".format(i))
+        p = Player(name, i)
+        p.playerspace = playerspace()
+        ps.append(p)
+    return ps
+
 
 def start_hearts():
-    """
-        `players` list of players playing the game
-        `gamespace` dictionary containing any necessary game data
-        `start` start state
-        `transitions` transitions that can be made between game states
-        `game_is_over(Game)` determines and returns winner player, None if no winner
-        `setup(Game)` any setup to do before a game
-        `finish(Game)` any cleaning up to do after a game
-        `get(prompt)` function prompting the user for input
-        `post(info)` function telling the user info
-        """
-    hearts = Game(get_players(), 
-                    gamespace(), 
+    players = get_players()
+    gs = gamespace()
+    hearts = Game(players, 
+                    gs, 
                     start, 
                     transitions, 
                     game_is_over, 
@@ -262,6 +261,8 @@ def start_hearts():
                     finish, 
                     lambda prompt: input(prompt), 
                     lambda info: print(info))
+    hearts.start()
 
-
+if __name__ == '__main__':
+    start_hearts()
 

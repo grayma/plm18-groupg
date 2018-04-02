@@ -131,13 +131,13 @@ class State:
         self.name = name
         self.status = status
         self.moves = { move.name : move for move in moves }
-        self.prompt_str = "Please select a move: "
+        self.prompt_str = "Please select a move from "
         for move in moves:
-            prompt_str += ("'" + move.name + "'")
+            self.prompt_str += ("'" + move.name + "'")
             if not move == last(moves): #add commas except after the last move.
-                prompt_str += ", "
+                self.prompt_str += ", "
             else:
-                prompt_str += "."
+                self.prompt_str += ": "
         self.is_final = is_final
 
 
@@ -165,11 +165,11 @@ class Game:
     Game object running a card game.
     """
 
-    def __init__(self, players, gamespace, start, transitions, game_is_over, setup, finish, get, post):
+    def __init__(self, players, gamespace, start_state, transitions, game_is_over, setup, finish, get, post):
         """
         `players` list of players playing the game
         `gamespace` dictionary containing any necessary game data
-        `start` start state
+        `start_state` start state
         `transitions` transitions that can be made between game states
         `game_is_over(Game)` determines and returns winner player, None if no winner
         `setup(Game)` any setup to do before a game
@@ -180,7 +180,7 @@ class Game:
 
         self.players = players
         self.gamespace = gamespace
-        self.start = start
+        self.start_state = start_state
         self.transitions = transitions
         self.game_is_over = game_is_over
         self.setup = setup      
@@ -192,13 +192,13 @@ class Game:
 
     def start(self):
         self.setup(self)
-        self.state = self.start
+        self.state = self.start_state
 
         # game loop
         done = None
         while not self.state.is_final:
             #perform moves
-            for player in players:
+            for player in self.players:
                 player.move(self)
                 done = game_over(self)
                 if done:
