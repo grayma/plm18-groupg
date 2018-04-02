@@ -1,24 +1,63 @@
-"""
-Wrapper for a Player playing the game
-"""
-class Player:
-    def __init__(self, name, state, number, hand, score):
-        self.name = name
-        self.state = state
-        self.number = number
-        self.hand = hand
-        self.score = 0
+suits = ['hearts', 'diamonds', 'spades', 'clubs']
+suit_abbr_map = {'h' : 'hearts', 'd' : 'diamonds', 's' : 'spades', 'c' : 'clubs'}
+values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
+values_abbr_map = { 'a' : 'ace', '2' : '2', '3' : '3', '4' : '4', '5' : '5', '6' : '6', '7' : '7', '8' : '8', '9' : '9', '10' : '10', 'j' : 'jack', 'q' : 'queen', 'k' : 'king'}
+value_map = {'2' : 2, '3' : 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7, '8' : 8, '9' : 9, '10' : 10, 'jack' : 11, 'queen' : 12, 'king' : 13, 'ace' : 14}
 
-"""
-Wrapper for a playing card
-"""
-class Card:
-    def __init__(self, value, suit):
+def map_suit(abbr):
+    return suit_map[abbr]
+
+def map_value(card):
+    return values_map[card.value]
+
+def last(values):
+    return values[-1]
+
+class Player:
+    """
+    Wrapper for a Player playing the game
+    """
+
+    def __init__(self, name, index):
+        """
+        `name` name of player
+        `index` order played in game
+        """
+
+        self.name = name
+        self.index = index
+        self.score = 0
+        self.playerspace = {}
+
+    def move(self, game):
+        """
+        `game` game being played, game.state contains state of game
+        """
+        state = game.state
+        game.post("It's now {}'s' turn".format(self.name))
+        game.post(state.status(self, game))
+        selected = game.get(state.prompt_str)
+        while selected not in state.moves:
+            selected = game.get(state.prompt_str)
+        state.moves[selected].perform(game, self)
+
+
+class Card: 
+    """
+    Wrapper for a playing card
+    """
+
+    def __init__(self, value, suit):    
+        """
+        `value` value of the card
+        `suit` suit of the card
+        """
+
         self.value = value
         self.suit = suit
 
     def __repr__(self):
-        return str(self.value) + " " + self.suit
+        return str(self.value) + "" + self.suit
     
     def __eq__(self, other):
         if(str(self.suit) == str(other.suit) and str(self.value) == str(other.value)):
@@ -29,131 +68,160 @@ class Card:
     def abbr(self):
         return (self.value[0] if not self.value == "10" else self.value) + self.suit[0]
 
+    @staticmethod
+    def from_abbr(abbr):
+        if len(abbr) == 3:
+            return Card('10', suit_abbr_map[abbr[2]])
+        return Card(values_abbr_map[abbr[0]], suit_abbr_map[abbr[1]])
 
-"""
-Wrapper containing new and old game state and new and old player state to represent the
-difference before and after a potential player's move.
-`name` is the name of the move
-`f` is the function that actually executes the move, taking in game_state and 
-    required_input. Includes interaction with player. Returns "" if move successful, 
-    an error message if needs to go again (rule break)
-`required_args` dictionary representing required input for the move, game asks for key
-"""
+
+class Pile:
+    """
+    Pile of cards allowing transfering between piles
+    """
+
+    def __init__(self, cards):
+        """
+        `cards` list of cards to instantiate this pile with
+        """
+        self.cards = cards
+
+    def __repr__(self):
+        return str(self.cards)
+
+    def transfer_to(self, new_pile, subset):
+        """
+        Transfers a subset of this pile to another pile.
+        """
+        for c in subset:
+            if c not in self.cards:
+                raise ValueError('"subset" of pile not actually a subset.')
+        self.cards = [c for c in self.cards if c not in subset]
+        new_pile.cards.extend(subset)
 
 class Move:
-    def __init__(self, name, f, required_input):
+    """
+    Wrapper containing new and old game state and new and old player state to represent the
+    difference before and after a potential player's move.
+    """
+    
+    def __init__(self, name, logic, required):
+        """ 
+        `name` is the name of the move
+        `logic(Game, Player, input)` is the function that actually executes the move, taking in a game and input. 
+            Includes interaction with player. Returns "" if move successful, 
+            an error message if needs to go again (rule break)
+        `required` dict containing necessary input for this move
+        """
+
         self.name = name
-        self.f = f
-        self.required_input = required_input
+        self.logic = logic
+        self.required = required
 
+    def perform(self, game, player):
+        self._getMoveInput(game)
+        while not self.logic(game, player, self.required) == "":
+            self._getMoveInput(game)
 
-"""
-Class representing a game's state machine
-`name` name of the state the game is in
-`transitions` list of Transition's available in this state
-`available_moves` list of available moves
-`game_status` function taking a player and game_state showing player what info they need
-`final_state` bool indicating whether or not game has finished
-"""
+    def _getMoveInput(self, game):
+        for k, v in self.required.items():
+            self.required[k] = game.get("Move requires {}: ".format(k))
+
 class State:
-    def __init__(self, name, transitions, available_moves, game_status, final_state):
+    """
+    Class representing a game's state machine 
+    """
+
+    def __init__(self, name, status, moves, is_final):
+        """
+        `name` name of the state the game is in
+        `status(player, game)` function taking a player and game showing player what info they need
+        `moves` list of moves available to this player at this point
+        `is_final` bool indicating whether or not game has finished
+        """
+
         self.name = name
-        self.transitions = transitions
-        self.available_moves = {m.name: m for m in available_moves}
-        self.game_status = game_status
-        self.final_state = final_state
-
-    def move(self, player, game_state):
-
-        # figure out which move to use
-        print("It is now %s's move, please pass the computer and press enter when %s has the computer." % (
-            player.name, player.name))
-        input()
-
-        self.game_status(player, game_state)
-
-        # make move
-        moved = False
-        while not moved:
-            print("Available moves (type move name to use):")
-            for mname in self.available_moves.keys():
-                print(mname)
-            selected = ""
-            while selected not in self.available_moves.keys():
-                selected = input("Please choose a valid move to execute: ")
-            selected = self.available_moves[selected]
-            if selected.required_input.keys():
-                print(
-                "For this move we need the following (if card, use the format: 'vs' without quotes where v is the "
-                "value of the card\n(number if non-face/ace card or a, k, q, j for ace, king, queen, "
-                "or jack respectively) and s is the first letter of\nthe suit or c, s, h, d for clubs, spades, hearts, "
-                "or diamonds respectively):")
-                for req in selected.required_input.keys():
-                    selected.required_input[req] = input(req + ": ")
-            #need to check input validity
-            #this check should check the form (vs) as well as the fact that the card is possessed bu the current player
-            result = selected.f(player, game_state, selected.required_input)
-            if result == "":
-                moved = True
+        self.status = status
+        self.moves = { move.name : move for move in moves }
+        self.prompt_str = "Please select a move from "
+        for move in moves:
+            self.prompt_str += ("'" + move.name + "'")
+            if not move == last(moves): #add commas except after the last move.
+                self.prompt_str += ", "
             else:
-                print("error: " + result)  # error message
+                self.prompt_str += ": "
+        self.is_final = is_final
 
 
-"""
-Class to represent a state transition. 
-`next_state` is a string that is the name of the next state to go to
-`guard` is a function taking in the game state that returns true if this state is a valid next state
-`pre_transition_logic` is a function taking in game_state with any code that needs to be 
-    executed before the next state occurs
-"""
+
 class Transition:
-    def __init__(self, source, dest, guard):
+    """
+    Class to represent a state transition. 
+    """
+
+    def __init__(self, source, dest, logic, guard):
+        """
+        `source` from state
+        `dest` to state
+        `guard(Game)` true/false function evaluating the game to see if now is a valid time to take this transition
+        `logic(Game)` function performing any logic needed before the next state transition
+        """
+
         self.source = source
         self.dest = dest
         self.guard = guard
+        self.logic = logic
 
-"""
-Game object running a card game.
-"""
 class Game:
-    def __init__(self, gamespace, playerspace, states, transitions, setup, finish):
+    """
+    Game object running a card game.
+    """
+
+    def __init__(self, players, gamespace, start_state, transitions, game_is_over, setup, finish, get, post):
+        """
+        `players` list of players playing the game
+        `gamespace` dictionary containing any necessary game data
+        `start_state` start state
+        `transitions` transitions that can be made between game states
+        `game_is_over(Game)` determines and returns winner player, None if no winner
+        `setup(Game)` any setup to do before a game
+        `finish(Game)` any cleaning up to do after a game
+        `get(prompt)` function prompting the user for input
+        `post(info)` function telling the user info
+        """
+
+        self.players = players
         self.gamespace = gamespace
-        self.playerspace = playerspace
-        self.states = states
+        self.start_state = start_state
         self.transitions = transitions
+        self.game_is_over = game_is_over
         self.setup = setup      
         self.finish = finish
+        self.get = get
+        self.post = post
 
-
-    def increment_turn(self):
-        if STATE_TURNS in self.game_state:
-            self.game_state[STATE_TURNS] = self.game_state[STATE_TURNS] + 1
-        else:
-            self.game_state[STATE_TURNS] = 1
+        self.turn = 1
 
     def start(self):
         self.setup(self)
+        self.state = self.start_state
+
         # game loop
-        while not self.game_state[STATE_CURRENT_STATE].final_state:
-            self.increment_turn()
-            state = self.game_state[STATE_CURRENT_STATE]
-            j = self.game_state['startPlayer']
-            for i in range(1,(len(self.game_state[STATE_PLAYERS]) + 1)):
-                clear_screen()
-                p = self.game_state['players'][j - 1]
-                state.move(p, self.game_state)
-                j = j + 1
-                if j > len(self.game_state[STATE_PLAYERS]):
-                    j = 1
+        done = None
+        while not self.state.is_final:
+            #perform moves
+            for player in self.players:
+                player.move(self)
+                done = self.game_is_over(self)
+                if done:
+                    self.finish(self)
+                    return
 
-            #for p in self.game_state[STATE_PLAYERS]:
-            #    clear_screen()
-            #    state.move(p, self.game_state)
-
-
-            for trans in state.transitions:
-                if trans.guard(self.game_state):
-                    trans.pre_transition_logic(self.game_state)
-                    self.game_state[STATE_CURRENT_STATE] = self.states[trans.next_state]
+            self.turn += 1
+            #state transitions
+            for t in transitions:
+                if t.guard(self):
+                    t.logic(Game) #run logic before transition
+                    self.state = t.dest
 
         self.finish(self)
