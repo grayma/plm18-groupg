@@ -147,12 +147,12 @@ class Transition:
     Class to represent a state transition. 
     """
 
-    def __init__(self, source, dest, guard, logic):
+    def __init__(self, source, dest, logic, guard):
         """
         `source` from state
         `dest` to state
         `guard(Game)` true/false function evaluating the game to see if now is a valid time to take this transition
-        `logic(Game)` function performing any logic needed after this state transition
+        `logic(Game)` function performing any logic needed before the next state transition
         """
 
         self.source = source
@@ -207,9 +207,9 @@ class Game:
 
             self.turn += 1
             #state transitions
+            t.logic(Game) #run logic before transition
             for t in transitions:
                 if t.guard(self):
                     self.state = t.dest
-                    t.logic(Game)
 
         self.finish(self)

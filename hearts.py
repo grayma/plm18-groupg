@@ -1,9 +1,19 @@
 from starterpack import *
 from random import shuffle
 
-##
-## ENVIRONMENT
-##
+#################
+#################
+#################
+##             ##
+##             ##
+##             ##
+## ENVIRONMENT ##
+##             ##
+##             ##
+##             ##
+#################
+#################
+#################
 
 suits = ['hearts', 'diamonds', 'spades', 'clubs']
 values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
@@ -17,7 +27,7 @@ PLAYER_HAND = 'hand'
 PLAYER_PLAYED = 'played'
 
 def get_deck():
-    return [Card(value, suit) for value in values for suit in suits]
+    return Pile([Card(value, suit) for value in values for suit in suits])
 
 def gamespace():
     return {
@@ -29,12 +39,22 @@ def gamespace():
 def playerspace():
     return {
         PLAYER_HAND         : Pile([]),
-        PLAYER_PLAYED       : Card
+        PLAYER_PLAYED       : None
     }
 
-##
-## HELPERS
-##
+#############
+#############
+#############
+##         ##
+##         ##
+##         ##
+## HELPERS ##
+##         ##
+##         ##
+##         ##
+#############
+#############
+#############
 
 def map_value(card):
     return values_map[card.value]
@@ -54,17 +74,22 @@ def score_pile(game, pile):
             s += 13
     return s
 
-def score_turn(game):
+def score_turn_and_clean(game):
     lead_suit = lead(game).suit
-    p_card = p.playerspace[PLAYER_PLAYED]
     taking_it = None
     highest = -1
     for p in game.players:
+        p_card = p.playerspace[PLAYER_PLAYED]
         if p_card.suit == lead_suit and map_value(p_card) > highest:
             highest = map_value(p_card)
             taking_it = p
+        #clean
+        p.playerspace[PLAYER_PLAYED] = None
+        game.gamespace[GAME_PLAYED_CARDS] = Pile([])
+
     score = score_pile(game.gamespace[GAME_PLAYED_CARDS])
     taking_it.score = score
+
 
 def game_status(player, game):
     print("\nTurn " + str(game.turn))
@@ -91,6 +116,31 @@ def filler(game):
     for i in range(4):
         if (len(cards[i]) != 2 and len(cards[i]) != 3):
             cards[i] = "  "
+
+def getNextPlayer(player, game):
+    i = (player.index + 1) % len(game.players)
+    for p in game.players:
+        if p.index == i:
+            return p
+    return None #shouldn't reach
+
+def rotatePlayers(game):
+    for p in game.players:
+        p.index = (p.index + 1) % 4
+
+###########
+###########
+###########
+##       ##
+##       ##
+##       ##
+## MOVES ##
+##       ##
+##       ##
+##       ##
+###########
+###########
+###########
 
 def validate_pass3(game, player, subset):
     """
@@ -124,25 +174,6 @@ def validate_play(game, player, card):
                 return "If you can match the lead of the trick, you must do so."
     return ""
 
-
-def getNextPlayer(player, game):
-    i = (player.index + 1) % len(game.players)
-    for p in game.players:
-        if p.index == i:
-            return p
-    return None #shouldn't reach
-
-def rotatePlayers(game):
-    for p in game.players:
-        p.index = (p.index + 1) % 4
-
-def game_status(player, game):
-    print("status")
-
-##
-## MOVES
-##
-
 def pass3(game, player, input):
     subset = None
     try:
@@ -173,7 +204,64 @@ main    = State("main"    , game_status   , [play]    , False )
 finish  = State("finish"  , game_status   , []        , True  )
 
 transitions = [
-    Transition(start, main  , lambda game: game.turn == 2           , lambda game: x),
-    Transition(main , main  , lambda game: not game_is_over(game)   , lambda game: x),
-    Transition(main , finish, lambda game: game_is_over(game)       , lambda game: x),
+    Transition(start, main  , lambda game: None,                       lambda game: game.turn == 2           ),
+    Transition(main , main  , lambda game: score_turn_and_clean(game), lambda game: not game_is_over(game)   ),
+    Transition(main , finish, lambda game: score_turn_and_clean(game), lambda game: game_is_over(game)       )
 ]
+
+############################
+############################
+############################
+##                        ##
+##                        ##
+## PRIMARY GAME FUNCTIONS ##
+##                        ##
+##                        ##
+############################
+############################
+############################
+
+
+def game_is_over(game):
+    for p in game.players:
+        if p.score >= 100:
+            return p
+    return None
+
+def setup(game):
+    deck = get_deck()
+    shuffle(deck)
+    per_player = 52 / len(game.players)
+    for p in game.players:
+        deck.transfer_to(p.playerspace[PLAYER_HAND], [deck.cards.pop() for i in range(per_player)])
+
+def finish(game):
+    print()
+    for p in game.players:
+        print(p.score)
+
+
+def start_hearts():
+    """
+        `players` list of players playing the game
+        `gamespace` dictionary containing any necessary game data
+        `start` start state
+        `transitions` transitions that can be made between game states
+        `game_is_over(Game)` determines and returns winner player, None if no winner
+        `setup(Game)` any setup to do before a game
+        `finish(Game)` any cleaning up to do after a game
+        `get(prompt)` function prompting the user for input
+        `post(info)` function telling the user info
+        """
+    hearts = Game(get_players(), 
+                    gamespace(), 
+                    start, 
+                    transitions, 
+                    game_is_over, 
+                    setup, 
+                    finish, 
+                    lambda prompt: input(prompt), 
+                    lambda info: print(info))
+
+
+
