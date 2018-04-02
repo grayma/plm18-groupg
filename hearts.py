@@ -15,10 +15,6 @@ from random import shuffle
 #################
 #################
 
-suits = ['hearts', 'diamonds', 'spades', 'clubs']
-values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
-value_map = {'2' : 2, '3' : 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7, '8' : 8, '9' : 9, '10' : 10, 'jack' : 11, 'queen' : 12, 'king' : 13, 'ace' : 14}
-
 GAME_HEARTS_BROKEN = 'is_hearts_broken'
 GAME_PLAYED_CARDS = 'played_cards'
 GAME_DECK = 'deck'
@@ -55,9 +51,6 @@ def playerspace():
 #############
 #############
 #############
-
-def map_value(card):
-    return values_map[card.value]
 
 def lead(game):
     return game.gamespace[GAME_PLAYED_CARDS][0]
@@ -145,7 +138,10 @@ def validate_pass3(game, player, subset):
 
     Checks existence in hand and suit
     """
-    return "" if subset in player.playerspace[PLAYER_HAND].cards else "Cards must be in the passing players hand."
+    for card in subset:
+        if not card in player.playerspace[PLAYER_HAND].cards:
+            return "Cards must be in the passing players hand."
+    return ""
 
 
 def validate_play(game, player, card):
@@ -177,8 +173,10 @@ def f_pass3(game, player, input):
         subset = [Card.from_abbr(value) for key, value in input.items()]
     except:
         return False
-    if validate_pass3(game):
+    validation = validate_pass3(game, player, subset)
+    if validation == "":
         player.playerspace[PLAYER_HAND].transfer_to(getNextPlayer(player, game).playerspace[PLAYER_HAND], subset)
+    return validation
 
 def f_play(game, player, input):
     card = None
@@ -186,11 +184,13 @@ def f_play(game, player, input):
         card = Card.from_abbr(input["card"])
     except:
         return False
-    if validate_play(game, player, card):
+    validation = validate_play(game, player, card)
+    if validation == "":
         if card.suit == 'hearts':
             game.gamespace[GAME_HEARTS_BROKEN] = True 
         player.playerspace[PLAYER_HAND].transfer_to(game.gamespace[GAME_PLAYED_CARDS], [card])
         player.playerspace[PLAYER_PLAYED] = card
+    return validation
 
 pass3 = Move("pass3", f_pass3, { "card 1" : None, "card 2" : None, "card 3" : None })
 play = Move("play", f_play, { "card" : None })

@@ -1,3 +1,15 @@
+suits = ['hearts', 'diamonds', 'spades', 'clubs']
+suit_abbr_map = {'h' : 'hearts', 'd' : 'diamonds', 's' : 'spades', 'c' : 'clubs'}
+values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
+values_abbr_map = { 'a' : 'ace', '2' : '2', '3' : '3', '4' : '4', '5' : '5', '6' : '6', '7' : '7', '8' : '8', '9' : '9', '10' : '10', 'j' : 'jack', 'q' : 'queen', 'k' : 'king'}
+value_map = {'2' : 2, '3' : 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7, '8' : 8, '9' : 9, '10' : 10, 'jack' : 11, 'queen' : 12, 'king' : 13, 'ace' : 14}
+
+def map_suit(abbr):
+    return suit_map[abbr]
+
+def map_value(card):
+    return values_map[card.value]
+
 def last(values):
     return values[-1]
 
@@ -27,7 +39,7 @@ class Player:
         selected = game.get(state.prompt_str)
         while selected not in state.moves:
             selected = game.get(state.prompt_str)
-        state.moves[selected].perform(game, player)
+        state.moves[selected].perform(game, self)
 
 
 class Card: 
@@ -59,8 +71,8 @@ class Card:
     @staticmethod
     def from_abbr(abbr):
         if len(abbr) == 3:
-            return Card(10, abbr[2])
-        return Card(abbr[0], abbr[1])
+            return Card('10', suit_abbr_map[abbr[2]])
+        return Card(values_abbr_map[abbr[0]], suit_abbr_map[abbr[1]])
 
 
 class Pile:
@@ -107,13 +119,13 @@ class Move:
         self.required = required
 
     def perform(self, game, player):
-        _getMoveInput()
-        while not logic(game, player, self.required) == "":
-            _getMoveInput()
+        self._getMoveInput(game)
+        while not self.logic(game, player, self.required) == "":
+            self._getMoveInput(game)
 
     def _getMoveInput(self, game):
         for k, v in self.required.items():
-            self.required[k] = game.get("Move requires {}".format(k))
+            self.required[k] = game.get("Move requires {}: ".format(k))
 
 class State:
     """
@@ -200,16 +212,16 @@ class Game:
             #perform moves
             for player in self.players:
                 player.move(self)
-                done = game_over(self)
+                done = self.game_is_over(self)
                 if done:
                     self.finish(self)
                     return
 
             self.turn += 1
             #state transitions
-            t.logic(Game) #run logic before transition
             for t in transitions:
                 if t.guard(self):
+                    t.logic(Game) #run logic before transition
                     self.state = t.dest
 
         self.finish(self)
