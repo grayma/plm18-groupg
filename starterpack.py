@@ -165,13 +165,13 @@ class Game:
     Game object running a card game.
     """
 
-    def __init__(self, players, gamespace, start, transitions, game_over, setup, finish, get, post):
+    def __init__(self, players, gamespace, start, transitions, game_is_over, setup, finish, get, post):
         """
         `players` list of players playing the game
         `gamespace` dictionary containing any necessary game data
         `start` start state
         `transitions` transitions that can be made between game states
-        `game_over(Game)` determines and returns winner player, None if no winner
+        `game_is_over(Game)` determines and returns winner player, None if no winner
         `setup(Game)` any setup to do before a game
         `finish(Game)` any cleaning up to do after a game
         `get(prompt)` function prompting the user for input
@@ -182,18 +182,21 @@ class Game:
         self.gamespace = gamespace
         self.start = start
         self.transitions = transitions
+        self.game_is_over = game_is_over
         self.setup = setup      
         self.finish = finish
         self.get = get
         self.post = post
 
+        self.turn = 1
+
     def start(self):
         self.setup(self)
-        state = self.start
+        self.state = self.start
 
         # game loop
         done = None
-        while not state.is_final:
+        while not self.state.is_final:
             #perform moves
             for player in players:
                 player.move(self)
@@ -202,10 +205,11 @@ class Game:
                     self.finish(self)
                     return
 
+            self.turn += 1
             #state transitions
             for t in transitions:
                 if t.guard(self):
-                    state = t.dest
+                    self.state = t.dest
                     t.logic(Game)
 
         self.finish(self)

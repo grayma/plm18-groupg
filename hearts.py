@@ -7,33 +7,90 @@ from random import shuffle
 
 suits = ['hearts', 'diamonds', 'spades', 'clubs']
 values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
+value_map = {'2' : 2, '3' : 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7, '8' : 8, '9' : 9, '10' : 10, 'jack' : 11, 'queen' : 12, 'king' : 13, 'ace' : 14}
 
-GAME_TURN = "turn"
-GAME_HEARTS_BROKEN = "is_hearts_broken"
-GAME_PLAYED_CARDS = "played_cards"
-GAME_DECK = "deck"
+GAME_HEARTS_BROKEN = 'is_hearts_broken'
+GAME_PLAYED_CARDS = 'played_cards'
+GAME_DECK = 'deck'
 
-PLAYER_HAND = "hand"
+PLAYER_HAND = 'hand'
+PLAYER_PLAYED = 'played'
 
 def get_deck():
     return [Card(value, suit) for value in values for suit in suits]
 
 def gamespace():
     return {
-        GAME_TURN           : 1,
         GAME_HEARTS_BROKEN  : False,
-        GAME_PLAYED_CARDS   : Pile([])
+        GAME_PLAYED_CARDS   : Pile([]),
         GAME_DECK           : Pile(get_deck())
     }
 
 def playerspace():
     return {
-        PLAYER_HAND         : Pile([])
+        PLAYER_HAND         : Pile([]),
+        PLAYER_PLAYED       : Card
     }
 
 ##
 ## HELPERS
 ##
+
+def map_value(card):
+    return values_map[card.value]
+
+def lead(game):
+    return game.gamespace[GAME_PLAYED_CARDS][0]
+
+def last(game):
+    return game.gamespace[GAME_PLAYED_CARDS][-1]
+
+def score_pile(game, pile):
+    s = 0
+    for card in pile.cards:
+        if card.suit == 'hearts':
+            s += 1
+        if card.suit == 'spades' and card.value == 'queen'
+            s += 13
+    return s
+
+def score_turn(game):
+    lead_suit = lead(game).suit
+    p_card = p.playerspace[PLAYER_PLAYED]
+    taking_it = None
+    highest = -1
+    for p in game.players:
+        if p_card.suit == lead_suit and map_value(p_card) > highest:
+            highest = map_value(p_card)
+            taking_it = p
+    score = score_pile(game.gamespace[GAME_PLAYED_CARDS])
+    taking_it.score = score
+
+def game_status(player, game):
+    print("\nTurn " + str(game.turn))
+    print("Showing %s info about the game." % (player.name))
+    printBoard(game)
+    print(player.playerspace[PLAYER_HAND])
+    print()  # separator line
+
+def printBoard(game):
+    filler(game)
+    players = game.players
+    cards = game.gamespace[GAME_PLAYED_CARDS]
+    print("-----------------")
+    print("|      %d %s      |" % (players[0].score, players[0].name[0]))
+    print("|       %s     %d|" % (cards[0], players[1].score))
+    print("|%s %s       %s %s|" % (players[3].name[0], cards[3], cards[1], players[1].name[0]))
+    print("|%d      %s      |" % (players[3].score, cards[2]))
+    print("|       %s %d     |" % (players[2].name[0], players[2].score))
+    print("-----------------")
+
+# Filler for grid to maintain formatting if a player hasnt played yet
+def filler(game):
+    cards = game.gamespace[GAME_PLAYED_CARDS]
+    for i in range(4):
+        if (len(cards[i]) != 2 and len(cards[i]) != 3):
+            cards[i] = "  "
 
 def validate_pass3(game, player, subset):
     """
@@ -51,7 +108,7 @@ def validate_play(game, player, card):
     if not card in player.playerspace[PLAYER_HAND].cards:
         return ""
     # first move of game and of turn, 2 of clubs required on 2nd turn (first turn after passing)
-    if game.gamespace[GAME_TURN] == 2: #first play turn
+    if game.turn == 2: #first play turn
         if len(game.gamespace[GAME_PLAYED_CARDS]) == 0: #first player of the turn
             if (card.suit != 'clubs') and (card.value != '2'):
                 return "First play must be 2 of clubs"
@@ -74,6 +131,13 @@ def getNextPlayer(player, game):
         if p.index == i:
             return p
     return None #shouldn't reach
+
+def rotatePlayers(game):
+    for p in game.players:
+        p.index = (p.index + 1) % 4
+
+def game_status(player, game):
+    print("status")
 
 ##
 ## MOVES
@@ -98,241 +162,18 @@ def play(game, player, input):
         if card.suit == 'hearts':
             game.gamespace[GAME_HEARTS_BROKEN] = True 
         player.playerspace[PLAYER_HAND].transfer_to(game.gamespace[GAME_PLAYED_CARDS], [card])
-        
+        player.playerspace[PLAYER_PLAYED] = card
+
 Move("pass 3 cards", pass3, { "card 1" : None, "card 2" : None, "card 3" : None })
 Move("play", play, { "card" : None })
 
 
-"""
+start   = State("start"   , game_status   , [pass3]   , False )
+main    = State("main"    , game_status   , [play]    , False )
+finish  = State("finish"  , game_status   , []        , True  )
 
-# helper functions
-def get_highest_score(players):
-    score = -1
-    for p in players:
-        if p.score > score:
-            score = p.score
-    return score
-
-
-# move functions
-def pass3(player, state, input):
-    crds = ("card 1", "card 2", "card 3")
-    # input should be already checked for validity before this point
-    for i in range(3):
-        str = input[crds[i]]
-        c = getCard(str)
-        index = -1
-        for j in range(len(player.hand)):
-            if player.hand[j] == c:
-                index = j
-        c = player.hand.pop(index)
-        player.state["pass3s"].append(c)
-        c = None
-    return ""
-
-
-def play(player, state, input):
-    num = player.number
-    str = input['card']
-    c = getCard(str)
-    if c.suit == "hearts":
-        state[STATE_HEARTS] = STATE_HEARTS_BROKEN
-    if state['played'][state['startPlayer']-1].isspace():
-        state['currentLead'] = c.suit
-    state['played'][num - 1] = str
-    for j in range(len(player.hand)):
-        if player.hand[j] == c:
-            index = j
-    c = player.hand.pop(index)
-    return ""
-
-
-def placeholder(player, state, input):
-    return ""
-
-
-# transition logic
-def play_transition(state):
-    num = -1
-    val = -1
-    cardVal = -1
-    suit = state['currentLead']
-    played_list = state['played']
-    cardList = []
-    for i in range(4):
-        c = getCard(played_list[i])
-        cardList.append(c)
-        if c.value == 'ace':
-            cardVal = 14
-        elif c.value == 'jack':
-            cardVal = 11
-        elif c.value == 'queen':
-            cardVal = 12
-        elif c.value == 'king':
-            cardVal = 13
-        else:
-            cardVal = int(c.value)
-        if c.suit == suit and cardVal > val:
-            val = cardVal
-            num = i
-
-    state['players'][num].state['accum'].extend(cardList)
-    state["startPlayer"] = state['players'][num].number
-    state["played"] = ["", "", "", ""]
-
-
-def transition_stub(game):
-    pass
-
-
-Logic to transition from main back to start
-
-def reset_game(state):
-    score_hand(state)
-    for p in state[STATE_PLAYERS]:
-        p.hand = []
-        p.state["accum"] = []
-        p.state["pass3s"] = []
-    deck = get_deck()
-    shuffle(deck)
-    shuffle(deck)
-    shuffle(deck)
-    deal(state, deck)
-    state[STATE_HEARTS] = "unbroken"
-
-
-Logic to wrap up start step of game
-def pass_cards(state):
-    for i in range(4):
-        pass_hand = state[STATE_PLAYERS][(i + 1) % 4].hand
-        cards_to_pass = state[STATE_PLAYERS][i].state["pass3s"]
-        pass_hand += cards_to_pass
-        sortCards(pass_hand)
-
-
-Print final scores
-
-def conclude_game(state):
-    score_hand(state)
-    print("Final Score:")
-    [print("%s: %d" % (p.name, p.score)) for p in state["players"]]
-
-
-# move objects
-pass3_move = Move("pass3", pass3, {"card 1": None, "card 2": None, "card 3": None})
-play_move = Move("play", play, {"card": None})
-placeholder_move = Move("placeholder", placeholder, {})
-
-# transitions - happen by name
-start_to_main = Transition("main", (lambda state: state[STATE_TURN] == 1), pass_cards)
-main_to_main = Transition("main", (lambda state: len(state[STATE_PLAYERS][0].hand) != 0), play_transition)
-main_to_start = Transition("start", (
-    lambda state: len(state[STATE_PLAYERS][0].hand) == 0 and get_highest_score(state[STATE_PLAYERS]) < 100), reset_game)
-main_to_finish = Transition("finish", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= 100), conclude_game)
-
-
-def game_status(player, state):
-    print("\nTurn " + str(state[STATE_TURN]))
-    print("Showing %s info about the game." % (player.name))
-    printBoard(state)
-    print(player.hand)
-    print()  # separator line
-
-
-def printBoard(state):
-    filler(state)
-    print("-----------------")
-    print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
-    print("|       %s     %d|" % (state['played'][0], state['players'][1].score))
-    print("|%s %s       %s %s|" % (
-    state['players'][3].name[0], state['played'][3], state['played'][1], state['players'][1].name[0]))
-    print("|%d      %s      |" % (state['players'][3].score, state['played'][2]))
-    print("|       %s %d     |" % (state['players'][2].name[0], state['players'][2].score))
-    print("-----------------")
-
-
-# Filler for grid to maintain formatting if a player hasnt played yet
-def filler(state):
-    #print(state["played"])
-    for i in range(4):
-        if (len(state['played'][i]) != 2 and len(state['played'][i]) != 3):
-            state['played'][i] = "  "
-
-    # % (state[0][0][0])
-
-
-def score_hand(state):
-    for i in range(4):
-        s = 0
-        lst = state['players'][i].state['accum']
-        for j in range(len(lst)):
-            if lst[j].suit == "hearts":
-                s = s + 1
-            if lst[j].suit == "spades" and lst[j].value == "queen":
-                s = s + 13
-        if s == 26:
-            for t in range(4):
-                state['players'][t].score = state['players'][t].score + 26
-            state['players'][i].score = state['players'][i].score - 26
-            return  # no need to check the rest of the players' scores
-        else:
-            state['players'][i].score = state['players'][i].score + s
-
-
-# states
-start_transitions = [start_to_main]
-start_moves = [pass3_move]
-start = State("start", start_transitions, start_moves, game_status, False)
-
-main_transitions = [main_to_start, main_to_main, main_to_finish]
-main_moves = [play_move]
-main = State("main", main_transitions, main_moves, game_status, False)
-
-finish = State("finish", None, [placeholder_move], game_status, True)
-
-states = [start, main, finish]
-
-# players
-players = []
-for i in range(1, 5):
-    name = input("What is the name of player " + str(i) + "? ")
-    hand = []
-    player = Player(name, {"accum": [], "pass3s": []}, i, hand, 0)
-    players.append(player)
-
-
-def deal(state, deck):
-    state[STATE_PLAYERS][0].hand.extend(deck[0:13])
-    sortCards(state[STATE_PLAYERS][0].hand)
-    state[STATE_PLAYERS][1].hand.extend(deck[13:26])
-    sortCards(state[STATE_PLAYERS][1].hand)
-    state[STATE_PLAYERS][2].hand.extend(deck[26:39])
-    sortCards(state[STATE_PLAYERS][2].hand)
-    state[STATE_PLAYERS][3].hand.extend(deck[39:52])
-    sortCards(state[STATE_PLAYERS][3].hand)
-
-
-def sortCards(lst):
-    lst.sort(key=lambda x: x.value, reverse=True)
-    lst.sort(key=lambda x: x.suit, reverse=True)
-
-
-def setup(game):
-    deck = get_deck()
-    shuffle(deck)
-    shuffle(deck)
-    shuffle(deck)
-    deal(game.game_state, deck)
-    game.game_state[STATE_CURRENT_STATE] = start
-    game.game_state[STATE_HEARTS] = "unbroken"
-    print("Starting Hearts!\n")
-
-
-def finish(game):
-    print("Finished playing :)")
-
-
-hearts = Game(players, {"currentLead": None, "played": ["", "", "", ""], "startPlayer": 1}, states, setup, finish)
-hearts.start()
-
-"""
+transitions = [
+    Transition(start, main  , lambda game: game.turn == 2           , lambda game: x),
+    Transition(main , main  , lambda game: not game_is_over(game)   , lambda game: x),
+    Transition(main , finish, lambda game: game_is_over(game)       , lambda game: x),
+]
