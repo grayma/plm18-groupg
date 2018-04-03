@@ -121,7 +121,7 @@ def validate_play(game, player, card):
     Returns "" if valid play, returns error message and why if not
     """
     if not card in player.playerspace[PLAYER_HAND].cards:
-        return ""
+        return "Cards must be in the passing players hand."
     # first move of game and of turn, 2 of clubs required on 2nd turn (first turn after passing)
     if game.turn == 2: #first play turn
         if len(game.gamespace[GAME_PLAYED_CARDS]) == 0: #first player of the turn
