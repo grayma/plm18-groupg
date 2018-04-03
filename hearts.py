@@ -109,8 +109,6 @@ def reset_game(state):
         p.state["pass3s"] = []
     deck = get_deck()
     shuffle(deck)
-    shuffle(deck)
-    shuffle(deck)
     deal(state, deck)
     state[STATE_HEARTS] = "unbroken"
 
@@ -236,8 +234,6 @@ def sortCards(lst):
 
 def setup(game):
     deck = get_deck()
-    shuffle(deck)
-    shuffle(deck)
     shuffle(deck)
     deal(game.game_state, deck)
     game.game_state[STATE_CURRENT_STATE] = start

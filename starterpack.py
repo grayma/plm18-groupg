@@ -53,17 +53,14 @@ Wrapper for a playing card
 
 class Card:
     def __init__(self, value, suit):
-        self.value = value
-        self.suit = suit
+        self.value = str(value)
+        self.suit = str(suit)
 
     def __repr__(self):
-        return str(self.value) + " " + self.suit
+        return self.value + " " + self.suit
     
     def __eq__(self, other):
-        if(str(self.suit) == str(other.suit) and str(self.value) == str(other.value)):
-            return True
-        else:
-            return False
+        return self.suit == other.suit and self.value == other.value
         
     def abbr(self):
         return (self.value[0] if not self.value == "10" else self.value) + self.suit[0]

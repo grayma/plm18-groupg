@@ -112,8 +112,6 @@ def reset_game(state):
     if winner.score < WINNING_SCORE: # if the game needs to continue, reshuffle deck
         deck = get_deck()
         shuffle(deck)
-        shuffle(deck)
-        shuffle(deck)
         for p in state["players"]:
             p.hand = []
         deal(state, deck)
@@ -169,8 +167,6 @@ for i in range(1, 3):
 
 def setup(game):
     deck = get_deck()
-    shuffle(deck)
-    shuffle(deck)
     shuffle(deck)
     deal(game.game_state, deck)
     game.game_state[STATE_CURRENT_STATE] = main
