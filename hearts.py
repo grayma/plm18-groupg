@@ -10,6 +10,7 @@ GAME_PLAYED_CARDS = 'played_cards'
 GAME_DECK = 'deck'
 
 PLAYER_HAND = 'hand'
+PLAYER_INTERMED = 'intermed'
 PLAYER_PLAYED = 'played'
 
 def get_deck():
@@ -25,6 +26,7 @@ def gamespace():
 def playerspace():
     return {
         PLAYER_HAND         : Pile([]),
+        PLAYER_INTERMED     : Pile([]),
         PLAYER_PLAYED       : None
     }
 
@@ -137,6 +139,14 @@ def validate_play(game, player, card):
                 return "If you can match the lead of the trick, you must do so."
     return ""
 
+def finish_pass3(game):
+    """
+    Pass all the intermediate pass3 cards into the players hand after the turn is run.
+    """
+    for p in game.players:
+        intermed = playerspace[PLAYER_INTERMED]
+        intermed.transfer_to(p.playerspace[PLAYER_HAND], intermed.cards)
+
 def f_pass3(game, player, input):
     subset = None
     try:
@@ -145,7 +155,7 @@ def f_pass3(game, player, input):
         return False
     validation = validate_pass3(game, player, subset)
     if validation == "":
-        player.playerspace[PLAYER_HAND].transfer_to(getNextPlayer(player, game).playerspace[PLAYER_HAND], subset)
+        player.playerspace[PLAYER_HAND].transfer_to(getNextPlayer(player, game).playerspace[PLAYER_INTERMED], subset)
     return validation
 
 def f_play(game, player, input):
@@ -171,9 +181,9 @@ main    = State("main"    , game_status   , [play]    , False )
 finish  = State("finish"  , game_status   , []        , True  )
 
 transitions = [
-    Transition(start, main  , lambda game: None,                       lambda game: game.turn == 2           ),
-    Transition(main , main  , lambda game: score_turn_and_clean(game), lambda game: not game_is_over(game)   ),
-    Transition(main , finish, lambda game: score_turn_and_clean(game), lambda game: game_is_over(game)       )
+    Transition(start, main  , finish_pass3(game)        , lambda game: game.turn == 2           ),
+    Transition(main , main  , score_turn_and_clean(game), lambda game: not game_is_over(game)   ),
+    Transition(main , finish, score_turn_and_clean(game), lambda game: game_is_over(game)       )
 ]
 
 ############################
