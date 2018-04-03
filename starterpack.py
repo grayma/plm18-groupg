@@ -132,11 +132,12 @@ class State:
     Class representing a game's state machine 
     """
 
-    def __init__(self, name, status, moves, is_final):
+    def __init__(self, name, status, moves, logic, is_final):
         """
         `name` name of the state the game is in
         `status(player, game)` function taking a player and game showing player what info they need
         `moves` list of moves available to this player at this point
+        `logic(Game)` function performing any logic needed before the next state transition
         `is_final` bool indicating whether or not game has finished
         """
 
@@ -150,6 +151,7 @@ class State:
                 self.prompt_str += ", "
             else:
                 self.prompt_str += ": "
+        self.logic = logic
         self.is_final = is_final
 
 
@@ -159,18 +161,16 @@ class Transition:
     Class to represent a state transition. 
     """
 
-    def __init__(self, source, dest, logic, guard):
+    def __init__(self, source, dest, guard):
         """
         `source` from state
         `dest` to state
         `guard(Game)` true/false function evaluating the game to see if now is a valid time to take this transition
-        `logic(Game)` function performing any logic needed before the next state transition
         """
 
         self.source = source
         self.dest = dest
         self.guard = guard
-        self.logic = logic
 
 class Game:
     """
@@ -217,11 +217,12 @@ class Game:
                     self.finish(self)
                     return
 
-            self.turn += 1
+            self.state.logic(self) #run logic needed before state transition
+            self.turn += 1 #turn is done, increment turn counter
+
             #state transitions
-            for t in transitions:
+            for t in self.transitions:
                 if t.guard(self):
-                    t.logic(Game) #run logic before transition
                     self.state = t.dest
 
         self.finish(self)
