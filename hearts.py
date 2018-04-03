@@ -144,7 +144,7 @@ def finish_pass3(game):
     Pass all the intermediate pass3 cards into the players hand after the turn is run.
     """
     for p in game.players:
-        intermed = playerspace[PLAYER_INTERMED]
+        intermed = p.playerspace[PLAYER_INTERMED]
         intermed.transfer_to(p.playerspace[PLAYER_HAND], intermed.cards)
 
 def f_pass3(game, player, input):
@@ -176,14 +176,14 @@ pass3 = Move("pass3", f_pass3, { "card 1" : None, "card 2" : None, "card 3" : No
 play = Move("play", f_play, { "card" : None })
 
 
-start   = State("start"   , game_status   , [pass3]   , False )
-main    = State("main"    , game_status   , [play]    , False )
-finish  = State("finish"  , game_status   , []        , True  )
+start   = State("start"   , game_status   , [pass3]   , finish_pass3            , False )
+main    = State("main"    , game_status   , [play]    , score_turn_and_clean    , False )
+finish  = State("finish"  , game_status   , []        , score_turn_and_clean    , True  )
 
 transitions = [
-    Transition(start, main  , finish_pass3(game)        , lambda game: game.turn == 2           ),
-    Transition(main , main  , score_turn_and_clean(game), lambda game: not game_is_over(game)   ),
-    Transition(main , finish, score_turn_and_clean(game), lambda game: game_is_over(game)       )
+    Transition(start, main  , lambda game: game.turn == 2           ),
+    Transition(main , main  , lambda game: not game_is_over(game)   ),
+    Transition(main , finish, lambda game: game_is_over(game)       )
 ]
 
 ############################
