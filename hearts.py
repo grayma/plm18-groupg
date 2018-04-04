@@ -2,17 +2,7 @@ from starterpack import *
 from random import shuffle
 
 #################
-#################
-#################
-##             ##
-##             ##
-##             ##
 ## ENVIRONMENT ##
-##             ##
-##             ##
-##             ##
-#################
-#################
 #################
 
 GAME_HEARTS_BROKEN = 'is_hearts_broken'
@@ -20,6 +10,7 @@ GAME_PLAYED_CARDS = 'played_cards'
 GAME_DECK = 'deck'
 
 PLAYER_HAND = 'hand'
+PLAYER_INTERMED = 'intermed'
 PLAYER_PLAYED = 'played'
 
 def get_deck():
@@ -35,21 +26,12 @@ def gamespace():
 def playerspace():
     return {
         PLAYER_HAND         : Pile([]),
+        PLAYER_INTERMED     : Pile([]),
         PLAYER_PLAYED       : None
     }
 
 #############
-#############
-#############
-##         ##
-##         ##
-##         ##
 ## HELPERS ##
-##         ##
-##         ##
-##         ##
-#############
-#############
 #############
 
 def lead(game):
@@ -119,17 +101,7 @@ def rotatePlayers(game):
         p.index = (p.index + 1) % 4
 
 ###########
-###########
-###########
-##       ##
-##       ##
-##       ##
 ## MOVES ##
-##       ##
-##       ##
-##       ##
-###########
-###########
 ###########
 
 def validate_pass3(game, player, subset):
@@ -148,7 +120,7 @@ def validate_play(game, player, card):
     Returns "" if valid play, returns error message and why if not
     """
     if not card in player.playerspace[PLAYER_HAND].cards:
-        return ""
+        return "Cards must be in the passing players hand."
     # first move of game and of turn, 2 of clubs required on 2nd turn (first turn after passing)
     if game.turn == 2: #first play turn
         if len(game.gamespace[GAME_PLAYED_CARDS]) == 0: #first player of the turn
@@ -166,6 +138,14 @@ def validate_play(game, player, card):
                 return "If you can match the lead of the trick, you must do so."
     return ""
 
+def finish_pass3(game):
+    """
+    Pass all the intermediate pass3 cards into the players hand after the turn is run.
+    """
+    for p in game.players:
+        intermed = p.playerspace[PLAYER_INTERMED]
+        intermed.transfer_to(p.playerspace[PLAYER_HAND], intermed.cards)
+
 def f_pass3(game, player, input):
     subset = None
     try:
@@ -174,7 +154,7 @@ def f_pass3(game, player, input):
         return False
     validation = validate_pass3(game, player, subset)
     if validation == "":
-        player.playerspace[PLAYER_HAND].transfer_to(getNextPlayer(player, game).playerspace[PLAYER_HAND], subset)
+        player.playerspace[PLAYER_HAND].transfer_to(getNextPlayer(player, game).playerspace[PLAYER_INTERMED], subset)
     return validation
 
 def f_play(game, player, input):
@@ -195,28 +175,19 @@ pass3 = Move("pass3", f_pass3, { "card 1" : None, "card 2" : None, "card 3" : No
 play = Move("play", f_play, { "card" : None })
 
 
-start   = State("start"   , game_status   , [pass3]   , False )
-main    = State("main"    , game_status   , [play]    , False )
-finish  = State("finish"  , game_status   , []        , True  )
+start   = State("start"   , game_status   , [pass3]   , finish_pass3            , False )
+main    = State("main"    , game_status   , [play]    , score_turn_and_clean    , False )
+finish  = State("finish"  , game_status   , []        , score_turn_and_clean    , True  )
 
 transitions = [
-    Transition(start, main  , lambda game: None,                       lambda game: game.turn == 2           ),
-    Transition(main , main  , lambda game: score_turn_and_clean(game), lambda game: not game_is_over(game)   ),
-    Transition(main , finish, lambda game: score_turn_and_clean(game), lambda game: game_is_over(game)       )
+    Transition(start, main  , lambda game: game.turn == 2           ),
+    Transition(main , main  , lambda game: not game_is_over(game)   ),
+    Transition(main , finish, lambda game: game_is_over(game)       )
 ]
 
 ############################
-############################
-############################
-##                        ##
-##                        ##
 ## PRIMARY GAME FUNCTIONS ##
-##                        ##
-##                        ##
 ############################
-############################
-############################
-
 
 def game_is_over(game):
     for p in game.players:
