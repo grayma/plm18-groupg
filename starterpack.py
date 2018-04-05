@@ -5,10 +5,10 @@ values_abbr_map = { 'a' : 'ace', '2' : '2', '3' : '3', '4' : '4', '5' : '5', '6'
 value_map = {'2' : 2, '3' : 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7, '8' : 8, '9' : 9, '10' : 10, 'jack' : 11, 'queen' : 12, 'king' : 13, 'ace' : 14}
 
 def map_suit(abbr):
-    return suit_map[abbr]
+    return suit_abbr_map[abbr]
 
 def map_value(card):
-    return values_map[card.value]
+    return value_map[card.value]
 
 def last(values):
     return values[-1]
@@ -88,6 +88,15 @@ class Pile:
 
     def __repr__(self):
         return str(self.cards)
+    
+    def __len__(self):
+        return len(self.cards)
+    
+    def __iter__(self):
+       return self.cards.__iter__()
+   
+    def __getitem__(self, index):
+        return self.cards[index]
 
     def transfer_to(self, new_pile, subset):
         """
@@ -120,8 +129,15 @@ class Move:
 
     def perform(self, game, player):
         self._getMoveInput(game)
-        while not self.logic(game, player, self.required) == "":
-            self._getMoveInput(game)
+        # Feel free to change while True if that makes you uncomfortable
+        # Need to display error message to user
+        while True:
+            validate = self.logic(game, player, self.required)
+            if validate == "":
+                break
+            else:
+                print(validate)
+                self._getMoveInput(game)
 
     def _getMoveInput(self, game):
         for k, v in self.required.items():

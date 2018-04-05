@@ -1,5 +1,6 @@
 from starterpack import *
 from random import shuffle
+from collections import deque
 
 #################
 ## ENVIRONMENT ##
@@ -40,7 +41,7 @@ def lead(game):
 def last(game):
     return game.gamespace[GAME_PLAYED_CARDS][-1]
 
-def score_pile(game, pile):
+def score_pile(pile):
     s = 0
     for card in pile.cards:
         if card.suit == 'hearts':
@@ -64,6 +65,7 @@ def score_turn_and_clean(game):
 
     score = score_pile(game.gamespace[GAME_PLAYED_CARDS])
     taking_it.score = score
+    rotatePlayers(game, 4 - game.players.index(taking_it))
 
 
 def game_status(player, game):
@@ -74,7 +76,8 @@ def game_status(player, game):
     print()  # separator line
 
 def printBoard(game):
-    players = game.players
+    # Sort the players based on index, since we are rotating the actual list of players
+    players = sorted(game.players, key = lambda p: p.index)
     cards = [p.playerspace[PLAYER_PLAYED] for p in players]
     cards = filler(cards)
     print("-----------------")
@@ -96,9 +99,11 @@ def getNextPlayer(player, game):
             return p
     return None #shouldn't reach
 
-def rotatePlayers(game):
-    for p in game.players:
-        p.index = (p.index + 1) % 4
+def rotatePlayers(game, r_param):
+    """ r_param is the number of rotations to perform on the list """
+    dq = deque(game.players)
+    dq.rotate(r_param)
+    game.players = list(dq)
 
 ###########
 ## MOVES ##
@@ -124,7 +129,7 @@ def validate_play(game, player, card):
     # first move of game and of turn, 2 of clubs required on 2nd turn (first turn after passing)
     if game.turn == 2: #first play turn
         if len(game.gamespace[GAME_PLAYED_CARDS]) == 0: #first player of the turn
-            if (card.suit != 'clubs') and (card.value != '2'):
+            if (card.suit != 'clubs') or (card.value != '2'):
                 return "First play must be 2 of clubs"
     # first move of turn, can't play hearts unless broken
     if (len(game.gamespace[GAME_PLAYED_CARDS]) == 0) and (not game.gamespace[GAME_HEARTS_BROKEN]) and (card.suit == 'hearts'):
@@ -142,9 +147,13 @@ def finish_pass3(game):
     """
     Pass all the intermediate pass3 cards into the players hand after the turn is run.
     """
+    start_card = Card("2", "clubs")
     for p in game.players:
         intermed = p.playerspace[PLAYER_INTERMED]
         intermed.transfer_to(p.playerspace[PLAYER_HAND], intermed.cards)
+        # Rotate player list so player that has 2 clubs goes first
+        if start_card in p.playerspace[PLAYER_HAND]:
+            rotatePlayers(game, 4 - p.index)
 
 def f_pass3(game, player, input):
     subset = None
