@@ -51,6 +51,8 @@ def score_pile(pile):
     return s
 
 def score_turn_and_clean(game):
+    """ Score turn and clean is to be called when the current round ends """
+    """ (Each player has played one card) """
     lead_suit = lead(game).suit
     taking_it = None
     highest = -1
@@ -61,12 +63,18 @@ def score_turn_and_clean(game):
             taking_it = p
         #clean
         p.playerspace[PLAYER_PLAYED] = None
-        game.gamespace[GAME_PLAYED_CARDS] = Pile([])
 
     score = score_pile(game.gamespace[GAME_PLAYED_CARDS])
     taking_it.score = score
     rotatePlayers(game, 4 - game.players.index(taking_it))
-
+    #clean
+    game.gamespace[GAME_PLAYED_CARDS] = Pile([])
+    
+def score_turn_and_reset(game):
+    """ Score turn and reset is to be called when the current game ends """
+    """ (Each player's hand is empty) """
+    score_turn_and_clean(game)
+    game.gamespace[GAME_DECK] = Pile(get_deck())
 
 def game_status(player, game):
     print("\nTurn " + str(game.turn))
@@ -82,9 +90,9 @@ def printBoard(game):
     cards = filler(cards)
     print("-----------------")
     print("|      %d %s      |" % (players[0].score, players[0].name[0]))
-    print("|       %s     %d|" % (cards[0], players[1].score))
-    print("|%s %s       %s %s|" % (players[3].name[0], cards[3], cards[1], players[1].name[0]))
-    print("|%d      %s      |" % (players[3].score, cards[2]))
+    print("|       %s     %d|" % (cards[0].abbr(), players[1].score))
+    print("|%s %s       %s %s|" % (players[3].name[0], cards[3].abbr(), cards[1].abbr(), players[1].name[0]))
+    print("|%d      %s      |" % (players[3].score, cards[2].abbr()))
     print("|       %s %d     |" % (players[2].name[0], players[2].score))
     print("-----------------")
 
