@@ -1,3 +1,4 @@
+from random import shuffle
 suits = ['hearts', 'diamonds', 'spades', 'clubs']
 suit_abbr_map = {'h' : 'hearts', 'd' : 'diamonds', 's' : 'spades', 'c' : 'clubs'}
 values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
@@ -107,6 +108,32 @@ class Pile:
                 raise ValueError('"subset" of pile not actually a subset.')
         self.cards = [c for c in self.cards if c not in subset]
         new_pile.cards.extend(subset)
+        
+    def sort(self):
+        """
+        Sort the pile of cards
+        """
+        self.cards.sort(key = lambda x: (x.value, x.suit))
+        
+class Deck(Pile):
+    def __init__(self):
+        cards = [Card(value, suit) for value in values for suit in suits]
+        super(Deck, self).__init__(cards)
+        
+    def deal(self, players):
+        """
+        Deal the cards in the deck to the given players
+        """
+        per_player = int(52 / len(players))
+        for p in players:
+            self.transfer_to(p.playerspace["hand"], [self.cards[i] for i in range(per_player)])
+            p.playerspace["hand"].sort()
+
+    def shuffle(self):
+        """
+        Shuffle the cards in the deck
+        """
+        shuffle(self.cards)
 
 class Move:
     """
@@ -234,11 +261,12 @@ class Game:
                     return
 
             self.state.logic(self) #run logic needed before state transition
-            self.turn += 1 #turn is done, increment turn counter
 
             #state transitions
             for t in self.transitions:
                 if t.guard(self):
                     self.state = t.dest
+                    
+            self.turn += 1 #turn is done, increment turn counter
 
         self.finish(self)

@@ -1,5 +1,4 @@
 from starterpack import *
-from random import shuffle
 from collections import deque
 
 #################
@@ -8,11 +7,12 @@ from collections import deque
 
 GAME_HEARTS_BROKEN = 'is_hearts_broken'
 GAME_PLAYED_CARDS = 'played_cards'
-GAME_DECK = 'deck'
 
 PLAYER_HAND = 'hand'
 PLAYER_INTERMED = 'intermed'
 PLAYER_PLAYED = 'played'
+
+TURNS_PER_ROUND = 14
 
 def get_deck():
     return Pile([Card(value, suit) for value in values for suit in suits])
@@ -21,7 +21,6 @@ def gamespace():
     return {
         GAME_HEARTS_BROKEN  : False,
         GAME_PLAYED_CARDS   : Pile([]),
-        GAME_DECK           : Pile(get_deck())
     }
 
 def playerspace():
@@ -50,32 +49,6 @@ def score_pile(pile):
             s += 13
     return s
 
-def score_turn_and_clean(game):
-    """ Score turn and clean is to be called when the current round ends """
-    """ (Each player has played one card) """
-    lead_suit = lead(game).suit
-    taking_it = None
-    highest = -1
-    for p in game.players:
-        p_card = p.playerspace[PLAYER_PLAYED]
-        if p_card.suit == lead_suit and map_value(p_card) > highest:
-            highest = map_value(p_card)
-            taking_it = p
-        #clean
-        p.playerspace[PLAYER_PLAYED] = None
-
-    score = score_pile(game.gamespace[GAME_PLAYED_CARDS])
-    taking_it.score = score
-    rotatePlayers(game, 4 - game.players.index(taking_it))
-    #clean
-    game.gamespace[GAME_PLAYED_CARDS] = Pile([])
-    
-def score_turn_and_reset(game):
-    """ Score turn and reset is to be called when the current game ends """
-    """ (Each player's hand is empty) """
-    score_turn_and_clean(game)
-    game.gamespace[GAME_DECK] = Pile(get_deck())
-
 def game_status(player, game):
     print("\nTurn " + str(game.turn))
     print("Showing %s info about the game." % (player.name))
@@ -86,19 +59,18 @@ def game_status(player, game):
 def printBoard(game):
     # Sort the players based on index, since we are rotating the actual list of players
     players = sorted(game.players, key = lambda p: p.index)
-    cards = [p.playerspace[PLAYER_PLAYED] for p in players]
-    cards = filler(cards)
+    cards = filler([p.playerspace[PLAYER_PLAYED] for p in players])
     print("-----------------")
     print("|      %d %s      |" % (players[0].score, players[0].name[0]))
-    print("|       %s     %d|" % (cards[0].abbr(), players[1].score))
-    print("|%s %s       %s %s|" % (players[3].name[0], cards[3].abbr(), cards[1].abbr(), players[1].name[0]))
-    print("|%d      %s      |" % (players[3].score, cards[2].abbr()))
+    print("|       %s     %d|" % (cards[0], players[1].score))
+    print("|%s %s       %s %s|" % (players[3].name[0], cards[3], cards[1], players[1].name[0]))
+    print("|%d      %s      |" % (players[3].score, cards[2]))
     print("|       %s %d     |" % (players[2].name[0], players[2].score))
     print("-----------------")
 
 # Filler for grid to maintain formatting if a player hasnt played yet
 def filler(cards):
-    return ["  " if not card else card.value for card in cards]
+    return ["  " if not card else card.abbr() for card in cards]
 
 def getNextPlayer(player, game):
     i = (player.index + 1) % len(game.players)
@@ -162,6 +134,31 @@ def finish_pass3(game):
         # Rotate player list so player that has 2 clubs goes first
         if start_card in p.playerspace[PLAYER_HAND]:
             rotatePlayers(game, 4 - p.index)
+            
+def score_turn_and_clean(game):
+    """
+    Score turn and clean is to be called when the current round ends
+    (Each player has played one card)
+    """
+    lead_suit = lead(game).suit
+    taking_it = None
+    highest = -1
+    for p in game.players:
+        p_card = p.playerspace[PLAYER_PLAYED]
+        if p_card.suit == lead_suit and map_value(p_card) > highest:
+            highest = map_value(p_card)
+            taking_it = p
+        #clean playerspace
+        p.playerspace[PLAYER_PLAYED] = None
+
+    score = score_pile(game.gamespace[GAME_PLAYED_CARDS])
+    taking_it.score = score
+    rotatePlayers(game, 4 - game.players.index(taking_it))
+    #clean gamesapce
+    game.gamespace[GAME_PLAYED_CARDS] = Pile([])
+    
+    if (round_is_over(game)):
+        setup(game.setup(game))
 
 def f_pass3(game, player, input):
     subset = None
@@ -197,14 +194,22 @@ main    = State("main"    , game_status   , [play]    , score_turn_and_clean    
 finish  = State("finish"  , game_status   , []        , score_turn_and_clean    , True  )
 
 transitions = [
-    Transition(start, main  , lambda game: game.turn == 2           ),
-    Transition(main , main  , lambda game: not game_is_over(game)   ),
-    Transition(main , finish, lambda game: game_is_over(game)       )
+    Transition(start, main  , lambda game: True                               ), # always transition from start to main
+    Transition(main , start , lambda game: round_is_over(game)                ), # transition if the round is over but game is not
+    Transition(main , main  , lambda game: game.turn % TURNS_PER_ROUND != 0   ), # Round can only end on a turn that is a multiple of 14 - each round is 14 turns
+    Transition(main , finish, lambda game: game_is_over(game)                 )
 ]
 
 ############################
 ## PRIMARY GAME FUNCTIONS ##
 ############################
+
+def round_is_over(game):
+    """
+    The round is over (all players have played their hand) but the game is not
+    A list evaluates to true when it has elements, false when it is empty
+    """
+    return not game.players[0].playerspace[PLAYER_HAND] and not game_is_over(game)
 
 def game_is_over(game):
     for p in game.players:
@@ -213,16 +218,14 @@ def game_is_over(game):
     return None
 
 def setup(game):
-    deck = get_deck()
-    shuffle(deck.cards)
-    per_player = int(52 / len(game.players))
-    for p in game.players:
-        deck.transfer_to(p.playerspace[PLAYER_HAND], [deck.cards[i] for i in range(per_player)])
+    deck = Deck()
+    deck.shuffle()
+    deck.deal(game.players)
 
 def finish(game):
     print()
     for p in game.players:
-        print(p.score)
+        print(p.name, str(p.score))
 
 def get_players():
     ps = []
