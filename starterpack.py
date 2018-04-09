@@ -1,9 +1,10 @@
 from random import shuffle
-suits = ['hearts', 'diamonds', 'spades', 'clubs']
-suit_abbr_map = {'h' : 'hearts', 'd' : 'diamonds', 's' : 'spades', 'c' : 'clubs'}
-values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
-values_abbr_map = { 'a' : 'ace', '2' : '2', '3' : '3', '4' : '4', '5' : '5', '6' : '6', '7' : '7', '8' : '8', '9' : '9', '10' : '10', 'j' : 'jack', 'q' : 'queen', 'k' : 'king'}
-value_map = {'2' : 2, '3' : 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7, '8' : 8, '9' : 9, '10' : 10, 'jack' : 11, 'queen' : 12, 'king' : 13, 'ace' : 14}
+suits = [ 'hearts', 'diamonds', 'spades', 'clubs' ]
+suit_abbr_map = { 'h' : 'hearts', 'd' : 'diamonds', 's' : 'spades', 'c' : 'clubs' }
+suit_map = { 'hearts' : 0, 'diamonds' : 1, 'spades' : 2, 'clubs' : 3 }
+values = [ 'ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king' ]
+values_abbr_map = { 'a' : 'ace', '2' : '2', '3' : '3', '4' : '4', '5' : '5', '6' : '6', '7' : '7', '8' : '8', '9' : '9', '10' : '10', 'j' : 'jack', 'q' : 'queen', 'k' : 'king' }
+value_map = { '2' : 2, '3' : 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7, '8' : 8, '9' : 9, '10' : 10, 'jack' : 11, 'queen' : 12, 'king' : 13, 'ace' : 14 }
 
 def map_suit(abbr):
     return suit_abbr_map[abbr]
@@ -113,21 +114,23 @@ class Pile:
         """
         Sort the pile of cards
         """
-        self.cards.sort(key = lambda x: (x.value, x.suit))
+        self.cards.sort(key = lambda x: value_map[x.value])
+        self.cards.sort(key = lambda x: suit_map[x.suit])
         
 class Deck(Pile):
     def __init__(self):
         cards = [Card(value, suit) for value in values for suit in suits]
         super(Deck, self).__init__(cards)
         
-    def deal(self, players):
+    def deal(self, players, sort = True):
         """
         Deal the cards in the deck to the given players
         """
-        per_player = int(52 / len(players))
+        per_player = 52 // len(players)
         for p in players:
             self.transfer_to(p.playerspace["hand"], [self.cards[i] for i in range(per_player)])
-            p.playerspace["hand"].sort()
+            if sort:
+                p.playerspace["hand"].sort()
 
     def shuffle(self):
         """

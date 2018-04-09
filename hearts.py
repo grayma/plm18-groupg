@@ -60,17 +60,17 @@ def printBoard(game):
     # Sort the players based on index, since we are rotating the actual list of players
     players = sorted(game.players, key = lambda p: p.index)
     cards = filler([p.playerspace[PLAYER_PLAYED] for p in players])
-    print("-----------------")
-    print("|      %d %s      |" % (players[0].score, players[0].name[0]))
-    print("|       %s     %d|" % (cards[0], players[1].score))
+    print("------------------")
+    print("|        %d %s      |" % (players[0].score, players[0].name[0]))
+    print("|        %s     %d|" % (cards[0], players[1].score))
     print("|%s %s       %s %s|" % (players[3].name[0], cards[3], cards[1], players[1].name[0]))
-    print("|%d      %s      |" % (players[3].score, cards[2]))
-    print("|       %s %d     |" % (players[2].name[0], players[2].score))
-    print("-----------------")
+    print("|%d       %s      |" % (players[3].score, cards[2]))
+    print("|       %s %d       |" % (players[2].name[0], players[2].score))
+    print("------------------")
 
 # Filler for grid to maintain formatting if a player hasnt played yet
 def filler(cards):
-    return ["  " if not card else card.abbr() for card in cards]
+    return ["   " if not card else card.abbr() + " " for card in cards]
 
 def getNextPlayer(player, game):
     i = (player.index + 1) % len(game.players)
@@ -152,13 +152,14 @@ def score_turn_and_clean(game):
         p.playerspace[PLAYER_PLAYED] = None
 
     score = score_pile(game.gamespace[GAME_PLAYED_CARDS])
-    taking_it.score = score
+    taking_it.score += score
     rotatePlayers(game, 4 - game.players.index(taking_it))
     #clean gamesapce
     game.gamespace[GAME_PLAYED_CARDS] = Pile([])
     
     if (round_is_over(game)):
-        setup(game.setup(game))
+        # Have to run our setup function again at the start of each round
+        game.setup(game)
 
 def f_pass3(game, player, input):
     subset = None
@@ -196,7 +197,7 @@ finish  = State("finish"  , game_status   , []        , score_turn_and_clean    
 transitions = [
     Transition(start, main  , lambda game: True                               ), # always transition from start to main
     Transition(main , start , lambda game: round_is_over(game)                ), # transition if the round is over but game is not
-    Transition(main , main  , lambda game: game.turn % TURNS_PER_ROUND != 0   ), # Round can only end on a turn that is a multiple of 14 - each round is 14 turns
+    Transition(main , main  , lambda game: not game_is_over(game)             ), # Round can only end on a turn that is a multiple of 14 - each round is 14 turns
     Transition(main , finish, lambda game: game_is_over(game)                 )
 ]
 
@@ -209,6 +210,7 @@ def round_is_over(game):
     The round is over (all players have played their hand) but the game is not
     A list evaluates to true when it has elements, false when it is empty
     """
+    print("Round is over: ", not game.players[0].playerspace[PLAYER_HAND] and not game_is_over(game))
     return not game.players[0].playerspace[PLAYER_HAND] and not game_is_over(game)
 
 def game_is_over(game):
