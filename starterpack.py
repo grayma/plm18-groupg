@@ -122,15 +122,13 @@ class Deck(Pile):
         cards = [Card(value, suit) for value in values for suit in suits]
         super(Deck, self).__init__(cards)
         
-    def deal(self, players, sort = True):
+    def deal(self, players):
         """
         Deal the cards in the deck to the given players
         """
         per_player = 52 // len(players)
         for p in players:
             self.transfer_to(p.playerspace["hand"], [self.cards[i] for i in range(per_player)])
-            if sort:
-                p.playerspace["hand"].sort()
 
     def shuffle(self):
         """
@@ -266,9 +264,10 @@ class Game:
             self.state.logic(self) #run logic needed before state transition
 
             #state transitions
-            for t in self.transitions:
+            for t in [t for t in self.transitions if t.source == self.state]:
                 if t.guard(self):
                     self.state = t.dest
+                    break
                     
             self.turn += 1 #turn is done, increment turn counter
 

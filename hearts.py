@@ -53,6 +53,7 @@ def game_status(player, game):
     print("\nTurn " + str(game.turn))
     print("Showing %s info about the game." % (player.name))
     printBoard(game)
+    player.playerspace[PLAYER_HAND].sort()
     print(player.playerspace[PLAYER_HAND])
     print()  # separator line
 
@@ -93,10 +94,13 @@ def validate_pass3(game, player, subset):
     """
     Validates a subset actually being in a players hand or a valid play
     Checks existence in hand and suit
+    Checks for card duplicates
     """
     for card in subset:
         if not card in player.playerspace[PLAYER_HAND].cards:
             return "Cards must be in the passing players hand."
+        if len(your_list) != len(set(your_list)):
+            return "Must be three unique cards."
     return ""
 
 
@@ -210,12 +214,11 @@ def round_is_over(game):
     The round is over (all players have played their hand) but the game is not
     A list evaluates to true when it has elements, false when it is empty
     """
-    print("Round is over: ", not game.players[0].playerspace[PLAYER_HAND] and not game_is_over(game))
-    return not game.players[0].playerspace[PLAYER_HAND] and not game_is_over(game)
+    return game.turn % TURNS_PER_ROUND == 0 and not game_is_over(game)
 
 def game_is_over(game):
     for p in game.players:
-        if p.score >= 100:
+        if p.score >= 20:
             return p
     return None
 
