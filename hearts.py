@@ -96,11 +96,11 @@ def validate_pass3(game, player, subset):
     Checks existence in hand and suit
     Checks for card duplicates
     """
+    if len(subset) != len(set(subset)):
+            return "Must be three unique cards."
     for card in subset:
         if not card in player.playerspace[PLAYER_HAND].cards:
             return "Cards must be in the passing players hand."
-        if len(your_list) != len(set(your_list)):
-            return "Must be three unique cards."
     return ""
 
 
