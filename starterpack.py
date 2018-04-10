@@ -30,6 +30,7 @@ class Player:
         self.index = index
         self.score = 0
         self.playerspace = {}
+        self.hand = Pile([])
 
     def move(self, game):
         """
@@ -90,13 +91,13 @@ class Pile:
 
     def __repr__(self):
         return str(self.cards)
-    
+
     def __len__(self):
         return len(self.cards)
-    
+
     def __iter__(self):
        return self.cards.__iter__()
-   
+
     def __getitem__(self, index):
         return self.cards[index]
 
@@ -128,7 +129,7 @@ class Deck(Pile):
         """
         per_player = 52 // len(players)
         for p in players:
-            self.transfer_to(p.playerspace["hand"], [self.cards[i] for i in range(per_player)])
+            self.transfer_to(p.hand, [self.cards[i] for i in range(per_player)])
 
     def shuffle(self):
         """
@@ -157,15 +158,11 @@ class Move:
 
     def perform(self, game, player):
         self._getMoveInput(game)
-        # Feel free to change while True if that makes you uncomfortable
-        # Need to display error message to user
-        while True:
+        validate = self.logic(game, player, self.required)
+        while validate != "":
+            print(validate)
+            self._getMoveInput(game)
             validate = self.logic(game, player, self.required)
-            if validate == "":
-                break
-            else:
-                print(validate)
-                self._getMoveInput(game)
 
     def _getMoveInput(self, game):
         for k, v in self.required.items():
@@ -264,8 +261,8 @@ class Game:
             self.state.logic(self) #run logic needed before state transition
 
             #state transitions
-            for t in [t for t in self.transitions if t.source == self.state]:
-                if t.guard(self):
+            for t in self.transitions:
+                if t.guard(self) and t.source == self.state:
                     self.state = t.dest
                     break
                     

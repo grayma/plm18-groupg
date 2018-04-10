@@ -5,14 +5,6 @@ from random import shuffle
 # Standard Deck
 #==============================================================================
 
-suits = ['hearts', 'diamonds', 'spades', 'clubs']
-abbr_suits = ["h", "d", "s", "c"]
-values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
-
-
-def get_deck():
-    return [Card(value, suit) for value in values for suit in suits]
-
 WINNING_SCORE = 50
 
 

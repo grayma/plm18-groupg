@@ -8,7 +8,6 @@ from collections import deque
 GAME_HEARTS_BROKEN = 'is_hearts_broken'
 GAME_PLAYED_CARDS = 'played_cards'
 
-PLAYER_HAND = 'hand'
 PLAYER_INTERMED = 'intermed'
 PLAYER_PLAYED = 'played'
 
@@ -25,7 +24,6 @@ def gamespace():
 
 def playerspace():
     return {
-        PLAYER_HAND         : Pile([]),
         PLAYER_INTERMED     : Pile([]),
         PLAYER_PLAYED       : None
     }
@@ -53,8 +51,8 @@ def game_status(player, game):
     print("\nTurn " + str(game.turn))
     print("Showing %s info about the game." % (player.name))
     printBoard(game)
-    player.playerspace[PLAYER_HAND].sort()
-    print(player.playerspace[PLAYER_HAND])
+    player.hand.sort()
+    print(player.hand)
     print()  # separator line
 
 def printBoard(game):
@@ -99,7 +97,7 @@ def validate_pass3(game, player, subset):
     if any(subset.count(card) > 1 for card in subset):
             return "Must be three unique cards."
     for card in subset:
-        if not card in player.playerspace[PLAYER_HAND].cards:
+        if not card in player.hand.cards:
             return "Cards must be in the passing players hand."
     return ""
 
@@ -108,7 +106,7 @@ def validate_play(game, player, card):
     """
     Returns "" if valid play, returns error message and why if not
     """
-    if not card in player.playerspace[PLAYER_HAND].cards:
+    if not card in player.hand.cards:
         return "Cards must be in the passing players hand."
     # first move of game and of turn, 2 of clubs required on 2nd turn (first turn after passing)
     if game.turn == 2: #first play turn
@@ -120,7 +118,7 @@ def validate_play(game, player, card):
         return "Can't play hearts unless hearts is broken"
     # if player has suit, they must match it. if they don't have suit, play anything and break hearts
     if len(game.gamespace[GAME_PLAYED_CARDS]) != 0:
-        hand = player.playerspace[PLAYER_HAND]
+        hand = player.hand
         lead = game.gamespace[GAME_PLAYED_CARDS][0]
         for c in hand:
             if lead.suit == c.suit and c.suit != card.suit:
@@ -134,9 +132,9 @@ def finish_pass3(game):
     start_card = Card("2", "clubs")
     for p in game.players:
         intermed = p.playerspace[PLAYER_INTERMED]
-        intermed.transfer_to(p.playerspace[PLAYER_HAND], intermed.cards)
+        intermed.transfer_to(p.hand, intermed.cards)
         # Rotate player list so player that has 2 clubs goes first
-        if start_card in p.playerspace[PLAYER_HAND]:
+        if start_card in p.hand:
             rotatePlayers(game, 4 - p.index)
             
 def score_turn_and_clean(game):
@@ -173,7 +171,7 @@ def f_pass3(game, player, input):
         return False
     validation = validate_pass3(game, player, subset)
     if validation == "":
-        player.playerspace[PLAYER_HAND].transfer_to(getNextPlayer(player, game).playerspace[PLAYER_INTERMED], subset)
+        player.hand.transfer_to(getNextPlayer(player, game).playerspace[PLAYER_INTERMED], subset)
     return validation
 
 def f_play(game, player, input):
@@ -186,7 +184,7 @@ def f_play(game, player, input):
     if validation == "":
         if card.suit == 'hearts':
             game.gamespace[GAME_HEARTS_BROKEN] = True 
-        player.playerspace[PLAYER_HAND].transfer_to(game.gamespace[GAME_PLAYED_CARDS], [card])
+        player.hand.transfer_to(game.gamespace[GAME_PLAYED_CARDS], [card])
         player.playerspace[PLAYER_PLAYED] = card
     return validation
 
