@@ -5,14 +5,6 @@ from random import shuffle
 # Standard Deck
 #==============================================================================
 
-suits = ['hearts', 'diamonds', 'spades', 'clubs']
-abbr_suits = ["h", "d", "s", "c"]
-values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
-
-
-def get_deck():
-    return [Card(value, suit) for value in values for suit in suits]
-
 WINNING_SCORE = 50
 
 
@@ -112,8 +104,6 @@ def reset_game(state):
     if winner.score < WINNING_SCORE: # if the game needs to continue, reshuffle deck
         deck = get_deck()
         shuffle(deck)
-        shuffle(deck)
-        shuffle(deck)
         for p in state["players"]:
             p.hand = []
         deal(state, deck)
@@ -169,8 +159,6 @@ for i in range(1, 3):
 
 def setup(game):
     deck = get_deck()
-    shuffle(deck)
-    shuffle(deck)
     shuffle(deck)
     deal(game.game_state, deck)
     game.game_state[STATE_CURRENT_STATE] = main

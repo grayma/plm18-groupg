@@ -1,14 +1,16 @@
-suits = ['hearts', 'diamonds', 'spades', 'clubs']
-suit_abbr_map = {'h' : 'hearts', 'd' : 'diamonds', 's' : 'spades', 'c' : 'clubs'}
-values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king']
-values_abbr_map = { 'a' : 'ace', '2' : '2', '3' : '3', '4' : '4', '5' : '5', '6' : '6', '7' : '7', '8' : '8', '9' : '9', '10' : '10', 'j' : 'jack', 'q' : 'queen', 'k' : 'king'}
-value_map = {'2' : 2, '3' : 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7, '8' : 8, '9' : 9, '10' : 10, 'jack' : 11, 'queen' : 12, 'king' : 13, 'ace' : 14}
+from random import shuffle
+suits = [ 'hearts', 'diamonds', 'spades', 'clubs' ]
+suit_abbr_map = { 'h' : 'hearts', 'd' : 'diamonds', 's' : 'spades', 'c' : 'clubs' }
+suit_map = { 'hearts' : 0, 'diamonds' : 1, 'spades' : 2, 'clubs' : 3 }
+values = [ 'ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king' ]
+values_abbr_map = { 'a' : 'ace', '2' : '2', '3' : '3', '4' : '4', '5' : '5', '6' : '6', '7' : '7', '8' : '8', '9' : '9', '10' : '10', 'j' : 'jack', 'q' : 'queen', 'k' : 'king' }
+value_map = { '2' : 2, '3' : 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7, '8' : 8, '9' : 9, '10' : 10, 'jack' : 11, 'queen' : 12, 'king' : 13, 'ace' : 14 }
 
 def map_suit(abbr):
-    return suit_map[abbr]
+    return suit_abbr_map[abbr]
 
 def map_value(card):
-    return values_map[card.value]
+    return value_map[card.value]
 
 def last(values):
     return values[-1]
@@ -28,6 +30,7 @@ class Player:
         self.index = index
         self.score = 0
         self.playerspace = {}
+        self.hand = Pile([])
 
     def move(self, game):
         """
@@ -89,6 +92,15 @@ class Pile:
     def __repr__(self):
         return str(self.cards)
 
+    def __len__(self):
+        return len(self.cards)
+
+    def __iter__(self):
+       return self.cards.__iter__()
+
+    def __getitem__(self, index):
+        return self.cards[index]
+
     def transfer_to(self, new_pile, subset):
         """
         Transfers a subset of this pile to another pile.
@@ -98,6 +110,32 @@ class Pile:
                 raise ValueError('"subset" of pile not actually a subset.')
         self.cards = [c for c in self.cards if c not in subset]
         new_pile.cards.extend(subset)
+        
+    def sort(self):
+        """
+        Sort the pile of cards
+        """
+        self.cards.sort(key = lambda x: value_map[x.value])
+        self.cards.sort(key = lambda x: suit_map[x.suit])
+        
+class Deck(Pile):
+    def __init__(self):
+        cards = [Card(value, suit) for value in values for suit in suits]
+        super(Deck, self).__init__(cards)
+        
+    def deal(self, players):
+        """
+        Deal the cards in the deck to the given players
+        """
+        per_player = 52 // len(players)
+        for p in players:
+            self.transfer_to(p.hand, [self.cards[i] for i in range(per_player)])
+
+    def shuffle(self):
+        """
+        Shuffle the cards in the deck
+        """
+        shuffle(self.cards)
 
 class Move:
     """
@@ -120,8 +158,11 @@ class Move:
 
     def perform(self, game, player):
         self._getMoveInput(game)
-        while not self.logic(game, player, self.required) == "":
+        validate = self.logic(game, player, self.required)
+        while validate != "":
+            print(validate)
             self._getMoveInput(game)
+            validate = self.logic(game, player, self.required)
 
     def _getMoveInput(self, game):
         for k, v in self.required.items():
@@ -218,11 +259,13 @@ class Game:
                     return
 
             self.state.logic(self) #run logic needed before state transition
-            self.turn += 1 #turn is done, increment turn counter
 
             #state transitions
             for t in self.transitions:
-                if t.guard(self):
+                if t.guard(self) and t.source == self.state:
                     self.state = t.dest
+                    break
+                    
+            self.turn += 1 #turn is done, increment turn counter
 
         self.finish(self)
