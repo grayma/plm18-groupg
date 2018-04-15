@@ -38,7 +38,7 @@ class Player:
         """
         state = game.state
         game.post("It's now {}'s' turn".format(self.name))
-        game.post(state.status(self, game))
+        state.status(self, game)
         selected = game.get(state.prompt_str)
         while selected not in state.moves:
             selected = game.get(state.prompt_str)
@@ -100,6 +100,15 @@ class Pile:
 
     def __getitem__(self, index):
         return self.cards[index]
+        
+    def pop(self):
+        return self.cards.pop()
+        
+    def remove(self, c):
+        self.cards.remove(c)
+    
+    def is_empty(self):
+        return not self.cards
 
     def transfer_to(self, new_pile, subset):
         """
@@ -119,15 +128,19 @@ class Pile:
         self.cards.sort(key = lambda x: suit_map[x.suit])
         
 class Deck(Pile):
+    """
+    Deck of cards allowing for dealing and shuffling
+    """
     def __init__(self):
         cards = [Card(value, suit) for value in values for suit in suits]
         super(Deck, self).__init__(cards)
         
-    def deal(self, players):
+    def deal(self, players, per_player = 0):
         """
         Deal the cards in the deck to the given players
         """
-        per_player = 52 // len(players)
+        if not per_player:
+            per_player = 52 // len(players)
         for p in players:
             self.transfer_to(p.hand, [self.cards[i] for i in range(per_player)])
 
@@ -173,7 +186,7 @@ class State:
     Class representing a game's state machine 
     """
 
-    def __init__(self, name, status, moves, logic, is_final):
+    def __init__(self, name, status, moves, logic, is_final, early_exit = None):
         """
         `name` name of the state the game is in
         `status(player, game)` function taking a player and game showing player what info they need
@@ -194,6 +207,7 @@ class State:
                 self.prompt_str += ": "
         self.logic = logic
         self.is_final = is_final
+        self.early_exit = early_exit
 
 
 
@@ -218,7 +232,7 @@ class Game:
     Game object running a card game.
     """
 
-    def __init__(self, players, gamespace, start_state, transitions, game_is_over, setup, finish, get, post):
+    def __init__(self, players, gamespace, start_state, transitions, setup, finish, get, post):
         """
         `players` list of players playing the game
         `gamespace` dictionary containing any necessary game data
@@ -235,7 +249,6 @@ class Game:
         self.gamespace = gamespace
         self.start_state = start_state
         self.transitions = transitions
-        self.game_is_over = game_is_over
         self.setup = setup      
         self.finish = finish
         self.get = get
@@ -247,16 +260,12 @@ class Game:
         self.setup(self)
         self.state = self.start_state
 
-        # game loop
-        done = None
         while not self.state.is_final:
             #perform moves
             for player in self.players:
                 player.move(self)
-                done = self.game_is_over(self)
-                if done:
-                    self.finish(self)
-                    return
+                if self.state.early_exit and self.state.early_exit(self): #check for existence then run
+                    break
 
             self.state.logic(self) #run logic needed before state transition
 

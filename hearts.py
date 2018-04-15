@@ -13,8 +13,6 @@ PLAYER_PLAYED = 'played'
 
 TURNS_PER_ROUND = 14
 
-def get_deck():
-    return Pile([Card(value, suit) for value in values for suit in suits])
 
 def gamespace():
     return {
@@ -248,8 +246,7 @@ def start_hearts():
     hearts = Game(players, 
                     gs, 
                     start, 
-                    transitions, 
-                    game_is_over, 
+                    transitions,
                     setup, 
                     finish, 
                     lambda prompt: input(prompt), 

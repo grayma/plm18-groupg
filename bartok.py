@@ -1,184 +1,201 @@
 from starterpack import *
 from random import shuffle
 
-#==============================================================================
-# Standard Deck
-#==============================================================================
-
 WINNING_SCORE = 50
 
+#==============================================================================
+# player and game spaces
+#==============================================================================
+
+GAME_TOP_CARD = 'top_card'
+GAME_PLAYED_CARDS = 'played_cards'
+GAME_DISCARD  = 'discard'
+GAME_DECK = 'deck'
+
+def gamespace():
+    return {
+        GAME_TOP_CARD       : None,
+        GAME_PLAYED_CARDS   : Pile([]),
+        GAME_DISCARD        : Pile([]),
+        GAME_DECK           : Pile([])
+    }
+
+def playerspace():
+    return { }
 
 #==============================================================================
 # board helpers
 #==============================================================================
 
-def game_status(player, state):
-    print("\nTurn " + str(state[STATE_TURNS]))
+def game_status(player, game):
+    print("\nTurn " + str(game.turn))
     print("Showing %s info about the game." % (player.name))
-    printBoard(state)
-    print(player.hand)
-    print()  # separator line
+    print_board(game)
+    player.hand.sort()
+    print(player.hand, "\n")
     
-def printBoard(state):
+def print_board(game):
     # see play() - topCard may be string or a card
+    players = game.players
     print("-----------------")
-    print("|      %d %s      |" % (state['players'][0].score, state['players'][0].name[0]))
+    print("|      %d %s      |" % (players[0].score, game.players[0].name[0]))
     print("|               |")
-    print("|    top: %s    |" % state["topCard"].abbr())
+    print("|    top: %s    |" % game.gamespace[GAME_TOP_CARD].abbr())
     print("|               |")
-    print("|      %s %d      |" % (state['players'][1].name[0], state['players'][1].score))
+    print("|      %s %d      |" % (players[1].name[0], players[1].score))
     print("-----------------")
 
+#==============================================================================
+# move validation functions
+#==============================================================================
+
+def validate_play(game, player, card):
+    top_card = game.gamespace[GAME_TOP_CARD]
+    #Check that it's in the players hand
+    if not card in player.hand:
+        return "Card not in hand."
+    #Check that the suit or value matches, or it's an 8
+    if not card.suit == top_card.suit and not card.value == top_card.value and not card.value == '8':
+        return "Card must match the suit or value of the top card, or be an 8 of any suit."
+    return "";
 
 #==============================================================================
 # move functions
 #==============================================================================
 
-def play(player, state, input_dict):
-    card = getCard(input_dict["card"])
-    if not card:
-        return "Invalid input."
-    top_card = state["topCard"]
-    discard = state["discard"]
-    
-    if not card in player.hand:
-        return "Card not in hand."
-    else:
+def f_play(game, player, input_dict):
+    card = None
+    try:
+        card = Card.from_abbr(input_dict["card"])
+    except:
+        return "Invalid card entered."
+    validate = validate_play(game, player, card)
+    if validate == "":
+        discard = game.gamespace[GAME_DISCARD]
+        top_card = game.gamespace[GAME_TOP_CARD]
+        if not top_card.value == "x":
+            discard.cards = discard.cards + [top_card]
         if card.value == "8":
-            discard += [card, top_card] if not top_card.value == "x" else [card]
-            player.hand.remove(card)
-            valid = False
-            while not valid:
-                # choose a new suit
-                new_suit = input("Choose a new suit (s, c, d, h): ")
-                if new_suit in abbr_suits:
-                    state["topCard"] = getCard("x" + new_suit)
-                    valid = True
-                else:
-                    print("\nInvalid suit, try again.")
-            return ""
-        elif card.suit[0] == top_card.suit[0] or card.value[0] == top_card.value[0]:
-            discard += [top_card] if not top_card.value == "x" else []
-            state["topCard"] = card
-            player.hand.remove(card)
-            return ""
+            player.hand.transfer_to(discard, [card])
+            new_suit = get_suit()
+            # top card will only have a suit, so create a stubbed card with no value
+            top_card = Card("x", suit_abbr_map[new_suit])
         else:
-            return "Card does not match top card."
+            player.hand.remove(card)
+            top_card = card
+        game.gamespace[GAME_TOP_CARD] = top_card
+    return validate
 
-def draw(player, state, input):
-    deck = state["deck"]
-    
-    if (not deck): #empty
-        deck = shuffle(state["discard"])
-        state["discard"] = []
-        
+def f_draw(game, player, input_dict):
+    deck = game.gamespace[GAME_DECK]
+    discard = game.gamespace[GAME_DISCARD]
+    if not deck: #empty so transfer discard to deck
+        discard.transfer_to(deck, discard.cards)
+        deck.shuffle()
     popped = deck.pop();
     print("\nYou drew: %s\n" % popped)
-    player.hand += [popped]
-    
-    return ""
-
-def placeholder(player, state, input):
+    player.hand.cards = player.hand.cards + [popped]
     return ""
 
 #==============================================================================
-# moves
+# state logic functions
 #==============================================================================
 
-draw_move = Move("draw", draw, {})
-play_move = Move("play", play, {"card": None})
-placeholder_move = Move("placeholder", placeholder, {})
-
+def end_turn(game):
+    if round_is_over(game):
+        print("\nRound is over! Scoring game...\n")
+        winner = [p for p in game.players if p.hand.is_empty()][0]
+        loser  = [p for p in game.players if not p.hand.is_empty()][0]
+        winner.score = winner.score + score_hand(loser)
+        for p in game.players:
+            p.hand = Pile([])
+        game.setup(game)
 
 #==============================================================================
-# transition functions
+# exit conditions
 #==============================================================================
-
-def transition_stub(state):
-    pass
     
-def reset_game(state):
-    loser = [p for p in state["players"] if len(p.hand) > 0][0]
-    winner = [p for p in state["players"] if len(p.hand) == 0][0]
-    score_hand(winner, loser)
-    if winner.score < WINNING_SCORE: # if the game needs to continue, reshuffle deck
-        deck = get_deck()
-        shuffle(deck)
-        for p in state["players"]:
-            p.hand = []
-        deal(state, deck)
-        state["topCard"] = deck.pop()
-        state["deck"] = deck
-        state["discard"] = []
-    
-def conclude_game(state):
-    print("Final Score:")
-    [print("%s: %d" % (p.name, p.score)) for p in state["players"]]
+def round_is_over(game):
+    """
+    Returns true if a player's hand is empty, aka the round is over
+    """
+    # round is over if we find a player whose hand is empty
+    for p in game.players:
+        if p.hand.is_empty():
+            return True
+    return False
 
-
-#==============================================================================
-# transitions
-#==============================================================================
-
-# len(state[STATE_PLAYERS][0].hand) == 0 or len(state[STATE_PLAYERS][0].hand) == 0
-main_to_main = Transition("main", (lambda state: not any(len(p.hand) == 0 for p in state["players"])), transition_stub)
-main_to_main_reset = Transition("main",
-       (lambda state: 
-            any(len(p.hand) == 0 for p in state["players"]) and get_highest_score(state[STATE_PLAYERS]) < WINNING_SCORE),
-       reset_game)
-main_to_finish = Transition("finish", (lambda state: get_highest_score(state[STATE_PLAYERS]) >= WINNING_SCORE), conclude_game)
+def game_is_over(game):
+    """
+    Returns true if a player's score is over 50
+    """
+    for p in game.players:
+        if p.score >= 50:
+            return True
+    return False
 
 #==============================================================================
-# states
+# states and transitions
 #==============================================================================
 
-main_transitions = [main_to_main_reset, main_to_main, main_to_finish]
-main_moves = [play_move, draw_move]
-main = State("main", main_transitions, main_moves, game_status, False)
+draw = Move("draw", f_draw, { })
+play = Move("play", f_play, { "card" : None })
 
-finish = State("finish", None, [placeholder_move], game_status, True)
+main    = State("main"    , game_status   , [draw, play], end_turn    , False, round_is_over)
+finish  = State("finish"  , game_status   , []          , None        , True , None         )
 
-states = [main, finish]
-
+transitions = [
+    Transition(main , main  , lambda game: not game_is_over(game)                          ),
+    Transition(main , finish, lambda game: game_is_over(game)                              )
+]
 
 #==============================================================================
 # players
 #==============================================================================
 
-players = []
-for i in range(1, 3):
-    name = input("What is the name of player " + str(i) + "? ")
-    hand = []
-    player = Player(name, {}, i, hand, 0)
-    players.append(player)
+def get_players():
+    ps = []
+    for i in range(2):
+        name = ""
+        while name == "":
+            name = input("What's the name of player @ index {} (can't be empty): ".format(i))
+        p = Player(name, i)
+        p.playerspace = playerspace()
+        ps.append(p)
+    return ps 
 
 
 #==============================================================================
-# setup/finish
+# beginning/end game functions
 #==============================================================================
 
 def setup(game):
-    deck = get_deck()
-    shuffle(deck)
-    deal(game.game_state, deck)
-    game.game_state[STATE_CURRENT_STATE] = main
-    game.game_state["topCard"] = deck.pop()
-    game.game_state["deck"] = deck
-    game.game_state["discard"] = []
-    print("Starting Crazy 8s!\n")
-
-
+    deck = Deck()
+    deck.shuffle()
+    deck.deal(game.players, 8)
+    game.gamespace[GAME_TOP_CARD] = deck.pop()
+    game.gamespace[GAME_DECK] = deck
+    game.gamespace[GAME_DISCARD] = Pile([])
+    
 def finish(game):
-    print("Finished playing :)")
-
+    print("Final Score:")
+    [print("%s: %d" % (p.name, p.score)) for p in game.players]
 
 #==============================================================================
 # helper methods
 #==============================================================================
 
-def score_hand(player_won, player_lost):
+def get_suit():
+    new_suit = input("Choose a new suit (s, c, d, h): ")
+    while not new_suit in suit_abbr_map.keys():
+        # choose a new suit
+        print("\nInvalid suit, try again.")
+        new_suit = input("Choose a new suit (s, c, d, h): ")
+    return new_suit
+
+def score_hand(player):
     score = 0
-    for card in player_lost.hand:
+    for card in player.hand:
         if card.value == "8":
             score = score + 50
         # all values are stored as strings, and all face cards are 10 points
@@ -186,31 +203,23 @@ def score_hand(player_won, player_lost):
             score = score + 10
         else:
             score = score + int(card.value)
-    player_won.score = player_won.score + score
-
-def deal(state, deck):
-    state[STATE_PLAYERS][0].hand.extend(deck[0:8])
-    sortCards(state[STATE_PLAYERS][0].hand)
-    state[STATE_PLAYERS][1].hand.extend(deck[8:16])
-    sortCards(state[STATE_PLAYERS][1].hand)
-    deck = deck[16:52]
-
-
-def sortCards(lst):
-    lst.sort(key=lambda x: x.value, reverse=True)
-    lst.sort(key=lambda x: x.suit, reverse=True)
-
-
-def get_highest_score(players):
-    score = -1
-    for p in players:
-        if p.score > score:
-            score = p.score
     return score
-
 
 #==============================================================================
 # start the game
 #==============================================================================
-bartok = Game(players, { "startPlayer": 1 }, states, setup, finish)
-bartok.start()
+def start_bartok():
+    players = get_players()
+    gs = gamespace()
+    bartok = Game(players, 
+                    gs, 
+                    main, 
+                    transitions,
+                    setup, 
+                    finish, 
+                    lambda prompt: input(prompt), 
+                    lambda info: print(info))
+    bartok.start()
+
+if __name__ == '__main__':
+    start_bartok()
