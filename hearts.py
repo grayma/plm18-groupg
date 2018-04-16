@@ -1,4 +1,4 @@
-from starterpack import *
+from gaming import *
 from collections import deque
 
 #################
@@ -13,8 +13,6 @@ PLAYER_PLAYED = 'played'
 
 TURNS_PER_ROUND = 14
 
-def get_deck():
-    return Pile([Card(value, suit) for value in values for suit in suits])
 
 def gamespace():
     return {
@@ -168,7 +166,7 @@ def f_pass3(game, player, input):
     try:
         subset = [Card.from_abbr(value) for key, value in input.items()]
     except:
-        return False
+        return "Invalid card input."
     validation = validate_pass3(game, player, subset)
     if validation == "":
         player.hand.transfer_to(getNextPlayer(player, game).playerspace[PLAYER_INTERMED], subset)
@@ -179,7 +177,7 @@ def f_play(game, player, input):
     try:
         card = Card.from_abbr(input["card"])
     except:
-        return False
+        return "Invalid card input."
     validation = validate_play(game, player, card)
     if validation == "":
         if card.suit == 'hearts':
@@ -188,8 +186,8 @@ def f_play(game, player, input):
         player.playerspace[PLAYER_PLAYED] = card
     return validation
 
-pass3 = Move("pass3", f_pass3, { "card 1" : None, "card 2" : None, "card 3" : None })
-play = Move("play", f_play, { "card" : None })
+pass3 = Move("pass3", lambda game, player: True, f_pass3, { "card 1" : None, "card 2" : None, "card 3" : None })
+play  = Move("play" , lambda game, player: True, f_play , { "card" : None })
 
 
 start   = State("start"   , game_status   , [pass3]   , finish_pass3            , False )
@@ -230,30 +228,17 @@ def finish(game):
     for p in game.players:
         print(p.name, str(p.score))
 
-def get_players():
-    ps = []
-    for i in range(4):
-        name = ""
-        while name == "":
-            name = input("What's the name of player @ index {} (can't be empty): ".format(i))
-        p = Player(name, i)
-        p.playerspace = playerspace()
-        ps.append(p)
-    return ps
-
-
 def start_hearts():
-    players = get_players()
+    players = get_players(4, playerspace)
     gs = gamespace()
-    hearts = Game(players, 
-                    gs, 
-                    start, 
-                    transitions, 
-                    game_is_over, 
-                    setup, 
-                    finish, 
-                    lambda prompt: input(prompt), 
-                    lambda info: print(info))
+    hearts = Game(players = players, 
+                    gamespace = gs, 
+                    start_state = start, 
+                    transitions = transitions,
+                    setup = setup, 
+                    finish = finish, 
+                    get = lambda prompt: input(prompt), 
+                    post = lambda info: print(info))
     hearts.start()
 
 if __name__ == '__main__':
