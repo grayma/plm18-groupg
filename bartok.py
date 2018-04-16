@@ -1,4 +1,4 @@
-from starterpack import *
+from gaming import *
 from random import shuffle
 
 WINNING_SCORE = 50
@@ -168,22 +168,6 @@ transitions = [
 ]
 
 #==============================================================================
-# players
-#==============================================================================
-
-def get_players():
-    ps = []
-    for i in range(2):
-        name = ""
-        while name == "":
-            name = input("What's the name of player @ index {} (can't be empty): ".format(i))
-        p = Player(name, i)
-        p.playerspace = playerspace()
-        ps.append(p)
-    return ps 
-
-
-#==============================================================================
 # beginning/end game functions
 #==============================================================================
 
@@ -227,7 +211,7 @@ def score_hand(player):
 # start the game
 #==============================================================================
 def start_bartok():
-    players = get_players()
+    players = get_players(2, playerspace)
     gs = gamespace()
     bartok = Game(players = players, 
                     gamespace = gs, 

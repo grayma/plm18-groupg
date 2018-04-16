@@ -1,6 +1,21 @@
 from cards import *
 from machine import *
 
+def get_players(n, playerspace):
+    """
+    `n` number of players
+    `playerspace()` function returning new playerspace for player
+    """
+    ps = []
+    for i in range(n):
+        name = ""
+        while name == "":
+            name = input("What's the name of player @ index {} (can't be empty): ".format(i))
+        p = Player(name, i)
+        p.playerspace = playerspace()
+        ps.append(p)
+    return ps 
+
 class Player:
     """
     Wrapper for a Player playing the game
@@ -108,7 +123,6 @@ class Game:
                 self.state = t.dest
                 break
         self.turn += 1 #turn is done, increment turn counter
-
 
     def start(self):
         self.setup(self)

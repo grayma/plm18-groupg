@@ -1,4 +1,4 @@
-from starterpack import *
+from gaming import *
 from collections import deque
 
 #################
@@ -228,19 +228,8 @@ def finish(game):
     for p in game.players:
         print(p.name, str(p.score))
 
-def get_players():
-    ps = []
-    for i in range(4):
-        name = ""
-        while name == "":
-            name = input("What's the name of player @ index {} (can't be empty): ".format(i))
-        p = Player(name, i)
-        p.playerspace = playerspace()
-        ps.append(p)
-    return ps
-
 def start_hearts():
-    players = get_players()
+    players = get_players(4, playerspace)
     gs = gamespace()
     hearts = Game(players = players, 
                     gamespace = gs, 
