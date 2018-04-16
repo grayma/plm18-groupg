@@ -103,13 +103,15 @@ def f_draw(game, player, input_dict):
 
 def end_turn(game):
     if round_is_over(game):
-        print("\nRound is over! Scoring game...\n")
+        print("\nRound is over! Scoring game...")
         winner = [p for p in game.players if p.hand.is_empty()][0]
         loser  = [p for p in game.players if not p.hand.is_empty()][0]
         winner.score = winner.score + score_hand(loser)
-        for p in game.players:
-            p.hand = Pile([])
-        game.setup(game)
+        if not game_is_over(game):
+            print("Resetting board...")
+            for p in game.players:
+                p.hand = Pile([])
+            game.setup(game)
 
 #==============================================================================
 # exit conditions

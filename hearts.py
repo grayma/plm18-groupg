@@ -166,7 +166,7 @@ def f_pass3(game, player, input):
     try:
         subset = [Card.from_abbr(value) for key, value in input.items()]
     except:
-        return False
+        return "Invalid card input."
     validation = validate_pass3(game, player, subset)
     if validation == "":
         player.hand.transfer_to(getNextPlayer(player, game).playerspace[PLAYER_INTERMED], subset)
@@ -177,7 +177,7 @@ def f_play(game, player, input):
     try:
         card = Card.from_abbr(input["card"])
     except:
-        return False
+        return "Invalid card input."
     validation = validate_play(game, player, card)
     if validation == "":
         if card.suit == 'hearts':
