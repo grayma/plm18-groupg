@@ -5,7 +5,9 @@ March 18th initial version: https://github.com/grayma/plm18_groupg/tree/march18
 Repository for CSC495 PLM Group G.
 
 Glas,		William
+
 Gray,		Matthew
+
 Grochmal,	Daniel
 
 Instructions on how to download/play:
