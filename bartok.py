@@ -60,6 +60,17 @@ def validate_play(game, player, card):
     return "";
 
 #==============================================================================
+# can_move functions
+#==============================================================================
+
+def f_can_play(game, player):
+    top_card = game.gamespace[GAME_TOP_CARD]
+    for c in player.hand:
+        if c.suit == top_card.suit or c.value == top_card.value or c.value == '8':
+            return True
+    return False
+
+#==============================================================================
 # move functions
 #==============================================================================
 
@@ -140,8 +151,8 @@ def game_is_over(game):
 # states and transitions
 #==============================================================================
 
-draw = Move("draw", f_draw, { })
-play = Move("play", f_play, { "card" : None })
+draw = Move("draw", lambda game, player: True , f_draw , { })
+play = Move("play", f_can_play                , f_play , { "card" : None })
 
 main    = State("main"    , game_status   , [draw, play], end_turn    , False, round_is_over)
 finish  = State("finish"  , game_status   , []          , None        , True , None         )

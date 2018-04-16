@@ -40,7 +40,8 @@ class Player:
         game.post("It's now {}'s' turn".format(self.name))
         state.status(self, game)
         selected = game.get(state.prompt_str)
-        while selected not in state.moves:
+        while selected not in state.moves or not state.moves[selected].canPerform(game, self):
+            game.post("Move cannot be performed. Try again.")
             selected = game.get(state.prompt_str)
         state.moves[selected].perform(game, self)
 
@@ -156,9 +157,10 @@ class Move:
     difference before and after a potential player's move.
     """
     
-    def __init__(self, name, logic, required):
+    def __init__(self, name, can_perform, logic, required):
         """ 
         `name` is the name of the move
+        `can_perform(game, player)` logic determining if a player can perform this move
         `logic(Game, Player, input)` is the function that actually executes the move, taking in a game and input. 
             Includes interaction with player. Returns "" if move successful, 
             an error message if needs to go again (rule break)
@@ -166,8 +168,12 @@ class Move:
         """
 
         self.name = name
+        self.can_perform = can_perform
         self.logic = logic
         self.required = required
+        
+    def canPerform(self, game, player):
+        return self.can_perform(game, player)
 
     def perform(self, game, player):
         self._getMoveInput(game)
@@ -192,7 +198,8 @@ class State:
         `status(player, game)` function taking a player and game showing player what info they need
         `moves` list of moves available to this player at this point
         `logic(Game)` function performing any logic needed before the next state transition
-        `is_final` bool indicating whether or not game has finished
+        `is_final` bool indicating whether or not game has finished (aka final state)
+        `early_exit(game)` function that checks if the state needs exit before all players have played
         """
 
         self.name = name
@@ -208,8 +215,6 @@ class State:
         self.logic = logic
         self.is_final = is_final
         self.early_exit = early_exit
-
-
 
 class Transition:
     """

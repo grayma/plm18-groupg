@@ -186,8 +186,8 @@ def f_play(game, player, input):
         player.playerspace[PLAYER_PLAYED] = card
     return validation
 
-pass3 = Move("pass3", f_pass3, { "card 1" : None, "card 2" : None, "card 3" : None })
-play = Move("play", f_play, { "card" : None })
+pass3 = Move("pass3", lambda game, player: True, f_pass3, { "card 1" : None, "card 2" : None, "card 3" : None })
+play  = Move("play" , lambda game, player: True, f_play , { "card" : None })
 
 
 start   = State("start"   , game_status   , [pass3]   , finish_pass3            , False )
