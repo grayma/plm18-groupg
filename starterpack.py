@@ -1,19 +1,5 @@
-from random import shuffle
-suits = [ 'hearts', 'diamonds', 'spades', 'clubs' ]
-suit_abbr_map = { 'h' : 'hearts', 'd' : 'diamonds', 's' : 'spades', 'c' : 'clubs' }
-suit_map = { 'hearts' : 0, 'diamonds' : 1, 'spades' : 2, 'clubs' : 3 }
-values = [ 'ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king' ]
-values_abbr_map = { 'a' : 'ace', '2' : '2', '3' : '3', '4' : '4', '5' : '5', '6' : '6', '7' : '7', '8' : '8', '9' : '9', '10' : '10', 'j' : 'jack', 'q' : 'queen', 'k' : 'king' }
-value_map = { '2' : 2, '3' : 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7, '8' : 8, '9' : 9, '10' : 10, 'jack' : 11, 'queen' : 12, 'king' : 13, 'ace' : 14 }
-
-def map_suit(abbr):
-    return suit_abbr_map[abbr]
-
-def map_value(card):
-    return value_map[card.value]
-
-def last(values):
-    return values[-1]
+from cards import *
+from machine import *
 
 class Player:
     """
@@ -44,112 +30,6 @@ class Player:
             game.post("Move cannot be performed. Try again.")
             selected = game.get(state.prompt_str)
         state.moves[selected].perform(game, self)
-
-
-class Card: 
-    """
-    Wrapper for a playing card
-    """
-
-    def __init__(self, value, suit):    
-        """
-        `value` value of the card
-        `suit` suit of the card
-        """
-
-        self.value = value
-        self.suit = suit
-
-    def __repr__(self):
-        return str(self.value) + "" + self.suit
-    
-    def __eq__(self, other):
-        if(str(self.suit) == str(other.suit) and str(self.value) == str(other.value)):
-            return True
-        else:
-            return False
-        
-    def abbr(self):
-        return (self.value[0] if not self.value == "10" else self.value) + self.suit[0]
-
-    @staticmethod
-    def from_abbr(abbr):
-        if len(abbr) == 3:
-            return Card('10', suit_abbr_map[abbr[2]])
-        return Card(values_abbr_map[abbr[0]], suit_abbr_map[abbr[1]])
-
-
-class Pile:
-    """
-    Pile of cards allowing transfering between piles
-    """
-
-    def __init__(self, cards):
-        """
-        `cards` list of cards to instantiate this pile with
-        """
-        self.cards = cards
-
-    def __repr__(self):
-        return str(self.cards)
-
-    def __len__(self):
-        return len(self.cards)
-
-    def __iter__(self):
-       return self.cards.__iter__()
-
-    def __getitem__(self, index):
-        return self.cards[index]
-        
-    def pop(self):
-        return self.cards.pop()
-        
-    def remove(self, c):
-        self.cards.remove(c)
-    
-    def is_empty(self):
-        return not self.cards
-
-    def transfer_to(self, new_pile, subset):
-        """
-        Transfers a subset of this pile to another pile.
-        """
-        for c in subset:
-            if c not in self.cards:
-                raise ValueError('"subset" of pile not actually a subset.')
-        self.cards = [c for c in self.cards if c not in subset]
-        new_pile.cards.extend(subset)
-        
-    def sort(self):
-        """
-        Sort the pile of cards
-        """
-        self.cards.sort(key = lambda x: value_map[x.value])
-        self.cards.sort(key = lambda x: suit_map[x.suit])
-        
-class Deck(Pile):
-    """
-    Deck of cards allowing for dealing and shuffling
-    """
-    def __init__(self):
-        cards = [Card(value, suit) for value in values for suit in suits]
-        super(Deck, self).__init__(cards)
-        
-    def deal(self, players, per_player = 0):
-        """
-        Deal the cards in the deck to the given players
-        """
-        if not per_player:
-            per_player = 52 // len(players)
-        for p in players:
-            self.transfer_to(p.hand, [self.cards[i] for i in range(per_player)])
-
-    def shuffle(self):
-        """
-        Shuffle the cards in the deck
-        """
-        shuffle(self.cards)
 
 class Move:
     """
@@ -186,51 +66,6 @@ class Move:
     def _getMoveInput(self, game):
         for k, v in self.required.items():
             self.required[k] = game.get("Move requires {}: ".format(k))
-
-class State:
-    """
-    Class representing a game's state machine 
-    """
-
-    def __init__(self, name, status, moves, logic, is_final, early_exit = None):
-        """
-        `name` name of the state the game is in
-        `status(player, game)` function taking a player and game showing player what info they need
-        `moves` list of moves available to this player at this point
-        `logic(Game)` function performing any logic needed before the next state transition
-        `is_final` bool indicating whether or not game has finished (aka final state)
-        `early_exit(game)` function that checks if the state needs exit before all players have played
-        """
-
-        self.name = name
-        self.status = status
-        self.moves = { move.name : move for move in moves }
-        self.prompt_str = "Please select a move from "
-        for move in moves:
-            self.prompt_str += ("'" + move.name + "'")
-            if not move == last(moves): #add commas except after the last move.
-                self.prompt_str += ", "
-            else:
-                self.prompt_str += ": "
-        self.logic = logic
-        self.is_final = is_final
-        self.early_exit = early_exit
-
-class Transition:
-    """
-    Class to represent a state transition. 
-    """
-
-    def __init__(self, source, dest, guard):
-        """
-        `source` from state
-        `dest` to state
-        `guard(Game)` true/false function evaluating the game to see if now is a valid time to take this transition
-        """
-
-        self.source = source
-        self.dest = dest
-        self.guard = guard
 
 class Game:
     """
