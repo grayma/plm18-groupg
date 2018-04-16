@@ -239,18 +239,17 @@ def get_players():
         ps.append(p)
     return ps
 
-
 def start_hearts():
     players = get_players()
     gs = gamespace()
-    hearts = Game(players, 
-                    gs, 
-                    start, 
-                    transitions,
-                    setup, 
-                    finish, 
-                    lambda prompt: input(prompt), 
-                    lambda info: print(info))
+    hearts = Game(players = players, 
+                    gamespace = gs, 
+                    start_state = start, 
+                    transitions = transitions,
+                    setup = setup, 
+                    finish = finish, 
+                    get = lambda prompt: input(prompt), 
+                    post = lambda info: print(info))
     hearts.start()
 
 if __name__ == '__main__':

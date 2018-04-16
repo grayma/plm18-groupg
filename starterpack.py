@@ -261,25 +261,28 @@ class Game:
 
         self.turn = 1
 
+    def perform_moves(self):
+        for player in self.players:
+            player.move(self)
+            if self.state.early_exit and self.state.early_exit(self): #check for existence then run
+                break
+
+    def perform_transitions(self):
+        for t in self.transitions:
+            if t.guard(self) and t.source == self.state:
+                self.state = t.dest
+                break
+        self.turn += 1 #turn is done, increment turn counter
+
+
     def start(self):
         self.setup(self)
         self.state = self.start_state
 
+        #game loop
         while not self.state.is_final:
-            #perform moves
-            for player in self.players:
-                player.move(self)
-                if self.state.early_exit and self.state.early_exit(self): #check for existence then run
-                    break
-
+            self.perform_moves()
             self.state.logic(self) #run logic needed before state transition
-
-            #state transitions
-            for t in self.transitions:
-                if t.guard(self) and t.source == self.state:
-                    self.state = t.dest
-                    break
-                    
-            self.turn += 1 #turn is done, increment turn counter
+            self.perform_transitions()
 
         self.finish(self)

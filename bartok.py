@@ -70,6 +70,14 @@ def f_can_play(game, player):
             return True
     return False
 
+def f_can_draw(game, player):
+    deck = game.gamespace[GAME_DECK]
+    discard = game.gamespace[GAME_DISCARD]
+    if not deck: #empty so transfer discard to deck
+        discard.transfer_to(deck, discard.cards)
+        deck.shuffle()
+    return deck #if deck still empty, can't draw
+
 #==============================================================================
 # move functions
 #==============================================================================
@@ -100,9 +108,6 @@ def f_play(game, player, input_dict):
 def f_draw(game, player, input_dict):
     deck = game.gamespace[GAME_DECK]
     discard = game.gamespace[GAME_DISCARD]
-    if not deck: #empty so transfer discard to deck
-        discard.transfer_to(deck, discard.cards)
-        deck.shuffle()
     popped = deck.pop();
     print("\nYou drew: %s\n" % popped)
     player.hand.cards = player.hand.cards + [popped]
@@ -151,8 +156,8 @@ def game_is_over(game):
 # states and transitions
 #==============================================================================
 
-draw = Move("draw", lambda game, player: True , f_draw , { })
-play = Move("play", f_can_play                , f_play , { "card" : None })
+draw = Move("draw", f_can_draw  , f_draw , { }              )
+play = Move("play", f_can_play  , f_play , { "card" : None })
 
 main    = State("main"    , game_status   , [draw, play], end_turn    , False, round_is_over)
 finish  = State("finish"  , game_status   , []          , None        , True , None         )
@@ -224,14 +229,14 @@ def score_hand(player):
 def start_bartok():
     players = get_players()
     gs = gamespace()
-    bartok = Game(players, 
-                    gs, 
-                    main, 
-                    transitions,
-                    setup, 
-                    finish, 
-                    lambda prompt: input(prompt), 
-                    lambda info: print(info))
+    bartok = Game(players = players, 
+                    gamespace = gs, 
+                    start_state = main, 
+                    transitions = transitions,
+                    setup = setup, 
+                    finish = finish, 
+                    get = lambda prompt: input(prompt), 
+                    post = lambda info: print(info))
     bartok.start()
 
 if __name__ == '__main__':
