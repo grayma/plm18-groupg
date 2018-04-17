@@ -1,0 +1,859 @@
+What's the name of player @ index 0 (can't be empty): Emily
+What's the name of player @ index 1 (can't be empty): Sarah
+What's the name of player @ index 2 (can't be empty): Kailyn
+What's the name of player @ index 3 (can't be empty): Denise
+It's now Emily's' turn
+
+Turn 1
+Showing Emily info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[3hearts, 7hearts, 10hearts, 6diamonds, kingdiamonds, 2spades, 3spades, 5spades, 10spades, queenspades, 8clubs, 9clubs, queenclubs]
+
+Please select a move from 'pass3': pass3
+Move requires card 1: 3h
+Move requires card 2: 7h
+Move requires card 3: 10h
+It's now Sarah's' turn
+
+Turn 1
+Showing Sarah info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[5hearts, 6hearts, 8hearts, acehearts, 2diamonds, 5diamonds, 10diamonds, acediamonds, 4spades, 7spades, jackspades, 2clubs, kingclubs]
+
+Please select a move from 'pass3': pass3
+Move requires card 1: 5h
+Move requires card 2: 6h
+Move requires card 3: 8h
+It's now Kailyn's' turn
+
+Turn 1
+Showing Kailyn info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[2hearts, 3diamonds, 4diamonds, 7diamonds, 9diamonds, queendiamonds, 8spades, kingspades, acespades, 5clubs, 6clubs, 7clubs, 10clubs]
+
+Please select a move from 'pass3': pass3
+Move requires card 1: 2h
+Move requires card 2: 3d
+Move requires card 3: 4d
+It's now Denise's' turn
+
+Turn 1
+Showing Denise info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[4hearts, 9hearts, jackhearts, queenhearts, kinghearts, 8diamonds, jackdiamonds, 6spades, 9spades, 3clubs, 4clubs, jackclubs, aceclubs]
+
+Please select a move from 'pass3': pass3
+Move requires card 1: 4h
+Move requires card 2: 9h
+Move requires card 3: jh
+It's now Sarah's' turn
+
+Turn 2
+Showing Sarah info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[3hearts, 7hearts, 10hearts, acehearts, 2diamonds, 5diamonds, 10diamonds, acediamonds, 4spades, 7spades, jackspades, 2clubs, kingclubs]
+
+Please select a move from 'play': play
+Move requires card: 2c
+It's now Kailyn's' turn
+
+Turn 2
+Showing Kailyn info about the game.
+------------------
+|        0 E      |
+|                0|
+|D           2c  S|
+|0                |
+|       K 0       |
+------------------
+[5hearts, 6hearts, 8hearts, 7diamonds, 9diamonds, queendiamonds, 8spades, kingspades, acespades, 5clubs, 6clubs, 7clubs, 10clubs]
+
+Please select a move from 'play': play
+Move requires card: 10c
+It's now Denise's' turn
+
+Turn 2
+Showing Denise info about the game.
+------------------
+|        0 E      |
+|                0|
+|D           2c  S|
+|0       10c       |
+|       K 0       |
+------------------
+[2hearts, queenhearts, kinghearts, 3diamonds, 4diamonds, 8diamonds, jackdiamonds, 6spades, 9spades, 3clubs, 4clubs, jackclubs, aceclubs]
+
+Please select a move from 'play': play
+Move requires card: ac
+It's now Emily's' turn
+
+Turn 2
+Showing Emily info about the game.
+------------------
+|        0 E      |
+|                0|
+|D ac        2c  S|
+|0       10c       |
+|       K 0       |
+------------------
+[4hearts, 9hearts, jackhearts, 6diamonds, kingdiamonds, 2spades, 3spades, 5spades, 10spades, queenspades, 8clubs, 9clubs, queenclubs]
+
+Please select a move from 'play': play
+Move requires card: qc
+It's now Denise's' turn
+
+Turn 3
+Showing Denise info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[2hearts, queenhearts, kinghearts, 3diamonds, 4diamonds, 8diamonds, jackdiamonds, 6spades, 9spades, 3clubs, 4clubs, jackclubs]
+
+Please select a move from 'play': play
+Move requires card: jc
+It's now Emily's' turn
+
+Turn 3
+Showing Emily info about the game.
+------------------
+|        0 E      |
+|                0|
+|D jc            S|
+|0                |
+|       K 0       |
+------------------
+[4hearts, 9hearts, jackhearts, 6diamonds, kingdiamonds, 2spades, 3spades, 5spades, 10spades, queenspades, 8clubs, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: 9c
+It's now Sarah's' turn
+
+Turn 3
+Showing Sarah info about the game.
+------------------
+|        0 E      |
+|        9c      0|
+|D jc            S|
+|0                |
+|       K 0       |
+------------------
+[3hearts, 7hearts, 10hearts, acehearts, 2diamonds, 5diamonds, 10diamonds, acediamonds, 4spades, 7spades, jackspades, kingclubs]
+
+Please select a move from 'play': play
+Move requires card: kc
+It's now Kailyn's' turn
+
+Turn 3
+Showing Kailyn info about the game.
+------------------
+|        0 E      |
+|        9c      0|
+|D jc        kc  S|
+|0                |
+|       K 0       |
+------------------
+[5hearts, 6hearts, 8hearts, 7diamonds, 9diamonds, queendiamonds, 8spades, kingspades, acespades, 5clubs, 6clubs, 7clubs]
+
+Please select a move from 'play': play
+Move requires card: 7c
+It's now Sarah's' turn
+
+Turn 4
+Showing Sarah info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[3hearts, 7hearts, 10hearts, acehearts, 2diamonds, 5diamonds, 10diamonds, acediamonds, 4spades, 7spades, jackspades]
+
+Please select a move from 'play': play
+Move requires card: 2d
+It's now Kailyn's' turn
+
+Turn 4
+Showing Kailyn info about the game.
+------------------
+|        0 E      |
+|                0|
+|D           2d  S|
+|0                |
+|       K 0       |
+------------------
+[5hearts, 6hearts, 8hearts, 7diamonds, 9diamonds, queendiamonds, 8spades, kingspades, acespades, 5clubs, 6clubs]
+
+Please select a move from 'play': play
+Move requires card: qd
+It's now Denise's' turn
+
+Turn 4
+Showing Denise info about the game.
+------------------
+|        0 E      |
+|                0|
+|D           2d  S|
+|0       qd       |
+|       K 0       |
+------------------
+[2hearts, queenhearts, kinghearts, 3diamonds, 4diamonds, 8diamonds, jackdiamonds, 6spades, 9spades, 3clubs, 4clubs]
+
+Please select a move from 'play': play
+Move requires card: jd
+It's now Emily's' turn
+
+Turn 4
+Showing Emily info about the game.
+------------------
+|        0 E      |
+|                0|
+|D jd        2d  S|
+|0       qd       |
+|       K 0       |
+------------------
+[4hearts, 9hearts, jackhearts, 6diamonds, kingdiamonds, 2spades, 3spades, 5spades, 10spades, queenspades, 8clubs]
+
+Please select a move from 'play': play
+Move requires card: kd
+It's now Emily's' turn
+
+Turn 5
+Showing Emily info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[4hearts, 9hearts, jackhearts, 6diamonds, 2spades, 3spades, 5spades, 10spades, queenspades, 8clubs]
+
+Please select a move from 'play': play
+Move requires card: 2s
+It's now Sarah's' turn
+
+Turn 5
+Showing Sarah info about the game.
+------------------
+|        0 E      |
+|        2s      0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[3hearts, 7hearts, 10hearts, acehearts, 5diamonds, 10diamonds, acediamonds, 4spades, 7spades, jackspades]
+
+Please select a move from 'play': play
+Move requires card: js
+It's now Kailyn's' turn
+
+Turn 5
+Showing Kailyn info about the game.
+------------------
+|        0 E      |
+|        2s      0|
+|D           js  S|
+|0                |
+|       K 0       |
+------------------
+[5hearts, 6hearts, 8hearts, 7diamonds, 9diamonds, 8spades, kingspades, acespades, 5clubs, 6clubs]
+
+Please select a move from 'play': play
+Move requires card: 8s
+It's now Denise's' turn
+
+Turn 5
+Showing Denise info about the game.
+------------------
+|        0 E      |
+|        2s      0|
+|D           js  S|
+|0       8s       |
+|       K 0       |
+------------------
+[2hearts, queenhearts, kinghearts, 3diamonds, 4diamonds, 8diamonds, 6spades, 9spades, 3clubs, 4clubs]
+
+Please select a move from 'play': play
+Move requires card: 6s
+It's now Sarah's' turn
+
+Turn 6
+Showing Sarah info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[3hearts, 7hearts, 10hearts, acehearts, 5diamonds, 10diamonds, acediamonds, 4spades, 7spades]
+
+Please select a move from 'play': play
+Move requires card: 5d
+It's now Kailyn's' turn
+
+Turn 6
+Showing Kailyn info about the game.
+------------------
+|        0 E      |
+|                0|
+|D           5d  S|
+|0                |
+|       K 0       |
+------------------
+[5hearts, 6hearts, 8hearts, 7diamonds, 9diamonds, kingspades, acespades, 5clubs, 6clubs]
+
+Please select a move from 'play': play
+Move requires card: 9d
+It's now Denise's' turn
+
+Turn 6
+Showing Denise info about the game.
+------------------
+|        0 E      |
+|                0|
+|D           5d  S|
+|0       9d       |
+|       K 0       |
+------------------
+[2hearts, queenhearts, kinghearts, 3diamonds, 4diamonds, 8diamonds, 9spades, 3clubs, 4clubs]
+
+Please select a move from 'play': play
+Move requires card: 8d
+It's now Emily's' turn
+
+Turn 6
+Showing Emily info about the game.
+------------------
+|        0 E      |
+|                0|
+|D 8d        5d  S|
+|0       9d       |
+|       K 0       |
+------------------
+[4hearts, 9hearts, jackhearts, 6diamonds, 3spades, 5spades, 10spades, queenspades, 8clubs]
+
+Please select a move from 'play': play
+Move requires card: 6d
+It's now Kailyn's' turn
+
+Turn 7
+Showing Kailyn info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[5hearts, 6hearts, 8hearts, 7diamonds, kingspades, acespades, 5clubs, 6clubs]
+
+Please select a move from 'play': play
+Move requires card: 5c
+It's now Denise's' turn
+
+Turn 7
+Showing Denise info about the game.
+------------------
+|        0 E      |
+|                0|
+|D               S|
+|0       5c       |
+|       K 0       |
+------------------
+[2hearts, queenhearts, kinghearts, 3diamonds, 4diamonds, 9spades, 3clubs, 4clubs]
+
+Please select a move from 'play': play
+Move requires card: 4c
+It's now Emily's' turn
+
+Turn 7
+Showing Emily info about the game.
+------------------
+|        0 E      |
+|                0|
+|D 4c            S|
+|0       5c       |
+|       K 0       |
+------------------
+[4hearts, 9hearts, jackhearts, 3spades, 5spades, 10spades, queenspades, 8clubs]
+
+Please select a move from 'play': play
+Move requires card: 8c
+It's now Sarah's' turn
+
+Turn 7
+Showing Sarah info about the game.
+------------------
+|        0 E      |
+|        8c      0|
+|D 4c            S|
+|0       5c       |
+|       K 0       |
+------------------
+[3hearts, 7hearts, 10hearts, acehearts, 10diamonds, acediamonds, 4spades, 7spades]
+
+Please select a move from 'play': play
+Move requires card: ah
+It's now Emily's' turn
+
+Turn 8
+Showing Emily info about the game.
+------------------
+|        1 E      |
+|                0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[4hearts, 9hearts, jackhearts, 3spades, 5spades, 10spades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: 4h
+It's now Sarah's' turn
+
+Turn 8
+Showing Sarah info about the game.
+------------------
+|        1 E      |
+|        4h      0|
+|D               S|
+|0                |
+|       K 0       |
+------------------
+[3hearts, 7hearts, 10hearts, 10diamonds, acediamonds, 4spades, 7spades]
+
+Please select a move from 'play': play
+Move requires card: 3h
+It's now Kailyn's' turn
+
+Turn 8
+Showing Kailyn info about the game.
+------------------
+|        1 E      |
+|        4h      0|
+|D           3h  S|
+|0                |
+|       K 0       |
+------------------
+[5hearts, 6hearts, 8hearts, 7diamonds, kingspades, acespades, 6clubs]
+
+Please select a move from 'play': play
+Move requires card: 8h
+It's now Denise's' turn
+
+Turn 8
+Showing Denise info about the game.
+------------------
+|        1 E      |
+|        4h      0|
+|D           3h  S|
+|0       8h       |
+|       K 0       |
+------------------
+[2hearts, queenhearts, kinghearts, 3diamonds, 4diamonds, 9spades, 3clubs]
+
+Please select a move from 'play': play
+Move requires card: 2h
+It's now Kailyn's' turn
+
+Turn 9
+Showing Kailyn info about the game.
+------------------
+|        1 E      |
+|                0|
+|D               S|
+|0                |
+|       K 4       |
+------------------
+[5hearts, 6hearts, 7diamonds, kingspades, acespades, 6clubs]
+
+Please select a move from 'play': play
+Move requires card: 6c
+It's now Denise's' turn
+
+Turn 9
+Showing Denise info about the game.
+------------------
+|        1 E      |
+|                0|
+|D               S|
+|0       6c       |
+|       K 4       |
+------------------
+[queenhearts, kinghearts, 3diamonds, 4diamonds, 9spades, 3clubs]
+
+Please select a move from 'play': play
+Move requires card: 3c
+It's now Emily's' turn
+
+Turn 9
+Showing Emily info about the game.
+------------------
+|        1 E      |
+|                0|
+|D 3c            S|
+|0       6c       |
+|       K 4       |
+------------------
+[9hearts, jackhearts, 3spades, 5spades, 10spades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: 10s
+It's now Sarah's' turn
+
+Turn 9
+Showing Sarah info about the game.
+------------------
+|        1 E      |
+|        10s      0|
+|D 3c            S|
+|0       6c       |
+|       K 4       |
+------------------
+[7hearts, 10hearts, 10diamonds, acediamonds, 4spades, 7spades]
+
+Please select a move from 'play': play
+Move requires card: ad
+It's now Kailyn's' turn
+
+Turn 10
+Showing Kailyn info about the game.
+------------------
+|        1 E      |
+|                0|
+|D               S|
+|0                |
+|       K 4       |
+------------------
+[5hearts, 6hearts, 7diamonds, kingspades, acespades]
+
+Please select a move from 'play': play
+Move requires card: 5h
+It's now Denise's' turn
+
+Turn 10
+Showing Denise info about the game.
+------------------
+|        1 E      |
+|                0|
+|D               S|
+|0       5h       |
+|       K 4       |
+------------------
+[queenhearts, kinghearts, 3diamonds, 4diamonds, 9spades]
+
+Please select a move from 'play': play
+Move requires card: kh
+It's now Emily's' turn
+
+Turn 10
+Showing Emily info about the game.
+------------------
+|        1 E      |
+|                0|
+|D kh            S|
+|0       5h       |
+|       K 4       |
+------------------
+[9hearts, jackhearts, 3spades, 5spades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: jh
+It's now Sarah's' turn
+
+Turn 10
+Showing Sarah info about the game.
+------------------
+|        1 E      |
+|        jh      0|
+|D kh            S|
+|0       5h       |
+|       K 4       |
+------------------
+[7hearts, 10hearts, 10diamonds, 4spades, 7spades]
+
+Please select a move from 'play': play
+Move requires card: 10h
+It's now Denise's' turn
+
+Turn 11
+Showing Denise info about the game.
+------------------
+|        1 E      |
+|                0|
+|D               S|
+|4                |
+|       K 4       |
+------------------
+[queenhearts, 3diamonds, 4diamonds, 9spades]
+
+Please select a move from 'play': play
+Move requires card: 3d
+It's now Emily's' turn
+
+Turn 11
+Showing Emily info about the game.
+------------------
+|        1 E      |
+|                0|
+|D 3d            S|
+|4                |
+|       K 4       |
+------------------
+[9hearts, 3spades, 5spades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: 3s
+It's now Sarah's' turn
+
+Turn 11
+Showing Sarah info about the game.
+------------------
+|        1 E      |
+|        3s      0|
+|D 3d            S|
+|4                |
+|       K 4       |
+------------------
+[7hearts, 10diamonds, 4spades, 7spades]
+
+Please select a move from 'play': play
+Move requires card: 10d
+It's now Kailyn's' turn
+
+Turn 11
+Showing Kailyn info about the game.
+------------------
+|        1 E      |
+|        3s      0|
+|D 3d        10d  S|
+|4                |
+|       K 4       |
+------------------
+[6hearts, 7diamonds, kingspades, acespades]
+
+Please select a move from 'play': play
+Move requires card: 7d
+It's now Sarah's' turn
+
+Turn 12
+Showing Sarah info about the game.
+------------------
+|        1 E      |
+|                0|
+|D               S|
+|4                |
+|       K 4       |
+------------------
+[7hearts, 4spades, 7spades]
+
+Please select a move from 'play': play
+Move requires card: 7h
+It's now Kailyn's' turn
+
+Turn 12
+Showing Kailyn info about the game.
+------------------
+|        1 E      |
+|                0|
+|D           7h  S|
+|4                |
+|       K 4       |
+------------------
+[6hearts, kingspades, acespades]
+
+Please select a move from 'play': play
+Move requires card: 6h
+It's now Denise's' turn
+
+Turn 12
+Showing Denise info about the game.
+------------------
+|        1 E      |
+|                0|
+|D           7h  S|
+|4       6h       |
+|       K 4       |
+------------------
+[queenhearts, 4diamonds, 9spades]
+
+Please select a move from 'play': play
+Move requires card: qh
+It's now Emily's' turn
+
+Turn 12
+Showing Emily info about the game.
+------------------
+|        1 E      |
+|                0|
+|D qh        7h  S|
+|4       6h       |
+|       K 4       |
+------------------
+[9hearts, 5spades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: 9h
+It's now Denise's' turn
+
+Turn 13
+Showing Denise info about the game.
+------------------
+|        1 E      |
+|                0|
+|D               S|
+|8                |
+|       K 4       |
+------------------
+[4diamonds, 9spades]
+
+Please select a move from 'play': play
+Move requires card: 4d
+It's now Emily's' turn
+
+Turn 13
+Showing Emily info about the game.
+------------------
+|        1 E      |
+|                0|
+|D 4d            S|
+|8                |
+|       K 4       |
+------------------
+[5spades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: 5s
+It's now Sarah's' turn
+
+Turn 13
+Showing Sarah info about the game.
+------------------
+|        1 E      |
+|        5s      0|
+|D 4d            S|
+|8                |
+|       K 4       |
+------------------
+[4spades, 7spades]
+
+Please select a move from 'play': play
+Move requires card: 4s
+It's now Kailyn's' turn
+
+Turn 13
+Showing Kailyn info about the game.
+------------------
+|        1 E      |
+|        5s      0|
+|D 4d        4s  S|
+|8                |
+|       K 4       |
+------------------
+[kingspades, acespades]
+
+Please select a move from 'play': play
+Move requires card: ks
+It's now Denise's' turn
+
+Turn 14
+Showing Denise info about the game.
+------------------
+|        1 E      |
+|                0|
+|D               S|
+|8                |
+|       K 4       |
+------------------
+[9spades]
+
+Please select a move from 'play': play
+Move requires card: 9s
+It's now Emily's' turn
+
+Turn 14
+Showing Emily info about the game.
+------------------
+|        1 E      |
+|                0|
+|D 9s            S|
+|8                |
+|       K 4       |
+------------------
+[queenspades]
+
+Please select a move from 'play': play
+Move requires card: qs
+It's now Sarah's' turn
+
+Turn 14
+Showing Sarah info about the game.
+------------------
+|        1 E      |
+|        qs      0|
+|D 9s            S|
+|8                |
+|       K 4       |
+------------------
+[7spades]
+
+Please select a move from 'play': play
+Move requires card: 7s
+It's now Kailyn's' turn
+
+Turn 14
+Showing Kailyn info about the game.
+------------------
+|        1 E      |
+|        qs      0|
+|D 9s        7s  S|
+|8                |
+|       K 4       |
+------------------
+[acespades]
+
+Please select a move from 'play': play
+Move requires card: as
+
+Kailyn 17
+Denise 8
+Emily 1
+Sarah 0
+
+Process finished with exit code 0
