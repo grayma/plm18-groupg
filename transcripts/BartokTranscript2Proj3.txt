@@ -1,0 +1,271 @@
+What's the name of player @ index 0 (can't be empty): w
+
+What's the name of player @ index 1 (can't be empty): j
+It's now w's' turn
+
+Turn 1
+Showing w info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 2s    |
+|               |
+|      j 0      |
+-----------------
+[5hearts, acehearts, 6diamonds, 10diamonds, 3spades, 4spades, 9spades, 4clubs] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: 3s
+It's now j's' turn
+
+Turn 1
+Showing j info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 3s    |
+|               |
+|      j 0      |
+-----------------
+[4diamonds, 8diamonds, 9diamonds, acediamonds, 8spades, 5clubs, jackclubs, aceclubs] 
+
+
+Please select a move from 'draw', 'play': draw
+
+You drew: 10hearts
+
+It's now w's' turn
+
+Turn 2
+Showing w info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 3s    |
+|               |
+|      j 0      |
+-----------------
+[5hearts, acehearts, 6diamonds, 10diamonds, 4spades, 9spades, 4clubs] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: 4s
+It's now j's' turn
+
+Turn 2
+Showing j info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 4s    |
+|               |
+|      j 0      |
+-----------------
+[10hearts, 4diamonds, 8diamonds, 9diamonds, acediamonds, 8spades, 5clubs, jackclubs, aceclubs] 
+
+
+Please select a move from 'draw', 'play': draw
+
+You drew: 10clubs
+
+It's now w's' turn
+
+Turn 3
+Showing w info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 4s    |
+|               |
+|      j 0      |
+-----------------
+[5hearts, acehearts, 6diamonds, 10diamonds, 9spades, 4clubs] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: 9s
+It's now j's' turn
+
+Turn 3
+Showing j info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 9s    |
+|               |
+|      j 0      |
+-----------------
+[10hearts, 4diamonds, 8diamonds, 9diamonds, acediamonds, 8spades, 5clubs, 10clubs, jackclubs, aceclubs] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: 9d
+It's now w's' turn
+
+Turn 4
+Showing w info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 9d    |
+|               |
+|      j 0      |
+-----------------
+[5hearts, acehearts, 6diamonds, 10diamonds, 4clubs] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: 6d
+It's now j's' turn
+
+Turn 4
+Showing j info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 6d    |
+|               |
+|      j 0      |
+-----------------
+[10hearts, 4diamonds, 8diamonds, acediamonds, 8spades, 5clubs, 10clubs, jackclubs, aceclubs] 
+
+
+Please select a move from 'draw', 'play': draw
+
+You drew: 10spades
+
+It's now w's' turn
+
+Turn 5
+Showing w info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 6d    |
+|               |
+|      j 0      |
+-----------------
+[5hearts, acehearts, 10diamonds, 4clubs] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: 10d
+It's now j's' turn
+
+Turn 5
+Showing j info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 10d    |
+|               |
+|      j 0      |
+-----------------
+[10hearts, 4diamonds, 8diamonds, acediamonds, 8spades, 10spades, 5clubs, 10clubs, jackclubs, aceclubs] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: 8s
+
+Choose a new suit (s, c, d, h): c
+It's now w's' turn
+
+Turn 6
+Showing w info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: xc    |
+|               |
+|      j 0      |
+-----------------
+[5hearts, acehearts, 4clubs] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: 4c
+It's now j's' turn
+
+Turn 6
+Showing j info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 4c    |
+|               |
+|      j 0      |
+-----------------
+[10hearts, 4diamonds, 8diamonds, acediamonds, 10spades, 5clubs, 10clubs, jackclubs, aceclubs] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: 8d
+
+Choose a new suit (s, c, d, h): h
+It's now w's' turn
+
+Turn 7
+Showing w info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: xh    |
+|               |
+|      j 0      |
+-----------------
+[5hearts, acehearts] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: 5h
+It's now j's' turn
+
+Turn 7
+Showing j info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 5h    |
+|               |
+|      j 0      |
+-----------------
+[10hearts, 4diamonds, acediamonds, 10spades, 5clubs, 10clubs, jackclubs, aceclubs] 
+
+
+Please select a move from 'draw', 'play': draw
+
+You drew: 6hearts
+
+It's now w's' turn
+
+Turn 8
+Showing w info about the game.
+-----------------
+|      0 w      |
+|               |
+|    top: 5h    |
+|               |
+|      j 0      |
+-----------------
+[acehearts] 
+
+
+Please select a move from 'draw', 'play': play
+
+Move requires card: ah
+
+Round is over! Scoring game...
+Final Score:
+w: 75
+j: 0
