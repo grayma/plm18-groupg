@@ -214,7 +214,7 @@ def round_is_over(game):
 
 def game_is_over(game):
     for p in game.players:
-        if p.score >= 20:
+        if p.score >= 15:
             return p
     return None
 
