@@ -56,18 +56,24 @@ def game_status(player, game):
 def printBoard(game):
     # Sort the players based on index, since we are rotating the actual list of players
     players = sorted(game.players, key = lambda p: p.index)
-    cards = filler([p.playerspace[PLAYER_PLAYED] for p in players])
-    print("------------------")
-    print("|        %d %s      |" % (players[0].score, players[0].name[0]))
-    print("|        %s     %d|" % (cards[0], players[1].score))
+    cards = c_filler([p.playerspace[PLAYER_PLAYED] for p in players])
+    scores = s_filler([str(p.score) for p in players])
+    print("-------------------")
+    print("|       %s %s      |" % (scores[0], players[0].name[0]))
+    print("|       %s     %s|" % (cards[0], scores[1]))
     print("|%s %s       %s %s|" % (players[3].name[0], cards[3], cards[1], players[1].name[0]))
-    print("|%d       %s      |" % (players[3].score, cards[2]))
-    print("|       %s %d       |" % (players[2].name[0], players[2].score))
-    print("------------------")
+    print("|%s     %s       |" % (scores[3], cards[2]))
+    print("|       %s %s      |" % (players[2].name[0], scores[2]))
+    print("-------------------")
 
-# Filler for grid to maintain formatting if a player hasnt played yet
-def filler(cards):
-    return ["   " if not card else card.abbr() + " " for card in cards]
+# Fillers for grid to maintain formatting
+def c_filler(cards):
+    start = ["   " if not card else " " * (3 - len(card.abbr())) + card.abbr() for card in cards[:2]]
+    end = ["   " if not card else card.abbr() + " " * (3 - len(card.abbr())) for card in cards[2:]]
+    return start + end
+
+def s_filler(scores):
+    return [" " * (2 - len(s)) + s for s in scores[:2]] + [s + " " * (2 - len(s)) for s in scores[2:]]
 
 def getNextPlayer(player, game):
     i = (player.index + 1) % len(game.players)
