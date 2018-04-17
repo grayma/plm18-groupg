@@ -1,0 +1,865 @@
+What's the name of player @ index 0 (can't be empty): Dan
+What's the name of player @ index 1 (can't be empty): Ethan
+What's the name of player @ index 2 (can't be empty): Frank
+What's the name of player @ index 3 (can't be empty): George
+It's now Dan's' turn
+
+Turn 1
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[3hearts, 10hearts, acehearts, jackdiamonds, kingdiamonds, 3spades, 4spades, 7spades, jackspades, queenspades, kingspades, 5clubs, 10clubs]
+
+Please select a move from 'pass3': pass3
+Move requires card 1: 3h
+Move requires card 2: 10h
+Move requires card 3: ah
+It's now Ethan's' turn
+
+Turn 1
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[2hearts, 8hearts, kinghearts, 2diamonds, 6diamonds, 9spades, 10spades, 3clubs, 4clubs, 7clubs, jackclubs, kingclubs, aceclubs]
+
+Please select a move from 'pass3': pass3
+Move requires card 1: 2h
+Move requires card 2: 8h
+Move requires card 3: kh
+It's now Frank's' turn
+
+Turn 1
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[5hearts, 6hearts, 3diamonds, 7diamonds, 8diamonds, queendiamonds, 2spades, 5spades, acespades, 6clubs, 8clubs, 9clubs, queenclubs]
+
+Please select a move from 'pass3': pass3
+Move requires card 1: 5h
+Move requires card 2: 6h
+Move requires card 3: 3d
+It's now George's' turn
+
+Turn 1
+Showing George info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[4hearts, 7hearts, 9hearts, jackhearts, queenhearts, 4diamonds, 5diamonds, 9diamonds, 10diamonds, acediamonds, 6spades, 8spades, 2clubs]
+
+Please select a move from 'pass3': pass3
+Move requires card 1: 4h
+Move requires card 2: 7h
+Move requires card 3: 9h
+It's now George's' turn
+
+Turn 2
+Showing George info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[5hearts, 6hearts, jackhearts, queenhearts, 3diamonds, 4diamonds, 5diamonds, 9diamonds, 10diamonds, acediamonds, 6spades, 8spades, 2clubs]
+
+Please select a move from 'play': play
+Move requires card: 8s
+First play must be 2 of clubs
+Move requires card: 2c
+It's now Dan's' turn
+
+Turn 2
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G 2c            E|
+|0                |
+|       F 0       |
+------------------
+[4hearts, 7hearts, 9hearts, jackdiamonds, kingdiamonds, 3spades, 4spades, 7spades, jackspades, queenspades, kingspades, 5clubs, 10clubs]
+
+Please select a move from 'play': play
+Move requires card: 5c
+It's now Ethan's' turn
+
+Turn 2
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|        5c      0|
+|G 2c            E|
+|0                |
+|       F 0       |
+------------------
+[3hearts, 10hearts, acehearts, 2diamonds, 6diamonds, 9spades, 10spades, 3clubs, 4clubs, 7clubs, jackclubs, kingclubs, aceclubs]
+
+Please select a move from 'play': play
+Move requires card: 3c
+It's now Frank's' turn
+
+Turn 2
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|        5c      0|
+|G 2c        3c  E|
+|0                |
+|       F 0       |
+------------------
+[2hearts, 8hearts, kinghearts, 7diamonds, 8diamonds, queendiamonds, 2spades, 5spades, acespades, 6clubs, 8clubs, 9clubs, queenclubs]
+
+Please select a move from 'play': play
+Move requires card: qc
+It's now Frank's' turn
+
+Turn 3
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[2hearts, 8hearts, kinghearts, 7diamonds, 8diamonds, queendiamonds, 2spades, 5spades, acespades, 6clubs, 8clubs, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: 2s
+It's now George's' turn
+
+Turn 3
+Showing George info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0       2s       |
+|       F 0       |
+------------------
+[5hearts, 6hearts, jackhearts, queenhearts, 3diamonds, 4diamonds, 5diamonds, 9diamonds, 10diamonds, acediamonds, 6spades, 8spades]
+
+Please select a move from 'play': play
+Move requires card: 8s
+It's now Dan's' turn
+
+Turn 3
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G 8s            E|
+|0       2s       |
+|       F 0       |
+------------------
+[4hearts, 7hearts, 9hearts, jackdiamonds, kingdiamonds, 3spades, 4spades, 7spades, jackspades, queenspades, kingspades, 10clubs]
+
+Please select a move from 'play': play
+Move requires card: 10c
+If you can match the lead of the trick, you must do so.
+Move requires card: js
+It's now Ethan's' turn
+
+Turn 3
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|        js      0|
+|G 8s            E|
+|0       2s       |
+|       F 0       |
+------------------
+[3hearts, 10hearts, acehearts, 2diamonds, 6diamonds, 9spades, 10spades, 4clubs, 7clubs, jackclubs, kingclubs, aceclubs]
+
+Please select a move from 'play': play
+Move requires card: 10s
+It's now Dan's' turn
+
+Turn 4
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[4hearts, 7hearts, 9hearts, jackdiamonds, kingdiamonds, 3spades, 4spades, 7spades, queenspades, kingspades, 10clubs]
+
+Please select a move from 'play': play
+Move requires card: 3s
+It's now Ethan's' turn
+
+Turn 4
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|        3s      0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[3hearts, 10hearts, acehearts, 2diamonds, 6diamonds, 9spades, 4clubs, 7clubs, jackclubs, kingclubs, aceclubs]
+
+Please select a move from 'play': play
+Move requires card: 9s
+It's now Frank's' turn
+
+Turn 4
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|        3s      0|
+|G           9s  E|
+|0                |
+|       F 0       |
+------------------
+[2hearts, 8hearts, kinghearts, 7diamonds, 8diamonds, queendiamonds, 5spades, acespades, 6clubs, 8clubs, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: 5s
+It's now George's' turn
+
+Turn 4
+Showing George info about the game.
+------------------
+|        0 D      |
+|        3s      0|
+|G           9s  E|
+|0       5s       |
+|       F 0       |
+------------------
+[5hearts, 6hearts, jackhearts, queenhearts, 3diamonds, 4diamonds, 5diamonds, 9diamonds, 10diamonds, acediamonds, 6spades]
+
+Please select a move from 'play': play
+Move requires card: 6s
+It's now Ethan's' turn
+
+Turn 5
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[3hearts, 10hearts, acehearts, 2diamonds, 6diamonds, 4clubs, 7clubs, jackclubs, kingclubs, aceclubs]
+
+Please select a move from 'play': play
+Move requires card: 4c
+It's now Frank's' turn
+
+Turn 5
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|                0|
+|G           4c  E|
+|0                |
+|       F 0       |
+------------------
+[2hearts, 8hearts, kinghearts, 7diamonds, 8diamonds, queendiamonds, acespades, 6clubs, 8clubs, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: 6c
+It's now George's' turn
+
+Turn 5
+Showing George info about the game.
+------------------
+|        0 D      |
+|                0|
+|G           4c  E|
+|0       6c       |
+|       F 0       |
+------------------
+[5hearts, 6hearts, jackhearts, queenhearts, 3diamonds, 4diamonds, 5diamonds, 9diamonds, 10diamonds, acediamonds]
+
+Please select a move from 'play': play
+Move requires card: ad
+It's now Dan's' turn
+
+Turn 5
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G ad        4c  E|
+|0       6c       |
+|       F 0       |
+------------------
+[4hearts, 7hearts, 9hearts, jackdiamonds, kingdiamonds, 4spades, 7spades, queenspades, kingspades, 10clubs]
+
+Please select a move from 'play': play
+Move requires card: 10c
+It's now Dan's' turn
+
+Turn 6
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[4hearts, 7hearts, 9hearts, jackdiamonds, kingdiamonds, 4spades, 7spades, queenspades, kingspades]
+
+Please select a move from 'play': play
+Move requires card: 4s
+It's now Ethan's' turn
+
+Turn 6
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|        4s      0|
+|G               E|
+|0                |
+|       F 0       |
+------------------
+[3hearts, 10hearts, acehearts, 2diamonds, 6diamonds, 7clubs, jackclubs, kingclubs, aceclubs]
+
+Please select a move from 'play': play
+Move requires card: ac
+It's now Frank's' turn
+
+Turn 6
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|        4s      0|
+|G           ac  E|
+|0                |
+|       F 0       |
+------------------
+[2hearts, 8hearts, kinghearts, 7diamonds, 8diamonds, queendiamonds, acespades, 8clubs, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: as
+It's now George's' turn
+
+Turn 6
+Showing George info about the game.
+------------------
+|        0 D      |
+|        4s      0|
+|G           ac  E|
+|0       as       |
+|       F 0       |
+------------------
+[5hearts, 6hearts, jackhearts, queenhearts, 3diamonds, 4diamonds, 5diamonds, 9diamonds, 10diamonds]
+
+Please select a move from 'play': play
+Move requires card: 5h
+It's now Frank's' turn
+
+Turn 7
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 1       |
+------------------
+[2hearts, 8hearts, kinghearts, 7diamonds, 8diamonds, queendiamonds, 8clubs, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: kh
+It's now George's' turn
+
+Turn 7
+Showing George info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0       kh       |
+|       F 1       |
+------------------
+[6hearts, jackhearts, queenhearts, 3diamonds, 4diamonds, 5diamonds, 9diamonds, 10diamonds]
+
+Please select a move from 'play': play
+Move requires card: 6h
+It's now Dan's' turn
+
+Turn 7
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G 6h            E|
+|0       kh       |
+|       F 1       |
+------------------
+[4hearts, 7hearts, 9hearts, jackdiamonds, kingdiamonds, 7spades, queenspades, kingspades]
+
+Please select a move from 'play': play
+Move requires card: 4h
+It's now Ethan's' turn
+
+Turn 7
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|        4h      0|
+|G 6h            E|
+|0       kh       |
+|       F 1       |
+------------------
+[3hearts, 10hearts, acehearts, 2diamonds, 6diamonds, 7clubs, jackclubs, kingclubs]
+
+Please select a move from 'play': play
+Move requires card: 3h
+It's now Frank's' turn
+
+Turn 8
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 5       |
+------------------
+[2hearts, 8hearts, 7diamonds, 8diamonds, queendiamonds, 8clubs, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: 8c
+It's now George's' turn
+
+Turn 8
+Showing George info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0       8c       |
+|       F 5       |
+------------------
+[jackhearts, queenhearts, 3diamonds, 4diamonds, 5diamonds, 9diamonds, 10diamonds]
+
+Please select a move from 'play': play
+Move requires card: 4d
+It's now Dan's' turn
+
+Turn 8
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G 4d            E|
+|0       8c       |
+|       F 5       |
+------------------
+[7hearts, 9hearts, jackdiamonds, kingdiamonds, 7spades, queenspades, kingspades]
+
+Please select a move from 'play': play
+Move requires card: ks
+It's now Ethan's' turn
+
+Turn 8
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|        ks      0|
+|G 4d            E|
+|0       8c       |
+|       F 5       |
+------------------
+[10hearts, acehearts, 2diamonds, 6diamonds, 7clubs, jackclubs, kingclubs]
+
+Please select a move from 'play': play
+Move requires card: kc
+It's now Ethan's' turn
+
+Turn 9
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|0                |
+|       F 5       |
+------------------
+[10hearts, acehearts, 2diamonds, 6diamonds, 7clubs, jackclubs]
+
+Please select a move from 'play': 10h
+Move cannot be performed. Try again.
+Please select a move from 'play': play
+Move requires card: 10h
+It's now Frank's' turn
+
+Turn 9
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|                0|
+|G           10h  E|
+|0                |
+|       F 5       |
+------------------
+[2hearts, 8hearts, 7diamonds, 8diamonds, queendiamonds, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: 8h
+It's now George's' turn
+
+Turn 9
+Showing George info about the game.
+------------------
+|        0 D      |
+|                0|
+|G           10h  E|
+|0       8h       |
+|       F 5       |
+------------------
+[jackhearts, queenhearts, 3diamonds, 5diamonds, 9diamonds, 10diamonds]
+
+Please select a move from 'play': play
+Move requires card: qh
+It's now Dan's' turn
+
+Turn 9
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G qh        10h  E|
+|0       8h       |
+|       F 5       |
+------------------
+[7hearts, 9hearts, jackdiamonds, kingdiamonds, 7spades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: 9h
+It's now George's' turn
+
+Turn 10
+Showing George info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|4                |
+|       F 5       |
+------------------
+[jackhearts, 3diamonds, 5diamonds, 9diamonds, 10diamonds]
+
+Please select a move from 'play': play
+Move requires card: 3d
+It's now Dan's' turn
+
+Turn 10
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G 3d            E|
+|4                |
+|       F 5       |
+------------------
+[7hearts, jackdiamonds, kingdiamonds, 7spades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: jd
+It's now Ethan's' turn
+
+Turn 10
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|        jd      0|
+|G 3d            E|
+|4                |
+|       F 5       |
+------------------
+[acehearts, 2diamonds, 6diamonds, 7clubs, jackclubs]
+
+Please select a move from 'play': play
+Move requires card: 2d
+It's now Frank's' turn
+
+Turn 10
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|        jd      0|
+|G 3d        2d  E|
+|4                |
+|       F 5       |
+------------------
+[2hearts, 7diamonds, 8diamonds, queendiamonds, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: qd
+It's now Frank's' turn
+
+Turn 11
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|4                |
+|       F 5       |
+------------------
+[2hearts, 7diamonds, 8diamonds, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: 7d
+It's now George's' turn
+
+Turn 11
+Showing George info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|4       7d       |
+|       F 5       |
+------------------
+[jackhearts, 5diamonds, 9diamonds, 10diamonds]
+
+Please select a move from 'play': play
+Move requires card: 10d
+It's now Dan's' turn
+
+Turn 11
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G 10d            E|
+|4       7d       |
+|       F 5       |
+------------------
+[7hearts, kingdiamonds, 7spades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: kd
+It's now Ethan's' turn
+
+Turn 11
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|        kd      0|
+|G 10d            E|
+|4       7d       |
+|       F 5       |
+------------------
+[acehearts, 6diamonds, 7clubs, jackclubs]
+
+Please select a move from 'play': play
+Move requires card: 6d
+It's now Dan's' turn
+
+Turn 12
+Showing Dan info about the game.
+------------------
+|        0 D      |
+|                0|
+|G               E|
+|4                |
+|       F 5       |
+------------------
+[7hearts, 7spades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: 7s
+It's now Ethan's' turn
+
+Turn 12
+Showing Ethan info about the game.
+------------------
+|        0 D      |
+|        7s      0|
+|G               E|
+|4                |
+|       F 5       |
+------------------
+[acehearts, 7clubs, jackclubs]
+
+Please select a move from 'play': play
+Move requires card: ah
+It's now Frank's' turn
+
+Turn 12
+Showing Frank info about the game.
+------------------
+|        0 D      |
+|        7s      0|
+|G           ah  E|
+|4                |
+|       F 5       |
+------------------
+[2hearts, 8diamonds, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: 2h
+It's now George's' turn
+
+Turn 12
+Showing George info about the game.
+------------------
+|        0 D      |
+|        7s      0|
+|G           ah  E|
+|4       2h       |
+|       F 5       |
+------------------
+[jackhearts, 5diamonds, 9diamonds]
+
+Please select a move from 'play': play
+Move requires card: jh
+It's now Dan's' turn
+
+Turn 13
+Showing Dan info about the game.
+------------------
+|        3 D      |
+|                0|
+|G               E|
+|4                |
+|       F 5       |
+------------------
+[7hearts, queenspades]
+
+Please select a move from 'play': play
+Move requires card: 7h
+It's now Ethan's' turn
+
+Turn 13
+Showing Ethan info about the game.
+------------------
+|        3 D      |
+|        7h      0|
+|G               E|
+|4                |
+|       F 5       |
+------------------
+[7clubs, jackclubs]
+
+Please select a move from 'play': play
+Move requires card: jc
+It's now Frank's' turn
+
+Turn 13
+Showing Frank info about the game.
+------------------
+|        3 D      |
+|        7h      0|
+|G           jc  E|
+|4                |
+|       F 5       |
+------------------
+[8diamonds, 9clubs]
+
+Please select a move from 'play': play
+Move requires card: 9c
+It's now George's' turn
+
+Turn 13
+Showing George info about the game.
+------------------
+|        3 D      |
+|        7h      0|
+|G           jc  E|
+|4       9c       |
+|       F 5       |
+------------------
+[5diamonds, 9diamonds]
+
+Please select a move from 'play': play
+Move requires card: 9d
+It's now Dan's' turn
+
+Turn 14
+Showing Dan info about the game.
+------------------
+|        4 D      |
+|                0|
+|G               E|
+|4                |
+|       F 5       |
+------------------
+[queenspades]
+
+Please select a move from 'play': play
+Move requires card: qs
+It's now Ethan's' turn
+
+Turn 14
+Showing Ethan info about the game.
+------------------
+|        4 D      |
+|        qs      0|
+|G               E|
+|4                |
+|       F 5       |
+------------------
+[7clubs]
+
+Please select a move from 'play': play
+Move requires card: 7c
+It's now Frank's' turn
+
+Turn 14
+Showing Frank info about the game.
+------------------
+|        4 D      |
+|        qs      0|
+|G           7c  E|
+|4                |
+|       F 5       |
+------------------
+[8diamonds]
+
+Please select a move from 'play': play
+Move requires card: 8d
+It's now George's' turn
+
+Turn 14
+Showing George info about the game.
+------------------
+|        4 D      |
+|        qs      0|
+|G           7c  E|
+|4       8d       |
+|       F 5       |
+------------------
+[5diamonds]
+
+Please select a move from 'play': play
+Move requires card: 5d
+
+Dan 17
+Ethan 0
+Frank 5
+George 4
+
+Process finished with exit code 0
