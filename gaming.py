@@ -1,6 +1,7 @@
 from cards import *
 from machine import *
 
+
 def get_players(n, playerspace):
     """
     `n` number of players
@@ -14,7 +15,8 @@ def get_players(n, playerspace):
         p = Player(name, i)
         p.playerspace = playerspace()
         ps.append(p)
-    return ps 
+    return ps
+
 
 class Player:
     """
@@ -32,6 +34,15 @@ class Player:
         self.score = 0
         self.playerspace = {}
         self.hand = Pile([])
+        self.revealed = [False, False, False, False, False, False]
+
+    def all_revealed(self):
+        x = True
+        for i in self.revealed:
+            if(i == False):
+                x = False
+        return x
+
 
     def move(self, game):
         """
@@ -46,18 +57,19 @@ class Player:
             selected = game.get(state.prompt_str)
         state.moves[selected].perform(game, self)
 
+
 class Move:
     """
     Wrapper containing new and old game state and new and old player state to represent the
     difference before and after a potential player's move.
     """
-    
+
     def __init__(self, name, can_perform, logic, required):
-        """ 
+        """
         `name` is the name of the move
         `can_perform(game, player)` logic determining if a player can perform this move
-        `logic(Game, Player, input)` is the function that actually executes the move, taking in a game and input. 
-            Includes interaction with player. Returns "" if move successful, 
+        `logic(Game, Player, input)` is the function that actually executes the move, taking in a game and input.
+            Includes interaction with player. Returns "" if move successful,
             an error message if needs to go again (rule break)
         `required` dict containing necessary input for this move
         """
@@ -66,7 +78,7 @@ class Move:
         self.can_perform = can_perform
         self.logic = logic
         self.required = required
-        
+
     def canPerform(self, game, player):
         return self.can_perform(game, player)
 
@@ -81,6 +93,7 @@ class Move:
     def _getMoveInput(self, game):
         for k, v in self.required.items():
             self.required[k] = game.get("Move requires {}: ".format(k))
+
 
 class Game:
     """
@@ -104,7 +117,7 @@ class Game:
         self.gamespace = gamespace
         self.start_state = start_state
         self.transitions = transitions
-        self.setup = setup      
+        self.setup = setup
         self.finish = finish
         self.get = get
         self.post = post
@@ -114,7 +127,7 @@ class Game:
     def perform_moves(self):
         for player in self.players:
             player.move(self)
-            if self.state.early_exit and self.state.early_exit(self): #check for existence then run
+            if self.state.early_exit and self.state.early_exit(self):  # check for existence then run
                 break
 
     def perform_transitions(self):
@@ -122,16 +135,16 @@ class Game:
             if t.guard(self) and t.source == self.state:
                 self.state = t.dest
                 break
-        self.turn += 1 #turn is done, increment turn counter
+        self.turn += 1  # turn is done, increment turn counter
 
     def start(self):
         self.setup(self)
         self.state = self.start_state
 
-        #game loop
+        # game loop
         while not self.state.is_final:
             self.perform_moves()
-            self.state.logic(self) #run logic needed before state transition
+            self.state.logic(self)  # run logic needed before state transition
             self.perform_transitions()
 
         self.finish(self)
