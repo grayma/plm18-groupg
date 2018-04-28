@@ -34,21 +34,60 @@ def game_status(player, game):
 
 
 def print_board(game):
-    # see play() - topCard may be string or a card
-    players = game.players
-    print("------------------------")
-    print("|    %s %d  _____        |" % (game.players[0].name[0], players[0].score))
-    print("|        |%s|%s|%s|       |" % (get_sym(game.players[0], 0), get_sym(game.players[0], 1), get_sym(game.players[0], 2)))
-    print("|        |%s|%s|%s|    %s %d|" % (get_sym(game.players[0], 3), get_sym(game.players[0], 4), get_sym(game.players[0], 5), game.players[1].name[0], players[1].score))
-    print("|  ___            ___  |")
-    print("| |%s|%s|          |%s|%s| |" % (get_sym(game.players[3], 0), get_sym(game.players[3], 1), get_sym(game.players[1], 0), get_sym(game.players[1], 1)))
-    print("| |%s|%s|  |X||%s|  |%s|%s| |" % (get_sym(game.players[3], 2), get_sym(game.players[3], 3), game.gamespace[DISC_TOP_CARD].abbr()[0], get_sym(game.players[1], 2), get_sym(game.players[1], 3)))
-    print("| |%s|%s|          |%s|%s| |" % (get_sym(game.players[3], 4), get_sym(game.players[3], 5), get_sym(game.players[1], 4), get_sym(game.players[1], 5)))
-    print("|%s %d      _____        |" % (game.players[3].name[0], players[3].score))
-    print("|        |%s|%s|%s|       |" % (get_sym(game.players[2], 0), get_sym(game.players[2], 1), get_sym(game.players[2], 2)))
-    print("|        |%s|%s|%s| %s %d   |" % ( get_sym(game.players[2], 3), get_sym(game.players[2], 4), get_sym(game.players[2], 5), game.players[2].name[0], players[2].score) )
-    print("|                       |")
-    print("------------------------")
+    if len(game.players) == 4:
+        players = game.players
+        print("------------------------")
+        print("|    %s %d  _____        |" % (game.players[0].name[0], players[0].score))
+        print("|        |%s|%s|%s|       |" % (
+        get_sym(game.players[0], 0), get_sym(game.players[0], 1), get_sym(game.players[0], 2)))
+        print("|        |%s|%s|%s|    %s %d|" % (
+        get_sym(game.players[0], 3), get_sym(game.players[0], 4), get_sym(game.players[0], 5), game.players[1].name[0],
+        players[1].score))
+        print("|  ___            ___  |")
+        print("| |%s|%s|          |%s|%s| |" % (
+        get_sym(game.players[3], 0), get_sym(game.players[3], 1), get_sym(game.players[1], 0),
+        get_sym(game.players[1], 1)))
+        print("| |%s|%s|  |X||%s|  |%s|%s| |" % (
+        get_sym(game.players[3], 2), get_sym(game.players[3], 3), abbr(game.gamespace[DISC_TOP_CARD]),
+        get_sym(game.players[1], 2), get_sym(game.players[1], 3)))
+        print("| |%s|%s|          |%s|%s| |" % (
+        get_sym(game.players[3], 4), get_sym(game.players[3], 5), get_sym(game.players[1], 4),
+        get_sym(game.players[1], 5)))
+        print("|%s %d      _____        |" % (game.players[3].name[0], players[3].score))
+        print("|        |%s|%s|%s|       |" % (
+        get_sym(game.players[2], 0), get_sym(game.players[2], 1), get_sym(game.players[2], 2)))
+        print("|        |%s|%s|%s| %s %d   |" % (
+        get_sym(game.players[2], 3), get_sym(game.players[2], 4), get_sym(game.players[2], 5), game.players[2].name[0],
+        players[2].score))
+        print("|                       |")
+        print("------------------------")
+    if len(game.players) == 2:
+        players = game.players
+        print("------------------------")
+        print("|    %s %d  _____        |" % (game.players[0].name[0], players[0].score))
+        print("|        |%s|%s|%s|       |" % (
+            get_sym(game.players[0], 0), get_sym(game.players[0], 1), get_sym(game.players[0], 2)))
+        print("|        |%s|%s|%s|       |" % (
+            get_sym(game.players[0], 3), get_sym(game.players[0], 4), get_sym(game.players[0], 5)))
+        print("|                      |" )
+        print("|        |X||%s|        |" % (abbr(game.gamespace[DISC_TOP_CARD])))
+        print("|                      |")
+        print("|        |%s|%s|%s|       |" % (
+            get_sym(game.players[1], 0), get_sym(game.players[1], 1), get_sym(game.players[1], 2)))
+        print("|        |%s|%s|%s| %s %d   |" % (
+            get_sym(game.players[1], 3), get_sym(game.players[1], 4), get_sym(game.players[1], 5),
+            game.players[1].name[0],
+            players[1].score))
+        print("|                      |")
+        print("------------------------")
+    else:
+        return ""
+
+def abbr(card):
+    if card.value == "10":
+        return 10
+    else:
+        return card.abbr()[0]
 
 def get_sym(player, n):
     if(player.revealed[n]):
@@ -110,7 +149,7 @@ def f_draw(game, player, input_dict):
         game.gamespace[DECK_TOP_CARD] = game.gamespace[GAME_DECK].pop()
     elif(resp == "discard"):
         card = game.gamespace[DISC_TOP_CARD]
-    print("You picked a %s" % (get_short(card)))
+    print("You picked a %s" % (card.value))
 
     #print("Where would you like to place your card (1 to 6 or discard?")
     resp = input("Where would you like to place your card (1 to 6 or discard?) ").format()
@@ -166,20 +205,34 @@ def end_turn(game):
         if not game_is_over(game):
             print("Resetting board...")
             for p in game.players:
+                p.revealed = [False, False, False, False, False, False]
                 p.hand = Pile([])
             game.setup(game)
+            game.state = start
 
 def score(game):
     for p in game.players:
         if(p.hand.cards[0].value != p.hand.cards[3].value):
-            p.score = p.score + p.hand.cards[0].val()
-            p.score = p.score + p.hand.cards[3].val()
+            p.score = p.score + golf_val(p.hand.cards[0])
+            p.score = p.score + golf_val(p.hand.cards[3])
         if (p.hand.cards[1].value != p.hand.cards[4].value):
-            p.score = p.score + p.hand.cards[1].val()
-            p.score = p.score + p.hand.cards[4].val()
+            p.score = p.score + golf_val(p.hand.cards[1])
+            p.score = p.score + golf_val(p.hand.cards[4])
         if (p.hand.cards[2].value != p.hand.cards[5].value):
-            p.score = p.score + p.hand.cards[2].val()
-            p.score = p.score + p.hand.cards[5].val()
+            p.score = p.score + golf_val(p.hand.cards[2])
+            p.score = p.score + golf_val(p.hand.cards[5])
+
+def golf_val(card):
+    if card.val() == 14:
+        return 1
+    if card.val() == 2:
+        return -2
+    if card.val() == 13:
+        return 0
+    if card.val() >= 10:
+        return 10
+    else:
+        return card.val()
 
 # ==============================================================================
 # exit conditions
@@ -236,7 +289,7 @@ def setup(game):
     game.gamespace[GAME_DECK] = deck
     game.gamespace[DISC_TOP_CARD] = deck.pop()
     game.gamespace[GAME_DISCARD] = Pile([])
-
+    game.state = start
 
 def finish(game):
     print("Final Score:")
@@ -265,7 +318,8 @@ def score_hand(player):
 # start the game
 # ==============================================================================
 def start_golf():
-    players = get_players(4, playerspace)
+    resp = input("How many players (2 or 4)? ").format()
+    players = get_players(int(resp), playerspace)
     gs = gamespace()
     golf = Game(players=players,
                   gamespace=gs,
