@@ -35,6 +35,7 @@ class Player:
         self.playerspace = {}
         self.hand = Pile([])
         self.revealed = [False, False, False, False, False, False]
+        self.stack = Pile([])
 
     def all_revealed(self):
         x = True
