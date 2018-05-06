@@ -8,6 +8,9 @@ DECK_TOP_CARD = 'top_card'
 GAME_DISCARD = 'discard'
 GAME_DECK = 'deck'
 DISC_TOP_CARD = 'disc_top'
+P_REVEALED = 'revealed'
+P_ALL_REVEALED = 'all_revealed'
+ROUND_IS_OVER = 'round_is_over'
 
 
 def gamespace():
@@ -15,13 +18,25 @@ def gamespace():
         DECK_TOP_CARD: None,
         GAME_DISCARD: Pile([]),
         GAME_DECK: Pile([]),
-        DISC_TOP_CARD: None
+        DISC_TOP_CARD: None,
+        ROUND_IS_OVER: False
     }
 
 
 def playerspace():
-    return {}
+    
+    pdict = {
+        P_REVEALED: [False, False, False, False, False, False]
+    }
+    pdict[P_ALL_REVEALED] = lambda p: all_revealed(p)
+    return pdict
 
+
+def all_revealed(p):
+        for i in p.playerspace[P_REVEALED]:
+            if(not i):
+                return False
+        return True
 
 # ==============================================================================
 # board helpers
@@ -90,7 +105,7 @@ def abbr(card):
         return card.abbr()[0]
 
 def get_sym(player, n):
-    if(player.revealed[n]):
+    if(player.playerspace[P_REVEALED][n]):
         return get_short(player.hand[n])
     return "-"
 
@@ -107,34 +122,21 @@ def get_short(card):
         return card.value
 
 # ==============================================================================
-# move validation functions
-# ==============================================================================
-
-def validate_play(game, player, card):
-    top_card = game.gamespace[GAME_TOP_CARD]
-    # Check that it's in the players hand
-    if not card in player.hand:
-        return "Card not in hand."
-    return "";
-
-
-# ==============================================================================
 # can_move functions
 # ==============================================================================
 
-def f_can_flip(game, player):
-    if(game.turn == 1):
-        return True
-    return False
-
-def f_can_draw(game, player):
-    deck = game.gamespace[GAME_DECK]
-    return deck  # if deck still empty, can't draw
-
+"""
+    There are two mains states of play, start and main. Since each state has
+    a single possible move, there is no need for can_move validation -- if the
+    player has no valid moves in a given state, the round or game is over
+"""
 
 # ==============================================================================
 # move functions
 # ==============================================================================
+
+def reveal(player, n):
+    player.playerspace[P_REVEALED][int(n) - 1] = True
 
 def f_draw(game, player, input_dict):
     #give option to draw from deck OR discard
@@ -143,48 +145,24 @@ def f_draw(game, player, input_dict):
     #if choice is already revealed, do nothing
     #if choice is not revealed, reveal it and replace card
     card = None
-    resp = input("Would you like to pick from the deck or discard? ").format()
-    if(resp == "deck"):
+    resp = input("Would you like to pick from the deck or discard pile? ").format()
+    if resp == "deck":
         card = game.gamespace[DECK_TOP_CARD]
         game.gamespace[DECK_TOP_CARD] = game.gamespace[GAME_DECK].pop()
-    elif(resp == "discard"):
+    elif resp == "discard":
         card = game.gamespace[DISC_TOP_CARD]
+    else:
+        return "Invalid pile chosen."
     print("You picked a %s" % (card.value))
-
-    #print("Where would you like to place your card (1 to 6 or discard?")
-    resp = input("Where would you like to place your card (1 to 6 or discard?) ").format()
-    if(resp == "1"):
+    
+    resp = input("Where would you like to place your card (1 to 6 or discard?): ").format()
+    if resp in list("123456"):
         game.gamespace[DISC_TOP_CARD] = player.hand[int(resp) - 1]
         player.hand.cards[int(resp) - 1] = card
         reveal(player, resp)
-    if (resp == "2"):
-        game.gamespace[DISC_TOP_CARD] = player.hand[int(resp) - 1]
-        player.hand.cards[int(resp) - 1] = card
-        reveal(player, resp)
-    if (resp == "3"):
-        game.gamespace[DISC_TOP_CARD] = player.hand[int(resp) - 1]
-        player.hand.cards[int(resp) - 1] = card
-        reveal(player, resp)
-    if (resp == "4"):
-        game.gamespace[DISC_TOP_CARD] = player.hand[int(resp) - 1]
-        player.hand.cards[int(resp) - 1] = card
-        reveal(player, resp)
-    if (resp == "5"):
-        game.gamespace[DISC_TOP_CARD] = player.hand[int(resp) - 1]
-        player.hand.cards[int(resp) - 1] = card
-        reveal(player, resp)
-    if (resp == "6"):
-        game.gamespace[DISC_TOP_CARD] = player.hand[int(resp) - 1]
-        player.hand.cards[int(resp) - 1] = card
-        reveal(player, resp)
-    if (resp == "discard"):
+    elif resp == "discard":
         game.gamespace[DISC_TOP_CARD] = card
     return ""
-
-def reveal(player, n):
-    player.revealed[int(n) - 1] = True
-
-
 
 def f_flip(game, player, input_dict):
     c1 = input_dict["card 1 (1 to 6)"]
@@ -200,15 +178,18 @@ def f_flip(game, player, input_dict):
 # ==============================================================================
 
 def end_turn(game):
+    print("Ending turn...")
     if round_is_over(game):
+        game.gamespace[ROUND_IS_OVER] = True
         score(game)
         if not game_is_over(game):
             print("Resetting board...")
             for p in game.players:
-                p.revealed = [False, False, False, False, False, False]
+                p.playerspace[P_REVEALED] = [False, False, False, False, False, False]
                 p.hand = Pile([])
             game.setup(game)
-            game.state = start
+    else:
+        game.gamespace[ROUND_IS_OVER] = False
 
 def score(game):
     for p in game.players:
@@ -240,11 +221,11 @@ def golf_val(card):
 
 def round_is_over(game):
     """
-    Returns true if a player's hand is empty, aka the round is over
+    Returns true if a player's cards have all been revealed
     """
     # round is over if we find a player whose hand is empty
     for p in game.players:
-        if p.all_revealed():
+        if p.playerspace[P_ALL_REVEALED](p):
             return True
     return False
 
@@ -263,17 +244,18 @@ def game_is_over(game):
 # states and transitions
 # ==============================================================================
 #"discard or deck?": None
-draw = Move("draw", f_can_draw, f_draw, {})
-flip = Move("flip", f_can_flip, f_flip, {"card 1 (1 to 6)": None, "card 2 (1 to 6)": None})
+draw = Move("draw", lambda game, player: True, f_draw, {})
+flip = Move("flip", lambda game, player: True, f_flip, {"card 1 (1 to 6)": None, "card 2 (1 to 6)": None})
 
-start = State("start", game_status, [flip], end_turn, False, round_is_over)
-main = State("main", game_status, [draw], end_turn, False, round_is_over)
-finish = State("finish", game_status, [], None, True, None)
+start  = State("start" , game_status, [flip], end_turn, False, round_is_over)
+main   = State("main"  , game_status, [draw], end_turn, False, round_is_over)
+finish = State("finish", game_status, []    , None    , True , None         )
 
 transitions = [
-    Transition(start, main, lambda game: not game_is_over(game)),
-    Transition(main, main, lambda game: not game_is_over(game)),
-    Transition(main, finish, lambda game: game_is_over(game))
+    Transition(start, main  , lambda game: True                             ),
+    Transition(main , main  , lambda game: not game.gamespace[ROUND_IS_OVER]),
+    Transition(main , start , lambda game: not game_is_over(game)           ),
+    Transition(main , finish, lambda game: game_is_over(game)               )
 ]
 
 
@@ -289,29 +271,10 @@ def setup(game):
     game.gamespace[GAME_DECK] = deck
     game.gamespace[DISC_TOP_CARD] = deck.pop()
     game.gamespace[GAME_DISCARD] = Pile([])
-    game.state = start
 
 def finish(game):
     print("Final Score:")
     [print("%s: %d" % (p.name, p.score)) for p in game.players]
-
-
-# ==============================================================================
-# helper methods
-# ==============================================================================
-
-
-def score_hand(player):
-    score = 0
-    for card in player.hand:
-        if card.value == "8":
-            score = score + 50
-        # all values are stored as strings, and all face cards are 10 points
-        elif len(card.value) > 1:
-            score = score + 10
-        else:
-            score = score + int(card.value)
-    return score
 
 
 # ==============================================================================
