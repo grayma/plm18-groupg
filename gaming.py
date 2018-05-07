@@ -34,15 +34,6 @@ class Player:
         self.score = 0
         self.playerspace = {}
         self.hand = Pile([])
-        self.revealed = [False, False, False, False, False, False]
-        self.stack = Pile([])
-
-    def all_revealed(self):
-        x = True
-        for i in self.revealed:
-            if(i == False):
-                x = False
-        return x
 
 
     def move(self, game):
