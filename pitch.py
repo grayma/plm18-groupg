@@ -15,6 +15,7 @@ GAME_PLAYED_CARDS = 'played_cards'
 GAME_RESET = 'reset'
 
 PLAYER_PLAYED = 'played'
+STACK = 'stack'
 
 TURNS_PER_ROUND = 14
 
@@ -34,6 +35,7 @@ def gamespace():
 
 def playerspace():
     return {
+        STACK: Pile([]),
         PLAYER_PLAYED: None
     }
 
@@ -59,14 +61,20 @@ def score_pile(game):
     for p in game.players:
         s = 0
         g = 0
-        pile = p.stack
+        pile = p.playerspace[STACK]
         for card in pile:
+            #Currently does not work at all for some reason....
+            #ex. player was supposed to get 4 points but 3 players got 1 pt each
+
+            # suit is the suit 'Spades' but trump is only the letter 's'???
+            # however this checks each card against the jack, high and low of trump that has been kept track of else where
             if card.suit == game.gamespace[GAME_TRUMP] and card.value == 'jack':
                 s += 1
             if card.suit == game.gamespace[GAME_TRUMP] and card.val() == game.gamespace[GAME_HIGH]:
                 s += 1
             if card.suit == game.gamespace[GAME_TRUMP] and card.val() == game.gamespace[GAME_LOW]:
                 s += 1
+            #this code calculates the game
             if card.val() == 10:
                 g += 10
             if card.val() == 11:
@@ -77,21 +85,26 @@ def score_pile(game):
                 g += 3
             if card.val() == 14:
                 g += 4
+        #if there is a tie in the game, then no one should get the point for game
         if g == game_Score and g > 0:
             tie = True
+        #If the score calculated is greater than the previous player, then get the player that should earn the point
         if g > game_Score:
             game_Score = g
             tie = False
             g_p = n
-        #this is happining before game point winner is
+        #Add the score earned so far to the score array
         scores[n] += s
         n += 1
 
+    #after all game points have been added together, add a point for game to the index of the player who should have earned it
     scores[g_p] += 1
+    #Now that all points for the round have been put together, we can give the points to the players.
     for p in game.players:
         i = 0
+        #If the player was the bidder and does not get their bid, they get the negative of their bid added to their score
         if p.name == game.gamespace[GAME_BIDDER].name and scores[i] < game.gamespace[GAME_BID]:
-            p.score -= s
+            p.score -= game.gamespace[GAME_BID]
         else:
             p.score += scores[i]
         i += 1
@@ -184,7 +197,7 @@ def score_turn_and_clean(game):
         p.playerspace[PLAYER_PLAYED] = None
 
     rotatePlayers(game, 4 - game.players.index(taking_it))
-    taking_it.stack.cards.extend(game.gamespace[GAME_PLAYED_CARDS])
+    taking_it.playerspace[STACK].cards.extend(game.gamespace[GAME_PLAYED_CARDS])
     # clean gamespace
     game.gamespace[GAME_PLAYED_CARDS] = Pile([])
 
