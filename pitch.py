@@ -54,10 +54,11 @@ def last(game):
 
 def select_dealer(game):
     players = game.players
-    game.gamespace[GAME_DEALER] = players[0] if not game.gamespace[GAME_DEALER] else getNextPlayer(game.gamespace[GAME_DEALER], game)
+    #Last player starts as dealer
+    game.gamespace[GAME_DEALER] = players[-1] if not game.gamespace[GAME_DEALER] else getNextPlayer(game.gamespace[GAME_DEALER], game)
     i = players.index(game.gamespace[GAME_DEALER])
     #Rotate based on the actual index in the list, not player.index
-    rotatePlayers(players, 3 - i)
+    rotatePlayers(game, 3 - i)
 
 def score_pile(game):
     game_Score = 0
