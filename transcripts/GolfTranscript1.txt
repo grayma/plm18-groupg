@@ -1,0 +1,429 @@
+How many players (2 or 4)? 2
+
+What's the name of player @ index 0 (can't be empty): Will
+
+What's the name of player @ index 1 (can't be empty): John
+It's now Will's' turn
+
+Turn 1
+Showing Will info about the game.
+------------------------
+|    W 0  _____        |
+|        |-|-|-|       |
+|        |-|-|-|       |
+|                      |
+|        |X||10|        |
+|                      |
+|        |-|-|-|       |
+|        |-|-|-| J 0   |
+|                      |
+------------------------
+
+Please select a move from 'flip': flip
+
+Move requires card 1 (1 to 6): 1
+
+Move requires card 2 (1 to 6): 2
+------------------------
+|    W 0  _____        |
+|        |7|a|-|       |
+|        |-|-|-|       |
+|                      |
+|        |X||10|        |
+|                      |
+|        |-|-|-|       |
+|        |-|-|-| J 0   |
+|                      |
+------------------------
+
+Would you like to pick from the deck or discard pile? deck
+You picked a 5
+
+Where would you like to place your card (1 to 6 or discard?): 3
+It's now John's' turn
+
+Turn 1
+Showing John info about the game.
+------------------------
+|    W 0  _____        |
+|        |7|a|5|       |
+|        |-|-|-|       |
+|                      |
+|        |X||8|        |
+|                      |
+|        |-|-|-|       |
+|        |-|-|-| J 0   |
+|                      |
+------------------------
+
+Please select a move from 'flip': flip
+
+Move requires card 1 (1 to 6): 1
+
+Move requires card 2 (1 to 6): 2
+------------------------
+|    W 0  _____        |
+|        |7|a|5|       |
+|        |-|-|-|       |
+|                      |
+|        |X||8|        |
+|                      |
+|        |a|j|-|       |
+|        |-|-|-| J 0   |
+|                      |
+------------------------
+
+Would you like to pick from the deck or discard pile? deck
+You picked a jack
+
+Where would you like to place your card (1 to 6 or discard?): 5
+Ending turn...
+It's now Will's' turn
+
+Turn 2
+Showing Will info about the game.
+------------------------
+|    W 0  _____        |
+|        |7|a|5|       |
+|        |-|-|-|       |
+|                      |
+|        |X||9|        |
+|                      |
+|        |a|j|-|       |
+|        |-|j|-| J 0   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a queen
+
+Where would you like to place your card (1 to 6 or discard?): 4
+It's now John's' turn
+
+Turn 2
+Showing John info about the game.
+------------------------
+|    W 0  _____        |
+|        |7|a|5|       |
+|        |q|-|-|       |
+|                      |
+|        |X||4|        |
+|                      |
+|        |a|j|-|       |
+|        |-|j|-| J 0   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a 6
+
+Where would you like to place your card (1 to 6 or discard?): 3
+Ending turn...
+It's now Will's' turn
+
+Turn 3
+Showing Will info about the game.
+------------------------
+|    W 0  _____        |
+|        |7|a|5|       |
+|        |q|-|-|       |
+|                      |
+|        |X||j|        |
+|                      |
+|        |a|j|6|       |
+|        |-|j|-| J 0   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a 10
+
+Where would you like to place your card (1 to 6 or discard?): 4
+It's now John's' turn
+
+Turn 3
+Showing John info about the game.
+------------------------
+|    W 0  _____        |
+|        |7|a|5|       |
+|        |10|-|-|       |
+|                      |
+|        |X||q|        |
+|                      |
+|        |a|j|6|       |
+|        |-|j|-| J 0   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a 7
+
+Where would you like to place your card (1 to 6 or discard?): 6
+Ending turn...
+It's now Will's' turn
+
+Turn 4
+Showing Will info about the game.
+------------------------
+|    W 0  _____        |
+|        |7|a|5|       |
+|        |10|-|-|       |
+|                      |
+|        |X||7|        |
+|                      |
+|        |a|j|6|       |
+|        |-|j|7| J 0   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a 10
+
+Where would you like to place your card (1 to 6 or discard?): 6
+It's now John's' turn
+
+Turn 4
+Showing John info about the game.
+------------------------
+|    W 0  _____        |
+|        |7|a|5|       |
+|        |10|-|10|       |
+|                      |
+|        |X||8|        |
+|                      |
+|        |a|j|6|       |
+|        |-|j|7| J 0   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a king
+
+Where would you like to place your card (1 to 6 or discard?): 4
+Ending turn...
+Resetting board...
+It's now Will's' turn
+
+Turn 5
+Showing Will info about the game.
+------------------------
+|    W 31  _____        |
+|        |-|-|-|       |
+|        |-|-|-|       |
+|                      |
+|        |X||3|        |
+|                      |
+|        |-|-|-|       |
+|        |-|-|-| J 14   |
+|                      |
+------------------------
+
+Please select a move from 'flip': flip
+
+Move requires card 1 (1 to 6): 1
+
+Move requires card 2 (1 to 6): 2
+------------------------
+|    W 31  _____        |
+|        |a|2|-|       |
+|        |-|-|-|       |
+|                      |
+|        |X||3|        |
+|                      |
+|        |-|-|-|       |
+|        |-|-|-| J 14   |
+|                      |
+------------------------
+
+Would you like to pick from the deck or discard pile? deck
+You picked a jack
+
+Where would you like to place your card (1 to 6 or discard?): 3
+It's now John's' turn
+
+Turn 5
+Showing John info about the game.
+------------------------
+|    W 31  _____        |
+|        |a|2|j|       |
+|        |-|-|-|       |
+|                      |
+|        |X||8|        |
+|                      |
+|        |-|-|-|       |
+|        |-|-|-| J 14   |
+|                      |
+------------------------
+
+Please select a move from 'flip': flip
+
+Move requires card 1 (1 to 6): 1
+
+Move requires card 2 (1 to 6): 2
+------------------------
+|    W 31  _____        |
+|        |a|2|j|       |
+|        |-|-|-|       |
+|                      |
+|        |X||8|        |
+|                      |
+|        |2|a|-|       |
+|        |-|-|-| J 14   |
+|                      |
+------------------------
+
+Would you like to pick from the deck or discard pile? deck
+You picked a 6
+
+Where would you like to place your card (1 to 6 or discard?): 3
+Ending turn...
+It's now Will's' turn
+
+Turn 6
+Showing Will info about the game.
+------------------------
+|    W 31  _____        |
+|        |a|2|j|       |
+|        |-|-|-|       |
+|                      |
+|        |X||3|        |
+|                      |
+|        |2|a|6|       |
+|        |-|-|-| J 14   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a 4
+
+Where would you like to place your card (1 to 6 or discard?): 3
+It's now John's' turn
+
+Turn 6
+Showing John info about the game.
+------------------------
+|    W 31  _____        |
+|        |a|2|4|       |
+|        |-|-|-|       |
+|                      |
+|        |X||j|        |
+|                      |
+|        |2|a|6|       |
+|        |-|-|-| J 14   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a king
+
+Where would you like to place your card (1 to 6 or discard?): 4
+Ending turn...
+It's now Will's' turn
+
+Turn 7
+Showing Will info about the game.
+------------------------
+|    W 31  _____        |
+|        |a|2|4|       |
+|        |-|-|-|       |
+|                      |
+|        |X||5|        |
+|                      |
+|        |2|a|6|       |
+|        |k|-|-| J 14   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a 6
+
+Where would you like to place your card (1 to 6 or discard?): 1
+It's now John's' turn
+
+Turn 7
+Showing John info about the game.
+------------------------
+|    W 31  _____        |
+|        |6|2|4|       |
+|        |-|-|-|       |
+|                      |
+|        |X||a|        |
+|                      |
+|        |2|a|6|       |
+|        |k|-|-| J 14   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? discard
+You picked a ace
+
+Where would you like to place your card (1 to 6 or discard?): 5
+Ending turn...
+It's now Will's' turn
+
+Turn 8
+Showing Will info about the game.
+------------------------
+|    W 31  _____        |
+|        |6|2|4|       |
+|        |-|-|-|       |
+|                      |
+|        |X||10|        |
+|                      |
+|        |2|a|6|       |
+|        |k|a|-| J 14   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a 10
+
+Where would you like to place your card (1 to 6 or discard?): 4
+It's now John's' turn
+
+Turn 8
+Showing John info about the game.
+------------------------
+|    W 31  _____        |
+|        |6|2|4|       |
+|        |10|-|-|       |
+|                      |
+|        |X||k|        |
+|                      |
+|        |2|a|6|       |
+|        |k|a|-| J 14   |
+|                      |
+------------------------
+
+Please select a move from 'draw': draw
+
+Would you like to pick from the deck or discard pile? deck
+You picked a 6
+
+Where would you like to place your card (1 to 6 or discard?): 6
+Ending turn...
+Final Score:
+Will: 61
+John: 12
