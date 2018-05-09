@@ -13,6 +13,7 @@ GAME_GAME = 'game_'
 GAME_BIDDER = 'bidder'
 GAME_PLAYED_CARDS = 'played_cards'
 GAME_RESET = 'reset'
+GAME_DEALER = 'dealer'
 
 PLAYER_PLAYED = 'played'
 STACK = 'stack'
@@ -29,7 +30,8 @@ def gamespace():
         GAME_GAME: [0, 0, 0, 0],
         GAME_PLAYED_CARDS: Pile([]),
         GAME_BIDDER: "",
-        GAME_RESET: False
+        GAME_RESET: False,
+        GAME_DEALER: None
     }
 
 
@@ -47,10 +49,15 @@ def playerspace():
 def lead(game):
     return game.gamespace[GAME_PLAYED_CARDS][0]
 
-
 def last(game):
     return game.gamespace[GAME_PLAYED_CARDS][-1]
 
+def select_dealer(game):
+    players = game.players
+    game.gamespace[GAME_DEALER] = players[0] if not game.gamespace[GAME_DEALER] else getNextPlayer(game.gamespace[GAME_DEALER], game)
+    i = players.index(game.gamespace[GAME_DEALER])
+    #Rotate based on the actual index in the list, not player.index
+    rotatePlayers(players, 3 - i)
 
 def score_pile(game):
     game_Score = 0
@@ -215,7 +222,7 @@ def f_bid(game, player, input):
         n = int(input['bid'])
     except:
         return "Must be a number from 0 to 4 or 'pass'"
-    if n == game.gamespace[GAME_BID] and player.index == 3:
+    if n == game.gamespace[GAME_BID] and game.gamespace[GAME_DEALER].index == player.index:
         game.gamespace[GAME_BID] = n
         game.gamespace[GAME_BIDDER] = player
         return ""
@@ -286,7 +293,7 @@ def setup(game):
     deck.shuffle()
     deck.deal(game.players, 6)
     game.gamespace[GAME_BID] = 0
-    #deck.deal(game.players, 2)
+    select_dealer(game)
 
 
 def finish(game):
