@@ -17,7 +17,7 @@ Instructions on how to download/play:
 * To play golf, run golf.py
 * To play pitch, run pitch.py
 * Follow instructions given on the console to play the game
-* Please familiarize yourself with the rules before playing: [Hearts Rules](https://www.pagat.com/reverse/hearts.html) [Golf Rules](https://www.bicyclecards.com/how-to-play/six-card-golf/) [Pitch Rules](https://www.bicyclecards.com/how-to-play/pitch/). For Bartok rules, see below.
+* Please familiarize yourself with the rules before playing: [Hearts Rules](https://www.pagat.com/reverse/hearts.html), [Golf Rules](https://www.bicyclecards.com/how-to-play/six-card-golf/), and [Pitch Rules](https://www.bicyclecards.com/how-to-play/pitch/). For Bartok rules, see below.
 
 
 Bartok Rules:
