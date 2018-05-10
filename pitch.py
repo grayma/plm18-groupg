@@ -76,22 +76,22 @@ def score_pile(game):
 
             # suit is the suit 'Spades' but trump is only the letter 's'???
             # however this checks each card against the jack, high and low of trump that has been kept track of else where
-            if card.suit == game.gamespace[GAME_TRUMP] and card.value == 'jack':
+            if card.suit[0] == game.gamespace[GAME_TRUMP] and card.value == 'jack':
                 s += 1
-            if card.suit == game.gamespace[GAME_TRUMP] and card.val() == game.gamespace[GAME_HIGH]:
+            if card.suit[0] == game.gamespace[GAME_TRUMP] and card.val() == game.gamespace[GAME_HIGH]:
                 s += 1
-            if card.suit == game.gamespace[GAME_TRUMP] and card.val() == game.gamespace[GAME_LOW]:
+            if card.suit[0] == game.gamespace[GAME_TRUMP] and card.val() == game.gamespace[GAME_LOW]:
                 s += 1
             #this code calculates the game
             if card.val() == 10:
                 g += 10
-            if card.val() == 11:
+            elif card.val() == 11:
                 g += 1
-            if card.val() == 12:
+            elif card.val() == 12:
                 g += 2
-            if card.val() == 13:
+            elif card.val() == 13:
                 g += 3
-            if card.val() == 14:
+            elif card.val() == 14:
                 g += 4
         #if there is a tie in the game, then no one should get the point for game
         if g == game_Score and g > 0:
@@ -110,6 +110,7 @@ def score_pile(game):
     #Now that all points for the round have been put together, we can give the points to the players.
     for p in game.players:
         i = 0
+        #If the player was the bidder and does not get their bid, they get the negative of their bid added to their score
         #If the player was the bidder and does not get their bid, they get the negative of their bid added to their score
         if p.name == game.gamespace[GAME_BIDDER].name and scores[i] < game.gamespace[GAME_BID]:
             p.score -= game.gamespace[GAME_BID]
@@ -245,9 +246,9 @@ def f_play(game, player, input):
     if validation == "":
         player.hand.transfer_to(game.gamespace[GAME_PLAYED_CARDS], [card])
         player.playerspace[PLAYER_PLAYED] = card
-        if card.suit == game.gamespace[GAME_TRUMP] and card.val() > game.gamespace[GAME_HIGH]:
+        if card.suit[0] == game.gamespace[GAME_TRUMP] and card.val() > game.gamespace[GAME_HIGH]:
             game.gamespace[GAME_HIGH] = card.val()
-        if card.suit == game.gamespace[GAME_TRUMP] and card.val() < game.gamespace[GAME_LOW]:
+        if card.suit[0] == game.gamespace[GAME_TRUMP] and card.val() < game.gamespace[GAME_LOW]:
             game.gamespace[GAME_LOW] = card.val()
     return validation
 
