@@ -1,0 +1,388 @@
+What's the name of player @ index 0 (can't be empty): Albert
+What's the name of player @ index 1 (can't be empty): Ben
+What's the name of player @ index 2 (can't be empty): Carson
+What's the name of player @ index 3 (can't be empty): Dan
+It's now Albert's' turn
+Showing Albert info about the game.
+------------------
+|t:      0 A   b:0|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[8hearts, acehearts, jackdiamonds, kingdiamonds, acediamonds, 5spades]
+
+Please select a move from 'bid': bid
+Move requires bid: 2
+It's now Ben's' turn
+Showing Ben info about the game.
+------------------
+|t:      0 A   b:2|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[7diamonds, 6spades, 9spades, kingspades, queenclubs, kingclubs]
+
+Please select a move from 'bid': bid
+Move requires bid: pass
+It's now Carson's' turn
+Showing Carson info about the game.
+------------------
+|t:      0 A   b:2|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[kinghearts, 3diamonds, 8spades, jackspades, queenspades, 8clubs]
+
+Please select a move from 'bid': bid
+Move requires bid: pass
+It's now Dan's' turn
+Showing Dan info about the game.
+------------------
+|t:      0 A   b:2|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[4hearts, 4diamonds, 8diamonds, 2spades, 4spades, 3clubs]
+
+Please select a move from 'bid': bid
+Move requires bid: pass
+Showing Albert info about the game.
+------------------
+|t:      0 A   b:2|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[8hearts, acehearts, jackdiamonds, kingdiamonds, acediamonds, 5spades]
+
+Albert, please select a trump suit ('clubs', 'diamonds', 'spades', or 'hearts') d
+It's now Albert's' turn
+Showing Albert info about the game.
+------------------
+|t:d     0 A   b:2|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[8hearts, acehearts, jackdiamonds, kingdiamonds, acediamonds, 5spades]
+
+Please select a move from 'play': play
+Move requires card: ad
+It's now Ben's' turn
+Showing Ben info about the game.
+------------------
+|t:d     0 A   b:2|
+|        ad      0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[7diamonds, 6spades, 9spades, kingspades, queenclubs, kingclubs]
+
+Please select a move from 'play': play
+Move requires card: 7d
+It's now Carson's' turn
+Showing Carson info about the game.
+------------------
+|t:d     0 A   b:2|
+|        ad      0|
+|D           7d  B|
+|0                |
+|       C 0       |
+------------------
+[kinghearts, 3diamonds, 8spades, jackspades, queenspades, 8clubs]
+
+Please select a move from 'play': play
+Move requires card: 3d
+It's now Dan's' turn
+Showing Dan info about the game.
+------------------
+|t:d     0 A   b:2|
+|        ad      0|
+|D           7d  B|
+|0       3d       |
+|       C 0       |
+------------------
+[4hearts, 4diamonds, 8diamonds, 2spades, 4spades, 3clubs]
+
+Please select a move from 'play': play
+Move requires card: 4d
+It's now Albert's' turn
+Showing Albert info about the game.
+------------------
+|t:d     0 A   b:2|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[8hearts, acehearts, jackdiamonds, kingdiamonds, 5spades]
+
+Please select a move from 'play': play
+Move requires card: kd
+It's now Ben's' turn
+Showing Ben info about the game.
+------------------
+|t:d     0 A   b:2|
+|        kd      0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[6spades, 9spades, kingspades, queenclubs, kingclubs]
+
+Please select a move from 'play': play
+Move requires card: 6s
+It's now Carson's' turn
+Showing Carson info about the game.
+------------------
+|t:d     0 A   b:2|
+|        kd      0|
+|D           6s  B|
+|0                |
+|       C 0       |
+------------------
+[kinghearts, 8spades, jackspades, queenspades, 8clubs]
+
+Please select a move from 'play': play
+Move requires card: 8c
+It's now Dan's' turn
+Showing Dan info about the game.
+------------------
+|t:d     0 A   b:2|
+|        kd      0|
+|D           6s  B|
+|0       8c       |
+|       C 0       |
+------------------
+[4hearts, 8diamonds, 2spades, 4spades, 3clubs]
+
+Please select a move from 'play': play
+Move requires card: 8d
+It's now Albert's' turn
+Showing Albert info about the game.
+------------------
+|t:d     0 A   b:2|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[8hearts, acehearts, jackdiamonds, 5spades]
+
+Please select a move from 'play': play
+Move requires card: jd
+It's now Ben's' turn
+Showing Ben info about the game.
+------------------
+|t:d     0 A   b:2|
+|        jd      0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[9spades, kingspades, queenclubs, kingclubs]
+
+Please select a move from 'play': play
+Move requires card: 9s
+It's now Carson's' turn
+Showing Carson info about the game.
+------------------
+|t:d     0 A   b:2|
+|        jd      0|
+|D           9s  B|
+|0                |
+|       C 0       |
+------------------
+[kinghearts, 8spades, jackspades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: 8s
+It's now Dan's' turn
+Showing Dan info about the game.
+------------------
+|t:d     0 A   b:2|
+|        jd      0|
+|D           9s  B|
+|0       8s       |
+|       C 0       |
+------------------
+[4hearts, 2spades, 4spades, 3clubs]
+
+Please select a move from 'play': play
+Move requires card: 2s
+It's now Albert's' turn
+Showing Albert info about the game.
+------------------
+|t:d     0 A   b:2|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[8hearts, acehearts, 5spades]
+
+Please select a move from 'play': play
+Move requires card: ah
+It's now Ben's' turn
+Showing Ben info about the game.
+------------------
+|t:d     0 A   b:2|
+|        ah      0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[kingspades, queenclubs, kingclubs]
+
+Please select a move from 'play': play
+Move requires card: qc
+It's now Carson's' turn
+Showing Carson info about the game.
+------------------
+|t:d     0 A   b:2|
+|        ah      0|
+|D           qc  B|
+|0                |
+|       C 0       |
+------------------
+[kinghearts, jackspades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: kh
+It's now Dan's' turn
+Showing Dan info about the game.
+------------------
+|t:d     0 A   b:2|
+|        ah      0|
+|D           qc  B|
+|0       kh       |
+|       C 0       |
+------------------
+[4hearts, 4spades, 3clubs]
+
+Please select a move from 'play': play
+Move requires card: 4h
+It's now Albert's' turn
+Showing Albert info about the game.
+------------------
+|t:d     0 A   b:2|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[8hearts, 5spades]
+
+Please select a move from 'play': play
+Move requires card: 8h
+It's now Ben's' turn
+Showing Ben info about the game.
+------------------
+|t:d     0 A   b:2|
+|        8h      0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[kingspades, kingclubs]
+
+Please select a move from 'play': play
+Move requires card: kc
+It's now Carson's' turn
+Showing Carson info about the game.
+------------------
+|t:d     0 A   b:2|
+|        8h      0|
+|D           kc  B|
+|0                |
+|       C 0       |
+------------------
+[jackspades, queenspades]
+
+Please select a move from 'play': play
+Move requires card: qs
+It's now Dan's' turn
+Showing Dan info about the game.
+------------------
+|t:d     0 A   b:2|
+|        8h      0|
+|D           kc  B|
+|0       qs       |
+|       C 0       |
+------------------
+[4spades, 3clubs]
+
+Please select a move from 'play': play
+Move requires card: 4s
+It's now Albert's' turn
+Showing Albert info about the game.
+------------------
+|t:d     0 A   b:2|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[5spades]
+
+Please select a move from 'play': play
+Move requires card: 5s
+It's now Ben's' turn
+Showing Ben info about the game.
+------------------
+|t:d     0 A   b:2|
+|        5s      0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
+[kingspades]
+
+Please select a move from 'play': play
+Move requires card: ks
+It's now Carson's' turn
+Showing Carson info about the game.
+------------------
+|t:d     0 A   b:2|
+|        5s      0|
+|D           ks  B|
+|0                |
+|       C 0       |
+------------------
+[jackspades]
+
+Please select a move from 'play': play
+Move requires card: js
+It's now Dan's' turn
+Showing Dan info about the game.
+------------------
+|t:d     0 A   b:2|
+|        5s      0|
+|D           ks  B|
+|0       js       |
+|       C 0       |
+------------------
+[3clubs]
+
+Please select a move from 'play': play
+Move requires card: 3c
+It's now Ben's' turn
+Showing Ben info about the game.
+------------------
+|t:d     4 A   b:0|
+|                0|
+|D               B|
+|0                |
+|       C 0       |
+------------------
